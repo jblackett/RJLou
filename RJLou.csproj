@@ -145,12 +145,39 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="content\fonts\helveticaneueltstd-ultlt.svg" />
+    <Content Include="content\fonts\leaguegothic-condensed-italic-webfont.svg" />
+    <Content Include="content\fonts\leaguegothic-condensed-regular-webfont.svg" />
+    <Content Include="content\fonts\leaguegothic-italic-webfont.svg" />
+    <Content Include="content\fonts\leaguegothic-regular-webfont.svg" />
+    <Content Include="content\style.css" />
+    <Content Include="images\hands-graphic1.jpg" />
+    <Content Include="images\header-background-1.jpg" />
+    <Content Include="images\header-background.jpg" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\logo.svg" />
+    <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Site.Master" />
     <Content Include="Web.config" />
+    <Content Include="content\fonts\helveticaneueltstd-ultlt.eot" />
+    <Content Include="content\fonts\helveticaneueltstd-ultlt.ttf" />
+    <Content Include="content\fonts\helveticaneueltstd-ultlt.woff" />
+    <Content Include="content\fonts\leaguegothic-condensed-italic-webfont.eot" />
+    <Content Include="content\fonts\leaguegothic-condensed-italic-webfont.ttf" />
+    <Content Include="content\fonts\leaguegothic-condensed-italic-webfont.woff" />
+    <Content Include="content\fonts\leaguegothic-condensed-regular-webfont.eot" />
+    <Content Include="content\fonts\leaguegothic-condensed-regular-webfont.ttf" />
+    <Content Include="content\fonts\leaguegothic-condensed-regular-webfont.woff" />
+    <Content Include="content\fonts\leaguegothic-italic-webfont.eot" />
+    <Content Include="content\fonts\leaguegothic-italic-webfont.ttf" />
+    <Content Include="content\fonts\leaguegothic-italic-webfont.woff" />
+    <Content Include="content\fonts\leaguegothic-regular-webfont.eot" />
+    <Content Include="content\fonts\leaguegothic-regular-webfont.ttf" />
+    <Content Include="content\fonts\leaguegothic-regular-webfont.woff" />
     <None Include="Project_Readme.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
