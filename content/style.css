@@ -22,18 +22,19 @@
 
 body {
 	font-family: Helvetica;
+    font-size: 100%;
 	letter-spacing: 1.25px;
 	margin: 0;
 }
 
 h1 {
-	font-family: 'Helvetica Neue Ultra Light';
 	text-transform: uppercase;
 	font-size: 40px;
-	letter-spacing: 10px;
 }
 
 .header > h1 {
+	font-family: 'Helvetica Neue Ultra Light';
+	letter-spacing: 10px;
 	color: white;
 	font-size: 60px;
 }
@@ -50,6 +51,16 @@ h1 {
 	background-size: 100% 100%;
 	min-height: 30rem;
 }
+
+.section.admin_header {
+    margin: 0;
+}
+
+.section.admin_body {
+    margin: 2px;
+    border: 1px solid black;
+    min-height: 20rem;
+}
 	
 .container {
 	max-width: 50rem;
@@ -60,6 +71,48 @@ h1 {
 .container.header {
 	max-width: 70rem;
 	padding: 3rem 0;
+}
+
+.container.admin_header {
+    max-width: none;
+    padding: 0 3rem;
+}
+
+.container.left {
+    float: left;
+    max-width: none;
+    width: 30%;
+    margin: 0;
+    min-height: 20rem;
+    text-align: center;
+}
+
+.container.right {
+    float: left;
+    max-width: none;
+    width: 69.5%;
+    margin: 0;
+    min-height: 20rem;
+}
+
+.inner {
+    width: 95%;
+    border: 1px solid black;
+    padding: 2rem;
+    padding-bottom: 3rem;
+    margin: 1rem 0;
+}
+
+.scroll-stick {
+    margin: 0 auto;
+}
+
+.float-left {
+	float: left;
+}
+
+.float-right {
+	float: right;
 }
 
 a.nav_link {
@@ -73,15 +126,86 @@ a.nav_link {
 	margin: 0;
 }
 
+a.admin_nav_link {
+    float: left;
+    font-size: 1.5rem;
+    text-decoration: none;
+    padding: 2rem;
+    border: 1px solid black;
+    color: black;
+}
+
+a.admin_nav_link.smaller {
+    font-size: 1rem;
+    padding: 1rem;
+}
+
+a.admin_nav_link.active {
+    border-bottom: none;
+}
+
+.button {
+	display: inline-block;
+	padding: 0.75rem 1.875rem;
+	border-radius: 0.25rem;
+	background-color: rgba(0,0,0,0.35);
+	font-family: Helvetica;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+}
+
+table {
+    width: 95%;
+    margin: 0 auto;
+}
+
+table.changes {
+    box-shadow: black 2px 2px;
+    margin-bottom: 5px;
+}
+
+table.nothing {
+    margin: 0;
+}
+
+table td {
+    border: 1px solid black;
+    height: 2rem;
+    vertical-align: middle;
+    text-align: left;
+}
+
+table.changes td {
+    text-align: center;
+    font-weight: bold;
+}
+
+table.nothing td {
+    border: 0;
+}
+
+table.changes td:hover {
+    background-color: rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+table tr:nth-child(2n) {
+    background-color: rgba(0,0,0,0.25);
+}
+
+table.nothing tr:nth-child(2n) {
+    background-color: transparent;
+}
+
 span.green {
 	color: #00C453;
 	font-weight: bold;
 }
 
-.float-left {
-	float: left;
-}
-
-.float-right {
-	float: right;
+.inner > textarea {
+    width: 100%;
+    min-height: 10rem;
 }
