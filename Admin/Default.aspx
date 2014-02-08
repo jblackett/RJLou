@@ -223,7 +223,7 @@
             <h1 id="notes">Notes</h1>
             <div class="inner">
                 Nance, Tara; 20 Nov 2013
-                <textarea></textarea>
+                <textarea>I typed stuff in here blah blah blah</textarea>
                 <a class="button float-right" href="#">Edit Note</a>
             </div>
             <div class="inner">
