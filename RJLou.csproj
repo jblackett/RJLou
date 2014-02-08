@@ -145,6 +145,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\contacts.aspx" />
     <Content Include="Admin\Default.aspx" />
     <Content Include="content\fonts\helveticaneueltstd-ultlt.svg" />
     <Content Include="content\fonts\leaguegothic-condensed-italic-webfont.svg" />
@@ -188,6 +189,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\contacts.aspx.cs">
+      <DependentUpon>contacts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\contacts.aspx.designer.cs">
+      <DependentUpon>contacts.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
