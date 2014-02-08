@@ -8,7 +8,7 @@
 	<div class="section header">
 		<div class="container header">
 			<div class="float-left">
-				<a href="#"><img style="width: 5rem;" src="images/logo.png"></a>
+				<a href="#"><img style="width: 3rem;" src="images/logo-v2-whiteongreen.svg"></a>
 			</div>
 			<div class="float-right" style="margin-top: 1rem;">
 				<a class="nav_link" href="#">About Us</a>
@@ -16,19 +16,46 @@
 				<a class="nav_link" href="#">Get Involved</a>
 				<a class="nav_link" href="#">Resources</a>
 				<a class="nav_link" href="#">Contact Us</a>
+				<a class="button" href="#">Login</a>
 			</div>
 		</div>
 		<div class="container header" style="text-align: center;">
 			<h1>Transforming communities <span class="green">by</span> ending crime</h1>
+			<a class="button" href="#">Get Involved</a>
 		</div>
 	</div>
-	<div class="section">
+	<div class="section content">
 		<div class="container">
-			<h1>Bringing together the victim, offender and community to make things right</h1>
+			<h1>
+				Bringing together the victim, offender and community to make things right
+				<span class="border"></span>
+			</h1>
 			<p>
 				Restorative Justice Louisville (RJL) provides a holistic and restorative approach to the traditional criminal justice system by bringing together the offender, victim and community to make things right. Through facilitated conferences, all parties involved collectively identify harm and determine a way forward that is centered on healing for everyone. Using the restorative justice approach ensures that compassion and restitution are integral parts of the judicial process.
 			</p>
+			<div class="video-container">
+				<a class="circ-btn"><img src="images/playbtn.png"></a>
+				<img id="youtube" src="images/placeholder.jpg" data-video="http://www.youtube.com/embed/X5TvP3dhPTo" class="youtube">
+			</div>
 		</div>
 	</div>
+	<div class="section content getinvolved">
+		<div class="container">
+			<h1>
+				Getting Involved
+				<span class="border"></span>
+			</h1>
+			<p>
+				Restorative Justice Louisville is only able to make an impact because of the involvement and support of our community. Below are some simple ways to get involved.
+			</p>
+		</div>
+	</div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    	$('.video-container').click(function() {
+    		var video = '<object data="' + $('img#youtube').attr('data-video') + '" class="youtube"></object>';
+    		$(this).replaceWith(video);
+    	})
+    </script>
 </body>
 </html>

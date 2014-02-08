@@ -1,21 +1,17 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="RJLou.Admin.Default" %>
-
-<!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="/content/style.css" />
+    <link rel="stylesheet" type="text/css" href="content/style.css" />
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="donationPage" runat="server">
     <div class="section admin_header">
         <div class="container admin_header">
-            <a class="admin_nav_link active" href="#">Case</a>
-            <a class="admin_nav_link" href="#">Contacts</a>
-            <a class="admin_nav_link" href="#">Donations</a>
-            <a class="admin_nav_link" href="#">Events</a>
-            <a class="admin_nav_link" href="#">Reports</a>
+            <a class="admin_nav_link" href="Default.html">Case</a>
+            <a class="admin_nav_link active" href="#">Contacts</a>
+            <a class="admin_nav_link" href="donations.html">Donations</a>
+            <a class="admin_nav_link" href="events.html">Events</a>
+            <a class="admin_nav_link" href="reports.html">Reports</a>
             <div class="float-right">
                 <input type="search" name="searchTxt" placeholder="Start searching..." />
                 <a class="button" href="#">+</a>
@@ -27,39 +23,39 @@
             <table class="changes" cellspacing="0" border="0">
                 <tr>
                     <td>All</td>
-                    <td>Open</td>
-                    <td>Pending Approval</td>
-                    <td>Closed</td>
+                    <td>Employees</td>
+                    <td>Offenders</td>
+                    <td>Victims</td>
                 </tr>
             </table>
             <table cellspacing="0" border="0">
                 <thead>
                     <tr>
-                        <th>Case ID</th>
                         <th>Name</th>
-                        <th>Status</th>
+                        <th>Phone</th>
+                        <th>Address</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>AB5463</td>
-                        <td>Jones</td>
-                        <td>Open</td>
+                        <td>John Williams</td>
+                        <td>502-999-9999</td>
+                        <td>123 Street</td>
                     </tr>
                     <tr>
-                        <td>HJ7984</td>
-                        <td>Smith</td>
-                        <td>Open</td>
+                        <td>Sarah Smith</td>
+                        <td>502-444-4444</td>
+                        <td>456 Bridge</td>
                     </tr>
                     <tr>
-                        <td>JU6574</td>
-                        <td>Mathers</td>
-                        <td>Open</td>
+                        <td>Tom Jones</td>
+                        <td>502-456-2345</td>
+                        <td>234 Circle</td>
                     </tr>
                     <tr>
-                        <td>TG4563</td>
-                        <td>Blackett</td>
-                        <td>Open</td>
+                        <td>XYZ Charity Company</td>
+                        <td>502-456-6545</td>
+                        <td>234 Downtown St.</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -176,73 +172,56 @@
         </div>
         <div class="container right">
             <div class="scroll-stick">
-                <a class="admin_nav_link smaller" href="#">Case Info</a>
-                <a class="admin_nav_link smaller" href="#">Notes</a>
-                <a class="admin_nav_link smaller" href="#">Documents</a>
+                <a href="#">Contact</a>
+                <a href="#">Cases</a>                
             </div>
             <div style="clear: both;"></div>
-            <h1 id="case_info">Case Info</h1>
+            <h1 id="donor_info">Contact Info</h1>
             <table class="nothing">
                 <tr>
-                    <td>Case ID:</td>
-                    <td><input type="text" /></td>
+                    <td>Title:</td>
+                    <td>Case Manager</td>
                 </tr>
                 <tr>
-                    <td>Offender Name:</td>
-                    <td><input type="text" /></td>
+                    <td>Name:</td>
+                    <td>John Wiliams</td>
                 </tr>
                 <tr>
-                    <td>UOR Code:</td>
-                    <td><input type="text" /></td>
+                    <td>Phone:</td>
+                    <td>502-999-9999</td>
                 </tr>
                 <tr>
-                    <td>Case Manager:</td>
-                    <td><input type="text" /></td>
+                    <td>Address:</td>
+                    <td>123 Street</td>
                 </tr>
                 <tr>
-                    <td>Counselor:</td>
-                    <td><input type="text" /></td>
-                </tr>
-                <tr>
-                    <td>Other:</td>
-                    <td><input type="text" /></td>
-                </tr>
-                <tr>
-                    <td>Victim Name:</td>
-                    <td><input type="text" /></td>
-                </tr>
-                <tr>
-                    <td>Judge:</td>
-                    <td><input type="text" /></td>
-                </tr>
-                <tr>
-                    <td>District:</td>
-                    <td><input type="text" /></td>
-                </tr>
+                    <td>Email:</td>
+                    <td>johnwilliams@yahoo.com</td>
             </table>
-            <h1 id="notes">Notes</h1>
-            <div class="inner">
-                Nance, Tara; 20 Nov 2013
-                <textarea>I typed stuff in here blah blah blah</textarea>
-                <a class="button float-right" href="#">Edit Note</a>
-            </div>
-            <div class="inner">
-                Nance, Tara; 20 Nov 2013
-                <textarea></textarea>
-                <a class="button float-right" href="#">Edit Note</a>
-            </div>
-            <div class="inner">
-                Nance, Tara; 20 Nov 2013
-                <textarea></textarea>
-                <a class="button float-right" href="#">Edit Note</a>
-            </div>
-            <div class="inner">
-                New Note
-                <textarea></textarea>
-                <a class="button float-right" href="#">Save Note</a>
-            </div>
+            <h1 id="cases">Cases</h1>
+            <table cellspacing="0" border="0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>34567</td>
+                        <td>Jones, Mike</td>
+                    </tr>
+                    <tr>
+                        <td>34567</td>
+                        <td>Person</td>
+                    </tr>
+                </tbody>
+            </table>            
+            <br>
+            <a class="button" href="#">Edit Contact</a>
         </div>
-        <div style="margin: 0; padding: 0; clear: both;"
+        <div style="margin: 0; padding: 0; clear: both;">
+        </div>
     </div>
     </form>
 </body>
