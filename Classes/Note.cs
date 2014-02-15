@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
+using System.Text;
 
 namespace RJLou.Classes
 {
@@ -10,7 +13,7 @@ namespace RJLou.Classes
         #region Private Variables
         private int _noteID;
         private DateTime _createDate;
-        private DateTime _editDate;
+        private DateTime? _editDate;
         private InternalUser _author;
         private string _noteText;
         #endregion
@@ -40,7 +43,7 @@ namespace RJLou.Classes
             }
         }
 
-        public DateTime EditDate
+        public DateTime? EditDate
         {
             get
             {
@@ -99,5 +102,12 @@ namespace RJLou.Classes
         }
         #endregion
 
+        #region Methods
+        public static Note Get(int id)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = 
+        }
+        #endregion
     }
 }
