@@ -55,7 +55,7 @@ namespace RJLou.Classes
         public static PhoneNumber Get(int id)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "SELECT * FROM Phone_List HWERE Phone_ID = @ID";
+            string sql = "SELECT * FROM Phone_List WHERE Phone_ID = @ID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
