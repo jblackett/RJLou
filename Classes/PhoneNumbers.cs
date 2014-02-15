@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 
@@ -11,16 +13,9 @@ namespace RJLou.Classes
         #region Private Variables
         private string _pType;
         private int _number;
-        private string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
         #endregion
 
         #region Public Properties
-        public PhoneNumber(string type, int number)
-        {
-            PType = type;
-            Number = number; 
-        }
-
         public string PType
         {
             get
@@ -46,13 +41,161 @@ namespace RJLou.Classes
         }
         #endregion
 
-        #region Methods
-        public static PhoneNumber Get(int phoneNumber)
-        {
-            PhoneNumber result;
-            string sql = "SELECT * FROM PhoneList HWERE Phone_Number = @PhoneNumber";
+        #region Constructors
+        public PhoneNumber() { }
 
-            using (SqlConnection conn = new SqlConnection(dsn)) ;
+        public PhoneNumber(string type, int number)
+        {
+            PType = type;
+            Number = number;
+        }
+        #endregion
+
+        #region Methods
+        public static PhoneNumber Get(int id)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = "SELECT * FROM Phone_List HWERE Phone_ID = @ID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("ID", id);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                if (read.Read())
+                {
+                    PhoneNumber result = new PhoneNumber()
+                    {
+                        PType = read["Phone_Type"].ToString(),
+                        Number = Convert.ToInt32(read["Phone_Number"])
+                    };
+
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
+        public static List<PhoneNumber> GetPhoneNumbers()
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            List<PhoneNumber> results = new List<PhoneNumber>();
+            string sql = "SELECT * FROM Phone_List";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(new PhoneNumber()
+                    {
+                        PType = read["Phone_Type"].ToString(),
+                        Number = Convert.ToInt32(read["Phone_Number"])
+                    });
+                }
+            }
+
+            return results;
+        }
+
+        public static List<PhoneNumber> GetPhoneNumbers(int personID)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            List<PhoneNumber> results = new List<PhoneNumber>();
+            string sql = "SELECT * FROM Phone_List WHERE Person_ID = @PersonID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", personID);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(new PhoneNumber()
+                    {
+                        PType = read["Phone_Type"].ToString(),
+                        Number = Convert.ToInt32(read["Phone_Number"])
+                    });
+                }
+            }
+
+            return results;
+        }
+
+        public static List<PhoneNumber> GetPhoneNumbers(string type)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            List<PhoneNumber> results = new List<PhoneNumber>();
+            string sql = "SELECT * FROM Phone_List WHERE Phone_Type = @Type";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("Type", type);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(new PhoneNumber()
+                    {
+                        PType = read["Phone_Type"].ToString(),
+                        Number = Convert.ToInt32(read["Phone_Number"])
+                    });
+                }
+            }
+
+            return results;
+        }
+
+        public static void Add(int phoneNumber, int personID, string type = null)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = "INSERT INTO Phone_List (Phone_Number, Person_ID, Phone_Type) VALUES (@PhoneNumber, @PersonID, @Type)";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PhoneNumber", phoneNumber);
+                cmd.Parameters.AddWithValue("PersonID", personID);
+                cmd.Parameters.AddWithValue("Type", type);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        internal void Delete(int id)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = "DELETE FROM Phone_List WHERE Phone_ID = @ID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("ID", id);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         public override string ToString()
