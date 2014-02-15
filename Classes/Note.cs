@@ -16,6 +16,7 @@ namespace RJLou.Classes
         private DateTime? _editDate;
         private InternalUser _author;
         private string _noteText;
+        //private string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
         #endregion
 
         #region Public Properties
@@ -106,8 +107,65 @@ namespace RJLou.Classes
         public static Note Get(int id)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = 
+            string sql = @"SELECT * FROM NOTE WHERE Note_ID = @ID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("ID", id);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                if (read.Read())
+                {
+                    Note result = new Note()
+                    {
+                        NoteID = Convert.ToInt32(read["Note_ID"]),
+                        CreateDate = Convert.ToDateTime(read["CreateDate"]),
+                        EditDate = Convert.ToDateTime(read["EditDate"]),
+                        Author = (InternalUser) read["Author"],
+                        NoteText = read["NoteText"].ToString()
+                    };
+
+                    return result;
+                }
+            }
+
+            return null;
         }
+
+        public static List<Note> GetNotes()
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            List<Note> results = new List<Note>();
+            string sql = "SELECT * FROM NOTE";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(new Note()
+                        {
+                            NoteID = Convert.ToInt32(read["Note_ID"]),
+                            CreateDate = Convert.ToDateTime(read["CreateDate"]),
+                            EditDate = Convert.ToDateTime(read["EditDate"]),
+                            Author = (InternalUser)read["Author"],
+                            NoteText = read["NoteText"].ToString()
+                        });
+                }
+            }
+            
+            return results;
+        }
+        
         #endregion
     }
 }
