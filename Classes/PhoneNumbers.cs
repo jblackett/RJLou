@@ -1,16 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 
 namespace RJLou.Classes
 {
-    class PhoneNumbers
+    class PhoneNumber
     {
+        #region Private Variables
         private string _pType;
         private int _number;
+        private string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+        #endregion
 
-        public PhoneNumbers(string type, int number)
+        #region Public Properties
+        public PhoneNumber(string type, int number)
         {
             PType = type;
             Number = number; 
@@ -39,6 +44,17 @@ namespace RJLou.Classes
                 _number = value;
             }
         }
+        #endregion
+
+        #region Methods
+        public static PhoneNumber Get(int phoneNumber)
+        {
+            PhoneNumber result;
+            string sql = "SELECT * FROM PhoneList HWERE Phone_Number = @PhoneNumber";
+
+            using (SqlConnection conn = new SqlConnection(dsn)) ;
+        }
+
         public override string ToString()
         {
             string number_string = Number.ToString();
@@ -50,5 +66,6 @@ namespace RJLou.Classes
             last_four=number_string.Substring(6,4);
             return String.Format("({0}){1}-{2}", area_code, first_three, last_four);
         }
+        #endregion
     }
 }

@@ -7,17 +7,17 @@ namespace RJLou.Classes
 {
     public class PhoneList
     {
-        internal List<PhoneNumbers> numbers;
+        internal List<PhoneNumber> numbers;
         public PhoneList()
         { 
         }
 
-        public void AddNumber(PhoneNumbers newNumber)
+        public void AddNumber(PhoneNumber newNumber)
         {
             numbers.Add(newNumber);
         }
 
-        public void RemoveNumber(PhoneNumbers oldNumber)
+        public void RemoveNumber(PhoneNumber oldNumber)
         {
             for(int i=0;i<numbers.Count();i++)
             {
