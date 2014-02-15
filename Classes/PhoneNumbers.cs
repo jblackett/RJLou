@@ -192,7 +192,7 @@ namespace RJLou.Classes
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("ID", id);
+                cmd.Parameters.AddWithValue("PhoneNumber", id);
 
                 cmd.ExecuteNonQuery();
             }
