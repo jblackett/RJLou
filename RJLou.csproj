@@ -152,6 +152,7 @@
     <Content Include="content\fonts\leaguegothic-italic-webfont.svg" />
     <Content Include="content\fonts\leaguegothic-regular-webfont.svg" />
     <Content Include="content\style.css" />
+    <Content Include="donate.html" />
     <Content Include="images\hands-graphic1.jpg" />
     <Content Include="images\header-background-1.jpg" />
     <Content Include="images\header-background.jpg" />
@@ -198,12 +199,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Classes\Donation.cs" />
+    <Compile Include="Classes\PhoneNumbers.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="donate.html.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="donate.html.designer.cs">
+      <DependentUpon>donate.html.cs</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
