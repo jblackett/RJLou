@@ -213,7 +213,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Document.cs" />
+    <Compile Include="Classes\Document.cs" />
     <Compile Include="donate.html.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

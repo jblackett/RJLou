@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace RJLou
+namespace RJLou.Classes
 {
     class Document
     {
@@ -180,34 +180,34 @@ namespace RJLou
 
             return results;
         }
-        public static List<Document> GetDocuments(string lastName)
-        {
-            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            List<Document> results = new List<Document>();
-            string sql = "SELECT * FROM DOCUMENT WHERE First_Name = @lastName";
+        //public static List<Document> GetDocuments(string lastName)
+        //{
+        //    string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+        //    List<Document> results = new List<Document>();
+        //    string sql = "SELECT * FROM DOCUMENT WHERE First_Name = @lastName";
 
-            using (SqlConnection conn = new SqlConnection(dsn))
-            {
-                conn.Open();
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("Last_Name", lastName);
+        //    using (SqlConnection conn = new SqlConnection(dsn))
+        //    {
+        //        conn.Open();
+        //        SqlCommand cmd = new SqlCommand(sql, conn);
+        //        cmd.CommandType = CommandType.Text;
+        //        cmd.Parameters.AddWithValue("Last_Name", lastName);
 
-                SqlDataReader read = cmd.ExecuteReader();
+        //        SqlDataReader read = cmd.ExecuteReader();
 
-                while (read.Read())
-                {
-                    results.Add(new Document()
-                    {
-                        CaseID = Convert.ToInt32(read["Case_ID"]),
-                        FirstName = read["First_Name"].ToString(),
-                        LastName = read["Last_Name"].ToString()
-                    });
-                }
-            }
+        //        while (read.Read())
+        //        {
+        //            results.Add(new Document()
+        //            {
+        //                CaseID = Convert.ToInt32(read["Case_ID"]),
+        //                FirstName = read["First_Name"].ToString(),
+        //                LastName = read["Last_Name"].ToString()
+        //            });
+        //        }
+        //    }
 
-            return results;
-        }
+        //    return results;
+        //}
 
         public static void Add(int caseID, string firstName, string lastName)
         {
