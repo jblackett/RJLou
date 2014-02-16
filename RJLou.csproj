@@ -180,6 +180,8 @@
     <Content Include="content\fonts\leaguegothic-regular-webfont.eot" />
     <Content Include="content\fonts\leaguegothic-regular-webfont.ttf" />
     <Content Include="content\fonts\leaguegothic-regular-webfont.woff" />
+    <Content Include="ClassDiagram1.cd" />
+    <Content Include="ClassDiagram2.cd" />
     <None Include="Project_Readme.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -211,6 +213,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Document.cs" />
     <Compile Include="donate.html.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
