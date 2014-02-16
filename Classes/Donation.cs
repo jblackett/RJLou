@@ -4,62 +4,87 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
+using System.Web;
 
 namespace RJLou.Classes
 {
-    class PhoneNumber
+    public class Donation
     {
         #region Private Variables
-        private string _pType;
-        private int _number;
+        private int _donationID;
+        private int _donorID;
+        private double _amount;
+        private int _eventID;
         #endregion
 
         #region Public Properties
-        public string PType
+        public int DonationID
         {
             get
             {
-                return _pType;
+                return _donationID;
             }
+
             set
             {
-                _pType = value;
+                _donationID = value;
             }
         }
 
-        public int Number
+        public int DonorID
         {
             get
             {
-                return _number;
+                return _donorID;
             }
+
             set
             {
-                _number = value;
+                _donorID = value;
+            }
+        }
+
+        public double Amount
+        {
+            get
+            {
+                return _amount;
+            }
+
+            set
+            {
+                _amount = value;
+            }
+        }
+
+        public int EventID
+        {
+            get
+            {
+                return _eventID;
+            }
+
+            set
+            {
+                _eventID = value;
             }
         }
         #endregion
 
         #region Constructors
-        public PhoneNumber() { }
-
-        public PhoneNumber(string type, int number)
-        {
-            PType = type;
-            Number = number;
-        }
+        public Donation() { }
         #endregion
 
         #region Methods
-        public static PhoneNumber Get(int id)
+        public static Donation Get(int id)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "SELECT * FROM Phone_List WHERE Phone_ID = @ID";
+            string sql = "SELECT * FROM Donation WHERE Donation_ID = @ID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
                 conn.Open();
+
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("ID", id);
@@ -68,10 +93,12 @@ namespace RJLou.Classes
 
                 if (read.Read())
                 {
-                    PhoneNumber result = new PhoneNumber()
+                    Donation result = new Donation()
                     {
-                        PType = read["Phone_Type"].ToString(),
-                        Number = Convert.ToInt32(read["Phone_Number"])
+                        DonationID = Convert.ToInt32(read["Donation_ID"]),
+                        DonorID = Convert.ToInt32(read["Donor_ID"]),
+                        Amount = Convert.ToDouble(read["Amount"]),
+                        EventID = Convert.ToInt32(read["Event_ID"])
                     };
 
                     return result;
@@ -81,15 +108,16 @@ namespace RJLou.Classes
             return null;
         }
 
-        public static List<PhoneNumber> GetPhoneNumbers()
+        public static List<Donation> GetDonations()
         {
+            string sql = "SELECT * FROM Donation";
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            List<PhoneNumber> results = new List<PhoneNumber>();
-            string sql = "SELECT * FROM Phone_List";
+            List<Donation> results = new List<Donation>();
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
                 conn.Open();
+
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
 
@@ -97,38 +125,43 @@ namespace RJLou.Classes
 
                 while (read.Read())
                 {
-                    results.Add(new PhoneNumber()
-                    {
-                        PType = read["Phone_Type"].ToString(),
-                        Number = Convert.ToInt32(read["Phone_Number"])
-                    });
+                    results.Add(new Donation()
+                        {
+                            DonationID = Convert.ToInt32(read["Donation_ID"]),
+                            DonorID = Convert.ToInt32(read["Donor_ID"]),
+                            Amount = Convert.ToDouble(read["Amount"]),
+                            EventID = Convert.ToInt32(read["Event_ID"])
+                        });
                 }
             }
 
             return results;
         }
 
-        public static List<PhoneNumber> GetPhoneNumbers(int personID)
+        public static List<Donation> GetDonationsByDonor(int donorID)
         {
+            string sql = "SELECT * FROM Donation WHERE Donor_ID = @DonorID";
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            List<PhoneNumber> results = new List<PhoneNumber>();
-            string sql = "SELECT * FROM Phone_List WHERE Person_ID = @PersonID";
+            List<Donation> results = new List<Donation>();
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
                 conn.Open();
+
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("PersonID", personID);
+                cmd.Parameters.AddWithValue("DonorID", donorID);
 
                 SqlDataReader read = cmd.ExecuteReader();
 
                 while (read.Read())
                 {
-                    results.Add(new PhoneNumber()
+                    results.Add(new Donation()
                     {
-                        PType = read["Phone_Type"].ToString(),
-                        Number = Convert.ToInt32(read["Phone_Number"])
+                        DonationID = Convert.ToInt32(read["Donation_ID"]),
+                        DonorID = Convert.ToInt32(read["Donor_ID"]),
+                        Amount = Convert.ToDouble(read["Amount"]),
+                        EventID = Convert.ToInt32(read["Event_ID"])
                     });
                 }
             }
@@ -136,27 +169,30 @@ namespace RJLou.Classes
             return results;
         }
 
-        public static List<PhoneNumber> GetPhoneNumbers(string type)
+        public static List<Donation> GetDonationsByEvent(int eventID)
         {
+            string sql = "SELECT * FROM Donation WHERE Event_ID = @EventID";
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            List<PhoneNumber> results = new List<PhoneNumber>();
-            string sql = "SELECT * FROM Phone_List WHERE Phone_Type = @Type";
+            List<Donation> results = new List<Donation>();
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
                 conn.Open();
+
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("Type", type);
+                cmd.Parameters.AddWithValue("EventID", eventID);
 
                 SqlDataReader read = cmd.ExecuteReader();
 
                 while (read.Read())
                 {
-                    results.Add(new PhoneNumber()
+                    results.Add(new Donation()
                     {
-                        PType = read["Phone_Type"].ToString(),
-                        Number = Convert.ToInt32(read["Phone_Number"])
+                        DonationID = Convert.ToInt32(read["Donation_ID"]),
+                        DonorID = Convert.ToInt32(read["Donor_ID"]),
+                        Amount = Convert.ToDouble(read["Amount"]),
+                        EventID = Convert.ToInt32(read["Event_ID"])
                     });
                 }
             }
@@ -164,50 +200,38 @@ namespace RJLou.Classes
             return results;
         }
 
-        public static void Add(int phoneNumber, int personID, string type = null)
+        public static void Add(int donorID, double amount, int eventID)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "INSERT INTO Phone_List (Phone_Number, Person_ID, Phone_Type) VALUES (@PhoneNumber, @PersonID, @Type)";
+            string sql = "INSERT INTO Dontion (Donor_ID, Amount, Event_ID) VALUES (@DonorID, @Amount, @EventID)";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("PhoneNumber", phoneNumber);
-                cmd.Parameters.AddWithValue("PersonID", personID);
-                cmd.Parameters.AddWithValue("Type", type);
+                cmd.Parameters.AddWithValue("DonorID", donorID);
+                cmd.Parameters.AddWithValue("Amount", amount);
+                cmd.Parameters.AddWithValue("EventID", eventID);
 
                 cmd.ExecuteNonQuery();
             }
         }
 
-        internal void Delete(int id)
+        internal void Delete()
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "DELETE FROM Phone_List WHERE Phone_ID = @ID";
+            string sql = "DELETE FROM Donation WHERE Donation_ID = @DonationID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("PhoneNumber", id);
+                cmd.Parameters.AddWithValue("ID", DonationID);
 
                 cmd.ExecuteNonQuery();
             }
-        }
-
-        public override string ToString()
-        {
-            string number_string = Number.ToString();
-            string area_code;
-            string first_three;
-            string last_four;
-            area_code=number_string.Substring(0,3);
-            first_three=number_string.Substring(3,3);
-            last_four=number_string.Substring(6,4);
-            return String.Format("({0}){1}-{2}", area_code, first_three, last_four);
         }
         #endregion
     }

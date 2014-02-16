@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RJLou.Classes
 {
-    class InternalUser
+    public class InternalUser
     {
     }
 }

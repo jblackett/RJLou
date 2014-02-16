@@ -201,6 +201,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Classes\InternalUser.cs" />
     <Compile Include="Classes\Note.cs" />
+    <Compile Include="Classes\Donation.cs" />
     <Compile Include="Classes\PhoneNumbers.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
