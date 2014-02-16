@@ -165,6 +165,67 @@ namespace RJLou.Classes
             
             return results;
         }
+
+        public static void Add(DateTime createDate, InternalUser author, string noteText)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = "INSERT INTO NOTE (CreateDate, Author, Note_Text) VALUES (@CreateDate, @Author, @NoteText)";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CreateDate", createDate);
+                cmd.Parameters.AddWithValue("Author", author);
+                cmd.Parameters.AddWithValue("NoteText", noteText);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        internal void Delete(int id)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = "DELETE FROM NOTE WHERE Note_ID = @ID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("ID", id);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public override string ToString()
+        {
+            string author_string = Author.ToString();
+            string createDate_string = CreateDate.ToString();
+            string editDate_string;
+            string text_string = NoteText;
+            if (EditDate != null)
+            {
+                editDate_string = EditDate.ToString();
+
+                return String.Format("Author: {0}" + System.Environment.NewLine +
+                    "Date Created: {1}" + System.Environment.NewLine +
+                    "Last Edited: {2}" + System.Environment.NewLine +
+                    "{3}", author_string, createDate_string, editDate_string, text_string);
+            }
+            else
+            {
+                editDate_string = null;
+
+                return String.Format("Author: {0}" + System.Environment.NewLine +
+                    "Date Created: {1}" + System.Environment.NewLine +
+                    "{2}", author_string, createDate_string, text_string);
+            }
+
+            
+        }
         
         #endregion
     }
