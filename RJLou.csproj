@@ -159,8 +159,6 @@
     <Content Include="images\logo.png" />
     <Content Include="images\logo.svg" />
     <Content Include="index.html" />
-    <Content Include="packages.config" />
-    <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Site.Master" />
     <Content Include="Web.config" />
@@ -181,7 +179,6 @@
     <Content Include="content\fonts\leaguegothic-regular-webfont.woff" />
     <Content Include="ClassDiagram1.cd" />
     <Content Include="ClassDiagram2.cd" />
-    <None Include="Project_Readme.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -202,13 +199,6 @@
     <Compile Include="Classes\Donation.cs" />
     <Compile Include="Classes\Address.cs" />
     <Compile Include="Classes\PhoneNumbers.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Classes\Document.cs" />
     <Compile Include="donate.html.cs">
       <SubType>ASPXCodeBehind</SubType>
