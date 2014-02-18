@@ -176,9 +176,9 @@
         </div>
         <div class="container right">
             <div class="scroll-stick">
-                <a class="admin_nav_link smaller" href="#">Case Info</a>
-                <a class="admin_nav_link smaller" href="#">Notes</a>
-                <a class="admin_nav_link smaller" href="#">Documents</a>
+                <a class="smaller" href="#">Case Info</a>
+                <a class="smaller" href="#">Notes</a>
+                <a class="smaller" href="#">Documents</a>
             </div>
             <div style="clear: both;"></div>
             <h1 id="case_info">Case Info</h1>
