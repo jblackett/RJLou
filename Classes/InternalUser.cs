@@ -89,6 +89,57 @@ namespace RJLou.Classes
 
             return null;
         }
+
+        public static List<InternalUser> GetInternalUsers()
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = @"
+                SELECT      iu.Person_ID,
+                            First_Name,
+                            Last_Name,
+                            Date_Of_Birth,
+                            Gender,
+                            Email,
+                            Race,
+                            Password,
+                            Title
+                FROM        Internal_User iu 
+                INNER JOIN  Person p ON iu.Person_ID = p.Person_ID
+                INNER JOIN  User_Type ut ON iu.User_Type_ID = ut.User_Type_ID";
+            List<InternalUser> results = new List<InternalUser>();
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    InternalUser newUser = new InternalUser()
+                    {
+                        PersonID = Convert.ToInt32(read["Person_ID"]),
+                        FirstName = read["First_Name"].ToString(),
+                        LastName = read["Last_Name"].ToString(),
+                        DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
+                        Gender = read["Gender"].ToString(),
+                        Race = read["Race"].ToString(),
+                        Password = read["Password"].ToString(),
+                        Role = (Role)read["Title"]
+                    };
+
+                    newUser.GetPhoneNumbers();
+                    newUser.GetAddresses();
+
+                    results.Add(newUser);
+                }
+            }
+
+            return results;
+        }
     }
 
     public enum Role
