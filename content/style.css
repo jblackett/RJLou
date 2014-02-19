@@ -85,7 +85,7 @@ h1 {
 }
 	
 .container {
-	max-width: 50rem;
+	max-width: 60rem;
 	margin: 0 auto;
 	padding: 0;
 }
@@ -135,7 +135,7 @@ h1 {
     float: left;
     width: 100%;
     min-height: 0.0625rem;
-    padding: 0.625rem;
+    padding: 5rem;
 }
 
 .size-12 {
@@ -144,7 +144,7 @@ h1 {
 }
 
 .size-6 {
-    width: 47.5%;
+    width: 33.333333333333333333333333333333%;
     text-align: center;
 }
 
