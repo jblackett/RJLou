@@ -129,14 +129,65 @@ namespace RJLou.Classes
         #endregion
 
         #region Methods
-        public abstract Person Get(int personID);
+        internal void GetPhoneNumbers()
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = "SELECT * FROM Phone_List WHERE Person_ID = @PersonID";
+            List<PhoneNumber> results = new List<PhoneNumber>();
 
-        public abstract List<Person> GetPersons();
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
 
-        public abstract void Add(string fName, string lName, DateTime dob, string gender,
-            string race, List<PhoneNumber> phoneNums, List<Address> addresses, int ssn);
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
 
-        internal abstract void Delete();
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(new PhoneNumber()
+                    {
+                        Number = Convert.ToInt32(read["Phone_Number"]),
+                        PType = read["Phone_Type"].ToString()
+                    });
+                }
+            }
+
+            PhoneNumbers = results;
+        }
+
+        internal void GetAddresses()
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = "SELECT * FROM Address_List WHERE Person_ID = @PersonID";
+            List<Address> results = new List<Address>();
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(new Address()
+                        {
+                            streetAddress = read["Street_Address"].ToString(),
+                            city = read["City"].ToString(),
+                            state = read["State"].ToString(),
+                            zip = Convert.ToInt32(read["Zip"])
+                        });
+                }
+            }
+
+            Addresses = results;
+        }
         #endregion
     }
 }
