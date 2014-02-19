@@ -8,7 +8,7 @@ using System.Text;
 
 namespace RJLou.Classes
 {
-    class PhoneNumber
+    public class PhoneNumber
     {
         #region Private Variables
         private string _pType;
