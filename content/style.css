@@ -29,7 +29,7 @@ body {
 
 h1 {
 	text-transform: uppercase;
-	font-size: 40px;
+	font-size: 50px;
     font-family: 'Helvetica Neue Ultra Light';
     letter-spacing: 10px;
 }
@@ -72,6 +72,44 @@ h1 {
 
 .section.content p {
     text-align: justify;
+}
+
+.section.footer {
+    background-color: black;
+    color: white;
+}
+
+.section.footer .float-left {
+    padding-right: 3rem;
+}
+
+.section.footer h1 {
+    font-size: 1.5rem;
+    font-family: Helvetica;
+    letter-spacing: 1.25px;
+    color: #00C453;
+}
+
+.section.footer ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.section.footer li {
+    display: block;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    padding-left: 0;
+}
+
+.section.footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.section.footer a:hover {
+    color: #00C453;
 }
 
 .section.admin_header {
