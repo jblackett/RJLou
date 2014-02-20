@@ -9,6 +9,7 @@ namespace RJLou.Classes
     {
         #region Private Variables
         private List<Guardian> _guardians;
+        private string _courtID;
         #endregion
 
         #region Properties
@@ -21,6 +22,18 @@ namespace RJLou.Classes
             set
             {
                 _guardians = value;
+            }
+        }
+
+        public string CourtID
+        {
+            get
+            {
+                return _courtID;
+            }
+            set
+            {
+                _courtID = value;
             }
         }
        
@@ -44,7 +57,7 @@ namespace RJLou.Classes
                             Gender,
                             Email,
                             Race,
-                            Relationship
+                            CourtID
                 FROM        Offender o 
                 INNER JOIN  Person p ON o.Person_ID = p.Person_ID
                 WHERE       o.Person_ID = @PersonID";
@@ -68,12 +81,13 @@ namespace RJLou.Classes
                         LastName = read["Last_Name"].ToString(),
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
-                        Race = read["Race"].ToString()
+                        Race = read["Race"].ToString(),
+                        CourtID = read["CourtID"].ToString()
                     };
 
                     result.GetPhoneNumbers();
                     result.GetAddresses();
-                   
+                    result.GetGuardians();
 
                     return result;
                 }
@@ -86,16 +100,17 @@ namespace RJLou.Classes
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
-                SELECT      g.Person_ID,
+                SELECT      o.Person_ID,
                             First_Name,
                             Last_Name,
                             Date_Of_Birth,
                             Gender,
                             Email,
-                            Race
+                            Race,
+                            CourtID
                 FROM        Offender o 
-                INNER JOIN  Person p ON g.Person_ID = p.Person_ID
-                WHERE       g.Person_ID = @PersonID";
+                INNER JOIN  Person p ON o.Person_ID = p.Person_ID
+                WHERE       o.Person_ID = @PersonID";
             List<Offender> results = new List<Offender>();
 
             using (SqlConnection conn = new SqlConnection(dsn))
@@ -117,8 +132,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
-                        Password = read["Password"].ToString(),
-                        Role = (Role)read["Title"]
+                        CourtID = read["CourtID"].ToString()
                     };
 
                     newOffender.GetPhoneNumbers();
@@ -133,7 +147,7 @@ namespace RJLou.Classes
         }
 
         public static void Add(string fname, string lname, DateTime dob, string gender, string email,
-            string race, List<PhoneNumber> numbers, List<Address> addresses, List<Guardian> guardian)
+            string race, List<PhoneNumber> numbers, List<Address> addresses, string courtID)
         {
             int personID = Person.Add(fname, lname, dob, gender, email, race, numbers, addresses, relationship);
 
@@ -149,7 +163,7 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("PersonID", personID);
-                cmd.Parameters.AddWithValue("Relationship", relationship);
+                cmd.Parameters.AddWithValue("CourtID", courtID);
 
                 personID = Convert.ToInt32(cmd.ExecuteScalar());
             }
@@ -174,6 +188,7 @@ namespace RJLou.Classes
             }
         }
 
+        
         internal override void Update()
         {
             base.Update();
@@ -181,7 +196,7 @@ namespace RJLou.Classes
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
                 UPDATE  Offender 
-                SET     Relationship = @Relationship
+                SET     CourtID = @CourtID
                 WHERE   Person_ID = @PersonID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
@@ -191,13 +206,14 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("PersonID", PersonID);
-                cmd.Parameters.AddWithValue("Relationship", Relationship);
+                cmd.Parameters.AddWithValue("CourtID", Relationship);
 
                 cmd.ExecuteNonQuery();
             }
         }
 
-        
+        //Not sure what to do here. The code written as is can only pull a personID of every guardioan in the list
+        //Do we need more? Should we change how the data is stored?
         internal void GetGuardians()
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
