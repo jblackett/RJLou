@@ -90,6 +90,60 @@ namespace RJLou.Classes
             return null;
         }
 
+        public static InternalUser Get(string email, string password)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = @"
+                SELECT      iu.Person_ID,
+                            First_Name,
+                            Last_Name,
+                            Date_Of_Birth,
+                            Gender,
+                            Email,
+                            Race,
+                            Password,
+                            Title
+                FROM        Internal_User iu 
+                INNER JOIN  Person p ON iu.Person_ID = p.Person_ID
+                INNER JOIN  User_Type ut ON iu.User_Type_ID = ut.User_Type_ID
+                WHERE       Email = @Email
+                AND         Password = @Password";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("Email", email);
+                cmd.Parameters.AddWithValue("Password", password);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                if (read.Read())
+                {
+                    InternalUser result = new InternalUser()
+                    {
+                        PersonID = Convert.ToInt32(read["Person_ID"]),
+                        FirstName = read["First_Name"].ToString(),
+                        LastName = read["Last_Name"].ToString(),
+                        DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
+                        Gender = read["Gender"].ToString(),
+                        Race = read["Race"].ToString(),
+                        Password = read["Password"].ToString(),
+                        Role = (Role)read["Title"]
+                    };
+
+                    result.GetPhoneNumbers();
+                    result.GetAddresses();
+
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
         public static List<InternalUser> GetInternalUsers()
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
@@ -225,6 +279,29 @@ namespace RJLou.Classes
 
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = "DELETE FROM Internal_User WHERE Person_ID = @PersonID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        internal override void Update()
+        {
+            base.Update();
+
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = @"
+                UPDATE  Internal_User 
+                SET     User_Type_ID = (SELECT User_Type_ID FROM User_Type WHERE Title LIKE @Role),
+                        Password = @Password
+                WHERE   Person_ID = @PersonID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {

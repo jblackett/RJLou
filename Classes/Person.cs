@@ -314,6 +314,37 @@ namespace RJLou.Classes
             }
         }
 
+        internal virtual void Update()
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = @"
+                UPDATE  Person
+                SET     First_Name = @FName,
+                        Last_Name = @LName,
+                        Date_Of_Birth = @DOB,
+                        Gender = @Gender,
+                        Email = @Email,
+                        Race = @Race
+                WHERE   Person_ID = @PersonID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("FName", FirstName);
+                cmd.Parameters.AddWithValue("LName", LastName);
+                cmd.Parameters.AddWithValue("DOB", DateOfBirth);
+                cmd.Parameters.AddWithValue("Gender", Gender);
+                cmd.Parameters.AddWithValue("Email", Email);
+                cmd.Parameters.AddWithValue("Race", Race);
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         public static int GetPersonID(string email)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
