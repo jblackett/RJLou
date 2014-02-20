@@ -12,6 +12,7 @@ namespace RJLou.Classes
     {
         #region Private Variables
         private string _streetAddress;
+        private string _addressType;
         private string _city;
         private string _state;
         private int _zip;
@@ -23,6 +24,13 @@ namespace RJLou.Classes
             { return _streetAddress; }
             set
             {_streetAddress=value;}
+        }
+        public string type
+        {
+            get
+            { return _addressType; }
+            set
+            { _addressType = value; }
         }
         public string city
         {
