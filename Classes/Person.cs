@@ -201,13 +201,15 @@ namespace RJLou.Classes
             Addresses = results;
         }
 
-        public static void Add(string fname, string lname, DateTime dob, string gender, string email,
+        public static int Add(string fname, string lname, DateTime dob, string gender, string email,
             string race, List<PhoneNumber> numbers, List<Address> addresses)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
                 INSERT INTO Person  (First_Name, Last_Name, Date_Of_Birth, Gender, Email, Race)
+                OUTPUT              INSERTED.Person_ID
                 VALUES              (@FirstName, @LastName, @DOB, @Gender, @Email, @Race)";
+            int ID = -1;
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -222,13 +224,11 @@ namespace RJLou.Classes
                 cmd.Parameters.AddWithValue("Email", email);
                 cmd.Parameters.AddWithValue("Race", race);
 
-                cmd.ExecuteNonQuery();
+                ID = Convert.ToInt32(cmd.ExecuteScalar());
             }
 
-            int ID = Person.GetPersonID(email);
-
             if (ID <= 0)
-                return;
+                return ID;
 
             foreach (PhoneNumber number in numbers)
             {
@@ -269,6 +269,8 @@ namespace RJLou.Classes
                     cmd.ExecuteNonQuery();
                 }
             }
+
+            return ID;
         }
 
         internal virtual void Delete()
