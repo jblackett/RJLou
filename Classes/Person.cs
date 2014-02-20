@@ -16,6 +16,7 @@ namespace RJLou.Classes
         private string _lname;
         private DateTime _dob;
         private string _gender;
+        private string _email;
         private string _race;
         private List<PhoneNumber> _phoneNums;
         private List<Address> _addresses;
@@ -76,6 +77,17 @@ namespace RJLou.Classes
             set
             {
                 _gender = value;
+            }
+        }
+        public string Email
+        {
+            get
+            {
+                return _email;
+            }
+            set
+            {
+                _email = value;
             }
         }
         public string Race
@@ -187,6 +199,177 @@ namespace RJLou.Classes
             }
 
             Addresses = results;
+        }
+
+        public static int Add(string fname, string lname, DateTime dob, string gender, string email,
+            string race, List<PhoneNumber> numbers, List<Address> addresses)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = @"
+                INSERT INTO Person  (First_Name, Last_Name, Date_Of_Birth, Gender, Email, Race)
+                OUTPUT              INSERTED.Person_ID
+                VALUES              (@FirstName, @LastName, @DOB, @Gender, @Email, @Race)";
+            int ID = -1;
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("FirstName", fname);
+                cmd.Parameters.AddWithValue("LastName", lname);
+                cmd.Parameters.AddWithValue("DOB", dob);
+                cmd.Parameters.AddWithValue("Gender", gender);
+                cmd.Parameters.AddWithValue("Email", email);
+                cmd.Parameters.AddWithValue("Race", race);
+
+                ID = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+
+            if (ID <= 0)
+                return ID;
+
+            foreach (PhoneNumber number in numbers)
+            {
+                sql = "INSERT INTO Phone_List (Person_ID, Phone_Type, Phone_Number) VALUES (@PID, @PType, @Number)";
+                using (SqlConnection conn = new SqlConnection(dsn))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("PID", ID);
+                    cmd.Parameters.AddWithValue("PType", number.PType);
+                    cmd.Parameters.AddWithValue("Number", number.Number);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            foreach (Address address in addresses)
+            {
+                sql = @"
+                    INSERT INTO Address_List
+                                (Person_ID, Address_Type, Street_Address, City, State, Zip)
+                    VALUES      (@PID, @AddressType, @Address, @City, @State, @Zip)";
+                using (SqlConnection conn = new SqlConnection(dsn))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("PID", ID);
+                    cmd.Parameters.AddWithValue("AddressType", null);
+                    cmd.Parameters.AddWithValue("Address", address.streetAddress);
+                    cmd.Parameters.AddWithValue("City", address.city);
+                    cmd.Parameters.AddWithValue("State", address.state);
+                    cmd.Parameters.AddWithValue("Zip", address.zip);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            return ID;
+        }
+
+        internal virtual void Delete()
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = "DELETE FROM Person WHERE Person_ID = @PersonID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            sql = "DELETE FROM Phone_List WHERE Person_ID = @PersonID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            sql = "DELETE FROM Address_List WHERE Person_ID = @PersonID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        internal virtual void Update()
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = @"
+                UPDATE  Person
+                SET     First_Name = @FName,
+                        Last_Name = @LName,
+                        Date_Of_Birth = @DOB,
+                        Gender = @Gender,
+                        Email = @Email,
+                        Race = @Race
+                WHERE   Person_ID = @PersonID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("FName", FirstName);
+                cmd.Parameters.AddWithValue("LName", LastName);
+                cmd.Parameters.AddWithValue("DOB", DateOfBirth);
+                cmd.Parameters.AddWithValue("Gender", Gender);
+                cmd.Parameters.AddWithValue("Email", Email);
+                cmd.Parameters.AddWithValue("Race", Race);
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public static int GetPersonID(string email)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = "SELECT Person_ID FROM Person WHERE Email = @Email";
+            int result = -1;
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("Email", email);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                if (read.Read())
+                {
+                    result = Convert.ToInt32(read["Person_ID"]);
+                }
+            }
+
+            return result;
         }
         #endregion
     }

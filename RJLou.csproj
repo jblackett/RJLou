@@ -744,6 +744,8 @@
     <Compile Include="Classes\InternalUser.cs" />
     <Compile Include="Classes\KRS.cs" />
 
+    <Compile Include="Classes\InternalUser.cs" />
+    <Compile Include="Classes\KRS.cs" />
     <Compile Include="Classes\Note.cs" />
     <Compile Include="Classes\Donation.cs" />
     <Compile Include="Classes\Address.cs" />
@@ -759,6 +761,7 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
 
+    <Compile Include="Classes\UOR.cs" />
     <Compile Include="Classes\Document.cs" />
     <Compile Include="donate.html.cs">
       <SubType>ASPXCodeBehind</SubType>

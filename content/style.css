@@ -77,6 +77,7 @@ h1 {
 .section.footer {
     background-color: black;
     color: white;
+    text-align: center;
 }
 
 .section.footer .float-left {
