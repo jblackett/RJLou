@@ -39,6 +39,38 @@
 			</div>
 		</div>
 	</div>
+	<style>
+
+		.nav-connected {
+			width: 50%;
+			margin: 0 auto;
+		}
+		.nav-connected > div {
+			display: inline-block;
+			vertical-align: top;
+			text-align: left;
+		}
+		.copyright {
+			border-top: 1px solid white;
+			padding-top: 1em;
+		}
+		.nav-connected:after {
+			display: block;
+			content: "";
+			clear: both;
+		}
+		.getInvolvedImg {
+			width: 15%;
+			max-width: 45px;
+		}
+		@media all and (max-width:40em) {
+			.row .column {
+				width: 100%;
+				clear: both;
+			}
+		}
+
+	</style>
 	<div class="section content getinvolved">
 		<div class="container">
 			<h1>
@@ -50,64 +82,67 @@
 			</p>
 			<div class="row">
 				<div class="column size-6">
-					<img src="images/glyphicons_free/glyphicons/glyphicons_458_money.png" style="width: 15%;">
+					<img class="getInvolvedImg" src="images/glyphicons_free/glyphicons/glyphicons_458_money.png">
 					<h2>Make a Donation</h2>
 					<p>
 						Since RJLou is a non-for-profit, donations are the lifeblood of our operations. If you'd like to donate any amount to our cause, please click the button below to visit our Donations page.
 					</p>
-					<a class="button" href="donate.html">Donate</a>
-				</div>
+					<div id='razoo_donation_widget'><span><a href="http://www.razoo.com/">Online fundraising</a> for <a href="http://www.razoo.com/story/Restorative-Justice-Louisville">RESTORATIVE JUSTICE LOUISVILLE</a> at Razoo</span>
+					</div>
+            		<script type='text/javascript'>var r_protocol = (("https:" == document.location.protocol) ? "https://" : "http://"); var r_path = 'www.razoo.com/javascripts/widget_loader.js'; var r_identifier = 'Restorative-Justice-Louisville'; document.write(unescape("%3Cscript id='razoo_widget_loader_script' src='" + r_protocol + r_path + "' type='text/javascript'%3E%3C/script%3E"));</script>
+        			</div>
+					<!-- <a class="button" href="donate.html">Donate</a> -->
 				<div class="column size-6">
-					<img src="images/glyphicons_free/glyphicons/glyphicons_024_parents.png" style="width: 15%;">
+					<img class="getInvolvedImg" src="images/glyphicons_free/glyphicons/glyphicons_024_parents.png">
 					<h2>Become a Facilitator</h2>
 					<p>
 						One of the more important roles in our process is that of the individual who keeps in contact with all participants, makes sure that meetings are had, and takes notes and other general bookkeeping related to their case. Unfortunately, demand is usually higher for this role than the supply, so if you think that you'd be interested in becoming a facilitator of a case, give us a shout!
 					</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="column size-6">
-					<img src="images/glyphicons_free/glyphicons/glyphicons_300_microphone.png" style="width: 15%;">
+					<img class="getInvolvedImg" src="images/glyphicons_free/glyphicons/glyphicons_300_microphone.png">
 					<h2>Raise Awareness</h2>
 					<p>
 						No matter how many donations or volunteers we may get, our cause is all for naught if no one even knows that RJLou exists, or how effective its process is. We need your help to spread the word!
 					</p>
-				</div>
-				<div class="column size-6">
-					<img src="images/glyphicons_free/glyphicons/glyphicons_343_thumbs_up.png" style="width: 15%;">
+					<img class="getInvolvedImg" src="images/glyphicons_free/glyphicons/glyphicons_343_thumbs_up.png">
 					<h2>Like Us On Facebook</h2>
 					<p>
 						Popularity is key in today's day and age, and Facebook tends to be one of the main indicators of it. Click the button below to give us a Like!
 					</p>
 					<a class="button" href="#">Like Us</a>
 				</div>
-			</div>
 		</div>
 	</div>
 	<div class="section footer">
 		<div class="container">
-			<div class="float-left">
-				<h1>Navigation</h1>
-				<ul>
-					<li><a href="#">About Us</a></li>
-					<li><a href="#">Our Impact</a></li>
-					<li><a href="#">Get Involved</a></li>
-					<li><a href="#">Resources</a></li>
-					<li><a href="#">Contact Us</a></li>
-				</ul>
+			<div class="nav-connected">
+				<div class="footer-nav float-left">
+					<!-- <h1>Navigation</h1> -->
+					<ul>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Our Impact</a></li>
+						<li><a href="#">Get Involved</a></li>
+						<li><a href="#">Resources</a></li>
+						<li><a href="#">Contact Us</a></li>
+					</ul>
+				</div>
+				<div class="footer-get-connected float-right">
+					<!-- <h1>Get Connected</h1> -->
+					<ul>
+						<li><a href="#"><img src="images/glyphicons_free/glyphicons_social/glyphicons_social_30_facebook.png"> Facebook</a></li>
+						<li><a href="#"><img src="images/glyphicons_free/glyphicons_social/glyphicons_social_31_twitter.png"> Twitter</a></li>
+						<li><a href="#"><img src="images/glyphicons_free/glyphicons_social/glyphicons_social_17_linked_in.png"> LinkedIN</a></li>
+					</ul>
+				</div>	
 			</div>
-			<div class="float-left">
-				<h1>Get Connected</h1>
-				<ul>
-					<li><a href="#"><img src="images/glyphicons_free/glyphicons_social/glyphicons_social_30_facebook.png"> Facebook</a></li>
-					<li><a href="#"><img src="images/glyphicons_free/glyphicons_social/glyphicons_social_31_twitter.png"> Twitter</a></li>
-					<li><a href="#"><img src="images/glyphicons_free/glyphicons_social/glyphicons_social_17_linked_in.png"> LinkedIN</a></li>
-				</ul>
+			
+			<div><a href="#"><img style="width: 3rem;" src="images/logo-v2-whiteongreen.svg"></a><div>
+
 			</div>
-			<div style="clear: both;"></div>
-			<hr>
-			<div class="float-left" style="margin-top: 1.5rem;">&copy; Team Gold Stripe Ideas Consulting, Design, and Development, LLC</div>
-			<div class="float-right"><a href="#"><img style="width: 3rem;" src="images/logo-v2-whiteongreen.svg"></a><div>
+			
+
+			<div class="copyright" style="margin-top: 1.5rem;">&copy; Team Gold Stripe Ideas Consulting, Design, and Development, LLC</div>
+
+			
 		</div>
 	</div>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>

@@ -725,14 +725,33 @@
     <Compile Include="Admin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Classes\InternalUser.cs">
       <SubType>Code</SubType>
     </Compile>
+=======
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Classes\InternalUser.cs" />
+    <Compile Include="Classes\KRS.cs" />
+>>>>>>> 4f33628046d076de6915a16b5e5dda26e7e4c1c8
     <Compile Include="Classes\Note.cs" />
     <Compile Include="Classes\Donation.cs" />
     <Compile Include="Classes\Address.cs" />
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\PhoneNumbers.cs" />
+<<<<<<< HEAD
+=======
+    <Compile Include="Classes\UOR.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+>>>>>>> 4f33628046d076de6915a16b5e5dda26e7e4c1c8
     <Compile Include="Classes\Document.cs" />
     <Compile Include="donate.html.cs">
       <SubType>ASPXCodeBehind</SubType>
