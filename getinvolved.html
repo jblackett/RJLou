@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Restorative Justice Louisville</title>
+	<link rel="stylesheet" type="text/css" href="content/style.css">
+</head>
+<body>
+	<div class="section header">
+		<div class="container header">
+			<div class="float-left">
+				<a href="#"><img style="width: 3rem;" src="images/logo-v2-whiteongreen.svg"></a>
+			</div>
+			<div class="float-right" style="margin-top: 1rem;">
+				<a class="nav_link" href="#">About Us</a>
+				<a class="nav_link" href="#">Our Impact</a>
+				<a class="nav_link" href="#">Get Involved</a>
+				<a class="nav_link" href="#">Resources</a>
+				<a class="nav_link" href="#">Contact Us</a>
+				<a class="button" href="#">Login</a>
+			</div>
+		</div>
+		<div class="container header" style="text-align: center;">
+			<h1>Transforming communities <span class="green">by</span> ending crime</h1>
+		</div>
+	</div>
+	<div class="section content">
+		<div class="container">
+			<h1>
+				Restorative Justice Louisville is only able to make an impact because of the involvement and support of our community.
+				<span class="border"></span>
+			</h1>
+			<p>
+				If you would like to get involved please fill out this form and we will contact you with available opportunities:
+				<h3>Send an e-mail to info@rjlou.org:</h3>
+
+				<form action="MAILTO:info@rjlou.org" method="post" enctype="text/plain">
+					Name:<br>
+					<input type="text" name="Name" value=""size="50"><br>
+					Phone Number:<br>
+					<input type="text" name="Phone" value=""size="50"><br>
+					E-mail:<br>
+					<input type="text" name="Email" value=""size="50"><br>
+					Hours per week:<br>
+					<input type="number" name="Hours" value=""size="50"><br>
+					Availability:<br>
+					<input type="text" name="Availablity" value="Example:Weekends or Monday-Wednesday"size="50"><br>
+					Comments:<br>
+					<TEXTAREA style="resize:none" name="Comments" rows="5" cols="50"> Enter any comments or questions here.
+					</TEXTAREA><br>
+					<input type="submit" value="Send">
+					<input type="reset" value="Reset">
+				</form>
+			</p>
+		</div>
+	</div>
+	<div class="section content getinvolved">
+		<div class="container">
+			<h1>
+				Thank you
+				<span class="border"></span>
+			</h1>
+			<p>
+				Restorative Justice Louisville is only able to make an impact because of the involvement and support of our community. Thank you for your support.
+			</p>
+		</div>
+	</div>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="text/javascript">
+    	$('.video-container').click(function() {
+    		var video = '<object data="' + $('img#youtube').attr('data-video') + '" class="youtube"></object>';
+    		$(this).replaceWith(video);
+    	})
+    </script>
+</body>
+</html>
