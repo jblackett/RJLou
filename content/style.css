@@ -113,6 +113,18 @@ h1 {
     color: #00C453;
 }
 
+.section.footer a.button:hover {
+    color: inherit;
+}
+
+.section.footer .float-left {
+    text-align: left;
+}
+
+.section.footer .float-right {
+    text-align: right;
+}
+
 .section.admin_header {
     margin: 0;
 }
@@ -404,4 +416,13 @@ object.youtube {
 .inner > textarea {
     width: 100%;
     min-height: 10rem;
+}
+
+input.mailing_list {
+    height: 2rem;
+    font-family: Helvetica;
+    font-size: 1.25rem;
+    padding-left: 2rem;
+    width: 80%;
+    border: none;
 }
