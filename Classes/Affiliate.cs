@@ -5,49 +5,35 @@ using System.Web;
 
 namespace RJLou.Classes
 {
-    public class Guardian : Person
+    public class Affiliate : Person
     {
         #region Private Variables
-        private string _relationship;
+        //none yet
         #endregion
 
-        #region Properties
-        public string Relationship
-        {
-            get
-            {
-                return _relationship;
-            }
-            set
-            {
-                _relationship = value;
-            }
-        }        
-       
+        #region Public Properties
+        //none yet
         #endregion
 
         #region Constructors
-
-        public Guardian() : base(){}
-
+        public Affiliate() { }
         #endregion
 
         #region Methods
-        public static Guardian Get(int personID)
+        public static Affiliate Get(int personID)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
-                SELECT      g.Person_ID,
+                SELECT      a.Person_ID,
                             First_Name,
                             Last_Name,
                             Date_Of_Birth,
                             Gender,
                             Email,
-                            Race,
-                            Relationship
-                FROM        Guardian g 
-                INNER JOIN  Person p ON g.Person_ID = p.Person_ID
-                WHERE       g.Person_ID = @PersonID";
+                            Race
+                FROM        Affiliate a 
+                INNER JOIN  Person p ON a.Person_ID = p.Person_ID
+                WHERE       a.Person_ID = @PersonID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -61,15 +47,14 @@ namespace RJLou.Classes
 
                 if (read.Read())
                 {
-                    Guardian result = new Guardian()
+                    Affiliate result = new Affiliate()
                     {
                         PersonID = Convert.ToInt32(read["Person_ID"]),
                         FirstName = read["First_Name"].ToString(),
                         LastName = read["Last_Name"].ToString(),
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
-                        Race = read["Race"].ToString(),
-                        Relationship = read["Relationship"].ToString(),
+                        Race = read["Race"].ToString()
                     };
 
                     result.GetPhoneNumbers();
@@ -82,22 +67,21 @@ namespace RJLou.Classes
             return null;
         }
 
-        public static List<Guardian> GetGuardians()
+        public static List<Affiliate> GetAffiliates()
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
-                SELECT      g.Person_ID,
+                SELECT      a.Person_ID,
                             First_Name,
                             Last_Name,
                             Date_Of_Birth,
                             Gender,
                             Email,
-                            Race,
-                            Relationship
-                FROM        Guardian g 
-                INNER JOIN  Person p ON g.Person_ID = p.Person_ID
-                WHERE       g.Person_ID = @PersonID";
-            List<Guardian> results = new List<Guardian>();
+                            Race
+                FROM        Affiliate a 
+                INNER JOIN  Person p ON a.Person_ID = p.Person_ID
+                WHERE       a.Person_ID = @PersonID";
+            List<Affiliate> results = new List<Affiliate>();
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -110,21 +94,20 @@ namespace RJLou.Classes
 
                 while (read.Read())
                 {
-                    Guardian newGuardian = new Guardian()
+                    Affiliate newAffiliate = new Affiliate()
                     {
                         PersonID = Convert.ToInt32(read["Person_ID"]),
                         FirstName = read["First_Name"].ToString(),
                         LastName = read["Last_Name"].ToString(),
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
-                        Race = read["Race"].ToString(),
-                        Relationship = read["Relationship"].ToString()
+                        Race = read["Race"].ToString()
                     };
 
-                    newGuardian.GetPhoneNumbers();
-                    newGuardian.GetAddresses();
+                    newAffiliate.GetPhoneNumbers();
+                    newAffiliate.GetAddresses();
 
-                    results.Add(newGuardian);
+                    results.Add(newAffiliate);
                 }
             }
 
@@ -132,14 +115,14 @@ namespace RJLou.Classes
         }
 
         public static void Add(string fname, string lname, DateTime dob, string gender, string email,
-            string race, List<PhoneNumber> numbers, List<Address> addresses, string relationship)
+            string race, List<PhoneNumber> numbers, List<Address> addresses)
         {
             int personID = Person.Add(fname, lname, dob, gender, email, race, numbers, addresses);
 
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
-                INSERT INTO Guardian (Person_ID)
-                VALUES      (@PersonID, @Relationship)";
+                INSERT INTO Affiliate (Person_ID)
+                VALUES      (@PersonID)";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -148,7 +131,6 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("PersonID", personID);
-                cmd.Parameters.AddWithValue("Relationship", relationship);
 
                 personID = Convert.ToInt32(cmd.ExecuteScalar());
             }
@@ -159,7 +141,7 @@ namespace RJLou.Classes
             base.Delete();
 
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "DELETE FROM Guardian WHERE Person_ID = @PersonID";
+            string sql = "DELETE FROM Affiliate WHERE Person_ID = @PersonID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -179,7 +161,7 @@ namespace RJLou.Classes
 
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
-                UPDATE  Guardian 
+                UPDATE  Affiliate 
                 SET     Relationship = @Relationship
                 WHERE   Person_ID = @PersonID";
 
@@ -190,12 +172,10 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("PersonID", PersonID);
-                cmd.Parameters.AddWithValue("Relationship", Relationship);
 
                 cmd.ExecuteNonQuery();
             }
         }
         #endregion
-
     }
 }

@@ -733,6 +733,7 @@
     <Compile Include="Admin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Classes\Affiliate.cs" />
     <Compile Include="Classes\Guardian.cs" />
     <Compile Include="Classes\InternalUser.cs">
       <SubType>Code</SubType>

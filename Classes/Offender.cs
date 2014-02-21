@@ -149,12 +149,12 @@ namespace RJLou.Classes
         public static void Add(string fname, string lname, DateTime dob, string gender, string email,
             string race, List<PhoneNumber> numbers, List<Address> addresses, string courtID)
         {
-            int personID = Person.Add(fname, lname, dob, gender, email, race, numbers, addresses, relationship);
+            int personID = Person.Add(fname, lname, dob, gender, email, race, numbers, addresses);
 
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
                 INSERT INTO Offender (Person_ID)
-                VALUES      (@PersonID, @Relationship)";
+                VALUES      (@PersonID, @CourtID)";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -206,7 +206,7 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("PersonID", PersonID);
-                cmd.Parameters.AddWithValue("CourtID", Relationship);
+                cmd.Parameters.AddWithValue("CourtID", CourtID);
 
                 cmd.ExecuteNonQuery();
             }
