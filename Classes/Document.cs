@@ -8,7 +8,7 @@ using System.Web;
 
 namespace RJLou.Classes
 {
-    class Document
+    public class Document
     {
         #region Private Variables
         private int _CaseID;

@@ -24,6 +24,7 @@ namespace RJLou.Classes
         private DateTime _dateFinalConf;
         private DateTime _dateCompletion;
         private string _status;
+        private string _district;
         private List<Document> _documents;
         private List<InternalUser> _caseManagers;
         #endregion
@@ -170,6 +171,17 @@ namespace RJLou.Classes
             set
             {
                 _status = value;
+            }
+        }
+        public string District
+        {
+            get
+            {
+                return _district;
+            }
+            set
+            {
+                _district = value;
             }
         }
         public List<Document> Documents
@@ -384,9 +396,29 @@ namespace RJLou.Classes
         {
 
         }
+
+        internal void AddAffiliate(Affiliate affiliate)
+        {
+
+        }
+
+        internal void DeleteAffiliate(Affiliate affiliate)
+        {
+
+        }
         #endregion
         #region Note Methods
         internal void GetNotes()
+        {
+
+        }
+
+        internal void AddNote(Note note)
+        {
+
+        }
+
+        internal void DeleteNote(Note note)
         {
 
         }
@@ -396,9 +428,29 @@ namespace RJLou.Classes
         {
 
         }
+
+        internal void AddCharge(Charge charge)
+        {
+
+        }
+
+        internal void DeleteCharge(Charge charge)
+        {
+
+        }
         #endregion
         #region Document Methods
         internal void GetDocuments()
+        {
+
+        }
+
+        internal void AddDocument(Document doc)
+        {
+
+        }
+
+        internal void DeleteDocument(Document doc)
         {
 
         }
@@ -413,7 +465,7 @@ namespace RJLou.Classes
         public static List<Case> GetCases()
         {
             List<Case> results = new List<Case>();
-            string sql = "";
+            string sql = "SELECT * FROM RJL_Case";
 
             using (SqlConnection conn = new SqlConnection(Constants.DSN))
             {
@@ -445,11 +497,158 @@ namespace RJLou.Classes
                     newCase.GetCharges();
                     newCase.GetDocuments();
 
-
+                    results.Add(newCase);
                 }
             }
 
             return results;
+        }
+
+        public static void Add(int courtID, DateTime refDate, int refNum, DateTime courtDate, string district,
+            DateTime dateFinConf, DateTime dateComp, string status, List<Offender> offenders = null,
+            List<Victim> victims = null, List<Affiliate> affiliates = null, List<Note> notes = null, 
+            List<Charge> charges = null, List<Document> documents = null)
+        {
+            string sql = @"
+                INSERT INTO RJL_Case 
+                            (Court_ID, Referral_Date, Referral_Number, Court_Date, Final_Conference_Date, 
+                                Status, Closure_Date, District)
+                OUTPUT       INSERTED.Case_ID
+                VALUES      (@CourtID, @ReferralDate, @ReferralNumber, @CourtDate, @FinalConferenceDate,
+                                @Status, @ClosureDate, @District)";
+            int caseID = -1;
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CourtID", courtID);
+                cmd.Parameters.AddWithValue("ReferralDate", refDate);
+                cmd.Parameters.AddWithValue("ReferralNumber", refNum);
+                cmd.Parameters.AddWithValue("CourtDate", courtDate);
+                cmd.Parameters.AddWithValue("FinalConferenceDate", dateFinConf);
+                cmd.Parameters.AddWithValue("Status", status);
+                cmd.Parameters.AddWithValue("ClosureDate", dateFinConf);
+                cmd.Parameters.AddWithValue("District", district);
+
+                caseID = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+
+            Case thisCase = Case.Get(caseID);
+
+            foreach (Offender offender in offenders)
+            {
+                thisCase.AddOffender(offender);
+            }
+
+            foreach (Victim victim in victims)
+            {
+                thisCase.AddVictim(victim);
+            }
+
+            foreach (Affiliate affiliate in affiliates)
+            {
+                thisCase.AddAffiliate(affiliate);
+            }
+
+            foreach (Note note in notes)
+            {
+                thisCase.AddNote(note);
+            }
+
+            foreach (Charge charge in charges)
+            {
+                thisCase.AddCharge(charge);
+            }
+
+            foreach (Document doc in documents)
+            {
+                thisCase.AddDocument(doc);
+            }
+        }
+
+        internal void Delete()
+        {
+            string sql = "DELETE FROM RJL_Case WHERE Case_ID = @CaseID";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            Case thisCase = this;
+
+            foreach (Offender offender in Offenders)
+            {
+                thisCase.DeleteOffender(offender);
+            }
+
+            foreach (Victim victim in Victims)
+            {
+                thisCase.DeleteVictim(victim);
+            }
+
+            foreach (Affiliate affiliate in Affiliates)
+            {
+                thisCase.DeleteAffiliate(affiliate);
+            }
+
+            foreach (Note note in Notes)
+            {
+                thisCase.DeleteNote(note);
+            }
+
+            foreach (Charge charge in Charges)
+            {
+                thisCase.DeleteCharge(charge);
+            }
+
+            foreach (Document doc in Documents)
+            {
+                thisCase.DeleteDocument(doc);
+            }
+        }
+
+        internal void Update()
+        {
+            string sql = @"
+                UPDATE  RJL_Case
+                SET     Court_ID = @CourtID,
+                        Referral_Date = @ReferralDate,
+                        Referral_Number = @ReferralNumber,
+                        Court_Date = @CourtDate,
+                        Final_Conference_Date = @DateOfFinalConference,
+                        Status = @Status,
+                        Closure_Date = @DateOfCompletion,
+                        District = @District
+                WHERE   Case_ID = @CaseID";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+                cmd.Parameters.AddWithValue("CourtID", CourtID);
+                cmd.Parameters.AddWithValue("ReferralDate", ReferralDate);
+                cmd.Parameters.AddWithValue("ReferralNumber", ReferralNumber);
+                cmd.Parameters.AddWithValue("CourtDate", CourtDate);
+                cmd.Parameters.AddWithValue("DateOfFinalConference", DateOfFinalConference);
+                cmd.Parameters.AddWithValue("Status", Status);
+                cmd.Parameters.AddWithValue("DateOfCompletion", DateOfCompletion);
+                cmd.Parameters.AddWithValue("District", District);
+
+                cmd.ExecuteNonQuery();
+            }
         }
         #endregion
     }

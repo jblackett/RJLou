@@ -8,6 +8,6 @@ namespace RJLou
 {
     public class Constants
     {
-        public static const string DSN = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+        public static readonly string DSN = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
     }
 }

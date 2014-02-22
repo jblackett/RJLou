@@ -153,6 +153,7 @@
     <Content Include="content\fonts\leaguegothic-italic-webfont.svg" />
     <Content Include="content\fonts\leaguegothic-regular-webfont.svg" />
     <Content Include="content\style.css" />
+    <Content Include="Default.aspx" />
     <Content Include="donate.html" />
     <Content Include="images\glyphicons_free\glyphicons\glyphicons_000_glass.png" />
     <Content Include="images\glyphicons_free\glyphicons\glyphicons_001_leaf.png" />
@@ -734,10 +735,9 @@
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Classes\Affiliate.cs" />
+    <Compile Include="Classes\Case.cs" />
+    <Compile Include="Classes\Charge.cs" />
     <Compile Include="Classes\Guardian.cs" />
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Classes\InternalUser.cs" />
     <Compile Include="Classes\KRS.cs" />
     <Compile Include="Classes\Note.cs" />
@@ -746,13 +746,8 @@
     <Compile Include="Classes\Offender.cs" />
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\PhoneNumbers.cs" />
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="Classes\Victim.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Classes\UOR.cs" />
     <Compile Include="Classes\Document.cs" />
     <Compile Include="donate.html.cs">
