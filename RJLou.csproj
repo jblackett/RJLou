@@ -735,14 +735,9 @@
     </Compile>
     <Compile Include="Classes\Affiliate.cs" />
     <Compile Include="Classes\Guardian.cs" />
-    <Compile Include="Classes\InternalUser.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Classes\InternalUser.cs" />
-    <Compile Include="Classes\KRS.cs" />
     <Compile Include="Classes\InternalUser.cs" />
     <Compile Include="Classes\KRS.cs" />
     <Compile Include="Classes\Note.cs" />
@@ -751,7 +746,6 @@
     <Compile Include="Classes\Offender.cs" />
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\PhoneNumbers.cs" />
-    <Compile Include="Classes\UOR.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

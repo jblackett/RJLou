@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
 namespace RJLou.Classes
 {
-    public class Victim
+    public class Victim : Person
     {
         #region Private variables
         private List<Guardian> _guardians;
@@ -130,7 +133,7 @@ namespace RJLou.Classes
         public static void Add(string fname, string lname, DateTime dob, string gender, string email,
             string race, List<PhoneNumber> numbers, List<Address> addresses, List<Guardian> guardian)
         {
-            int personID = Person.Add(fname, lname, dob, gender, email, race, numbers, addresses, guardian);
+            int personID = Person.Add(fname, lname, dob, gender, email, race, numbers, addresses);
 
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
@@ -172,13 +175,15 @@ namespace RJLou.Classes
         //updating guardian list?
         //internal override void Update()
 
-        //Should this part be getting a list of guardians instead?
-        //what about the results statement?
-       /* internal void GetGuardians()
+        internal void GetGuardians()
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
 
-            string sql = "SELECT * FROM Guardian_List WHERE Person_ID = @PersonID";
+            string sql = @"
+                SELECT      g.* 
+                FROM        Guardian g
+                INNER JOIN  Guardian_List gl ON g.Guardian_ID = gl.Guardian_ID
+                WHERE       gl.Person_ID = @PersonID";
             List<Guardian> results = new List<Guardian>();
 
             using (SqlConnection conn = new SqlConnection(dsn))
@@ -193,15 +198,12 @@ namespace RJLou.Classes
 
                 while (read.Read())
                 {
-                    results.Add(new Guardian()
-                    {
-                        //what goes here? -joe  
-                    });
+                    results.Add(Guardian.GetByGID(Convert.ToInt32(read["Guardian_ID"])));
                 }
             }
 
-            PhoneNumbers = results;
-        }*/
+            Guardians = results;
+        }
         #endregion
     }
 }

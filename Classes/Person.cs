@@ -347,6 +347,7 @@ namespace RJLou.Classes
             }
         }
 
+        [Obsolete("Please don't use this anymore; Person.Add returns the PersonID")]
         public static int GetPersonID(string email)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();

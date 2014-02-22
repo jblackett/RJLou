@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -56,6 +59,55 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("PersonID", personID);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                if (read.Read())
+                {
+                    Guardian result = new Guardian()
+                    {
+                        PersonID = Convert.ToInt32(read["Person_ID"]),
+                        FirstName = read["First_Name"].ToString(),
+                        LastName = read["Last_Name"].ToString(),
+                        DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
+                        Gender = read["Gender"].ToString(),
+                        Race = read["Race"].ToString(),
+                        Relationship = read["Relationship"].ToString(),
+                    };
+
+                    result.GetPhoneNumbers();
+                    result.GetAddresses();
+
+                    return result;
+                }
+            }
+
+            return null;
+        }
+
+        public static Guardian GetByGID(int guardianID)
+        {
+            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+            string sql = @"
+                SELECT      g.Person_ID,
+                            First_Name,
+                            Last_Name,
+                            Date_Of_Birth,
+                            Gender,
+                            Email,
+                            Race,
+                            Relationship
+                FROM        Guardian g 
+                INNER JOIN  Person p ON g.Person_ID = p.Person_ID
+                WHERE       g.Guardian_ID = @GuardianID";
+
+            using (SqlConnection conn = new SqlConnection(dsn))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("GuardianID", guardianID);
 
                 SqlDataReader read = cmd.ExecuteReader();
 

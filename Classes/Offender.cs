@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
@@ -212,13 +215,15 @@ namespace RJLou.Classes
             }
         }
 
-        //Not sure what to do here. The code written as is can only pull a personID of every guardioan in the list
-        //Do we need more? Should we change how the data is stored?
         internal void GetGuardians()
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
 
-            string sql = "SELECT * FROM Guardian_List WHERE Person_ID = @PersonID";
+            string sql = @"
+                SELECT      g.* 
+                FROM        Guardian g
+                INNER JOIN  Guardian_List gl ON g.Guardian_ID = gl.Guardian_ID
+                WHERE       gl.Person_ID = @PersonID";
             List<Guardian> results = new List<Guardian>();
 
             using (SqlConnection conn = new SqlConnection(dsn))
@@ -233,14 +238,11 @@ namespace RJLou.Classes
 
                 while (read.Read())
                 {
-                    results.Add(new Guardian()
-                    {
-                        //what goes here? -joe  
-                    });
+                    results.Add(Guardian.GetByGID(Convert.ToInt32(read["Guardian_ID"])));
                 }
             }
 
-            PhoneNumbers = results;
+            Guardians = results;
         }
         #endregion
     }

@@ -10,9 +10,12 @@ namespace RJLou.Classes
 {
     public class InternalUser : Person
     {
+        #region Private Variables
         private Role _role;
         private string _password;
+        #endregion
 
+        #region Public Properties
         public Role Role
         {
             get
@@ -35,9 +38,13 @@ namespace RJLou.Classes
                 _password = value;
             }
         }
+        #endregion
 
+        #region Constructor
         public InternalUser() : base() { }
+        #endregion
 
+        #region Methods
         public static InternalUser Get(int personID)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
@@ -315,6 +322,7 @@ namespace RJLou.Classes
                 cmd.ExecuteNonQuery();
             }
         }
+        #endregion
     }
 
     public enum Role
