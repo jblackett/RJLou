@@ -1,0 +1,29 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="RJLou.Masterpages.Admin" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="content/style.css" />
+</head>
+<body>
+    <div class="section admin_header">
+        <div class="container admin_header">
+            <a class="admin_nav_link active" href="#">Case</a>
+            <a class="admin_nav_link" href="contacts.html">Contacts</a>
+            <a class="admin_nav_link" href="donations.html">Donations</a>
+            <a class="admin_nav_link" href="events.html">Events</a>
+            <a class="admin_nav_link" href="reports.html">Reports</a>
+            <div class="float-right">
+                <input type="search" name="searchTxt" placeholder="Start searching..." />
+                <a class="button" href="#">+</a>
+            </div>
+        </div>
+    </div>
+    <div class="section admin_body">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+
+        </asp:ContentPlaceHolder>
+    </div>
+</body>
+</html>

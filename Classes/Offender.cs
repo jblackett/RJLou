@@ -60,7 +60,7 @@ namespace RJLou.Classes
                             Gender,
                             Email,
                             Race,
-                            CourtID
+                            Offender_Number
                 FROM        Offender o 
                 INNER JOIN  Person p ON o.Person_ID = p.Person_ID
                 WHERE       o.Person_ID = @PersonID";
@@ -85,7 +85,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
-                        CourtID = read["CourtID"].ToString()
+                        CourtID = read["Offender_Number"].ToString()
                     };
 
                     result.GetPhoneNumbers();
@@ -110,7 +110,7 @@ namespace RJLou.Classes
                             Gender,
                             Email,
                             Race,
-                            CourtID
+                            Offender_Number
                 FROM        Offender o 
                 INNER JOIN  Person p ON o.Person_ID = p.Person_ID
                 WHERE       o.Person_ID = @PersonID";
@@ -135,7 +135,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
-                        CourtID = read["CourtID"].ToString()
+                        CourtID = read["Offender_Number"].ToString()
                     };
 
                     newOffender.GetPhoneNumbers();

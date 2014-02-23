@@ -11,56 +11,61 @@ namespace RJLou.Classes
     public class Document
     {
         #region Private Variables
-        private int _CaseID;
-        private string _FirstName;
-        private string _LastName;
+        private int _documentID;
+        private int _caseID;
+        private InternalUser _personWhoModified;
+        private string _fileLocation;
         #endregion
 
         #region Public Properties
+        public int DocumentID
+        {
+            get
+            {
+                return _documentID;
+            }
+            set
+            {
+                _documentID = value;
+            }
+        }
         public int CaseID
         {
             get
             {
-                return _CaseID;
+                return _caseID;
             }
             set
             {
-                _CaseID = value;
+                _caseID = value;
             }
         }
-        public string FirstName
+        public InternalUser PersonWhoModified
         {
             get
             {
-                return _FirstName;
+                return _personWhoModified;
             }
             set
             {
-                _FirstName = value;
+                _personWhoModified = value;
             }
         }
-        public string LastName
+        public string FileLocation
         {
             get
             {
-                return _LastName;
+                return _fileLocation;
             }
             set
             {
-                _LastName = value;
+                _fileLocation = value;
             }
         }
         #endregion
 
         #region Constructors
         public Document() { }
-
-        public Document(int CID, string FName, string LName)
-        {
-            CaseID = CID;
-            FirstName = FName;
-            LastName = LName;
-        }
         #endregion
 
         #region Methods
@@ -83,9 +88,10 @@ namespace RJLou.Classes
                 {
                     Document result = new Document()
                     {
+                        DocumentID = Convert.ToInt32(read["Document_ID"]),
                         CaseID = Convert.ToInt32(read["Case_ID"]),
-                        FirstName = read["First_Name"].ToString(),
-                        LastName = read["Last_Name"].ToString()
+                        PersonWhoModified = InternalUser.Get(Convert.ToInt32(read["Person_ID"])),
+                        FileLocation = read["File_Location"].ToString()
                     };
 
                     return result;
@@ -113,9 +119,10 @@ namespace RJLou.Classes
                 {
                     results.Add(new Document()
                     {
+                        DocumentID = Convert.ToInt32(read["Document_ID"]),
                         CaseID = Convert.ToInt32(read["Case_ID"]),
-                        FirstName = read["First_Name"].ToString(),
-                        LastName = read["Last_Name"].ToString()
+                        PersonWhoModified = InternalUser.Get(Convert.ToInt32(read["Person_ID"])),
+                        FileLocation = read["File_Location"].ToString()
                     });
                 }
             }
@@ -142,9 +149,10 @@ namespace RJLou.Classes
                 {
                     results.Add(new Document()
                     {
+                        DocumentID = Convert.ToInt32(read["Document_ID"]),
                         CaseID = Convert.ToInt32(read["Case_ID"]),
-                        FirstName = read["First_Name"].ToString(),
-                        LastName = read["Last_Name"].ToString()
+                        PersonWhoModified = InternalUser.Get(Convert.ToInt32(read["Person_ID"])),
+                        FileLocation = read["File_Location"].ToString()
                     });
                 }
             }
@@ -171,48 +179,24 @@ namespace RJLou.Classes
                 {
                     results.Add(new Document()
                     {
+                        DocumentID = Convert.ToInt32(read["Document_ID"]),
                         CaseID = Convert.ToInt32(read["Case_ID"]),
-                        FirstName = read["First_Name"].ToString(),
-                        LastName = read["Last_Name"].ToString()
+                        PersonWhoModified = InternalUser.Get(Convert.ToInt32(read["Person_ID"])),
+                        FileLocation = read["File_Location"].ToString()
                     });
                 }
             }
 
             return results;
         }
-        //public static List<Document> GetDocuments(string lastName)
-        //{
-        //    string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-        //    List<Document> results = new List<Document>();
-        //    string sql = "SELECT * FROM DOCUMENT WHERE First_Name = @lastName";
 
-        //    using (SqlConnection conn = new SqlConnection(dsn))
-        //    {
-        //        conn.Open();
-        //        SqlCommand cmd = new SqlCommand(sql, conn);
-        //        cmd.CommandType = CommandType.Text;
-        //        cmd.Parameters.AddWithValue("Last_Name", lastName);
-
-        //        SqlDataReader read = cmd.ExecuteReader();
-
-        //        while (read.Read())
-        //        {
-        //            results.Add(new Document()
-        //            {
-        //                CaseID = Convert.ToInt32(read["Case_ID"]),
-        //                FirstName = read["First_Name"].ToString(),
-        //                LastName = read["Last_Name"].ToString()
-        //            });
-        //        }
-        //    }
-
-        //    return results;
-        //}
-
-        public static void Add(int caseID, string firstName, string lastName)
+        public static void Add(int caseID, int personID, string fileLocation)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "INSERT INTO DOCUMENT (Case_ID, First_Name, Last_Name) VALUES (@CaseID, @FirstName, @LastName)";
+            string sql = @"
+                INSERT INTO DOCUMENT 
+                            (Case_ID, Person_ID, File_Location) 
+                VALUES      (@CaseID, @PersonID, @FileLocation)";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -220,13 +204,13 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("CaseID", caseID);
-                cmd.Parameters.AddWithValue("FirstName", firstName);
-                cmd.Parameters.AddWithValue("LastName", lastName);
+                cmd.Parameters.AddWithValue("PersonID", personID);
+                cmd.Parameters.AddWithValue("FileLocation", fileLocation);
 
                 cmd.ExecuteNonQuery();
             }
         }
-        internal void Delete(int id)
+        internal void Delete()
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = "DELETE FROM DOCUMENT WHERE Document_ID = @ID";
@@ -236,8 +220,7 @@ namespace RJLou.Classes
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("Document", id);
-                cmd.Parameters.AddWithValue("ID", id);
+                cmd.Parameters.AddWithValue("ID", DocumentID);
 
                 cmd.ExecuteNonQuery();
             }

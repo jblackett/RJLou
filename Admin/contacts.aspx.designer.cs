@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RJLou.Admin
+namespace RJLou
 {
 
 

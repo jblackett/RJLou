@@ -394,65 +394,243 @@ namespace RJLou.Classes
         #region Affiliate Methods
         internal void GetAffiliates()
         {
+            string sql = @"
+                SELECT      a.Person_ID
+                FROM        Affiliate a
+                INNER JOIN  Case_File cf ON a.Person_ID = cf.Person_ID
+                WHERE       cf.Case_ID = @CaseID";
+            List<Affiliate> results = new List<Affiliate>();
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(Affiliate.Get(Convert.ToInt32(read["Person_ID"])));
+                }
+            }
+
+            Affiliates = results;
         }
 
         internal void AddAffiliate(Affiliate affiliate)
         {
+            string sql = @"
+                INSERT INTO Case_File (Case_ID, Person_ID)
+                VALUES                (@CaseID, @PersonID)";
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+                cmd.Parameters.AddWithValue("PersonID", affiliate.PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         internal void DeleteAffiliate(Affiliate affiliate)
         {
+            string sql = @"
+                DELETE FROM Case_File
+                WHERE       Case_ID = @CaseID
+                AND         Person_ID = @PersonID";
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+                cmd.Parameters.AddWithValue("PersonID", affiliate.PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
         }
         #endregion
         #region Note Methods
         internal void GetNotes()
         {
+            string sql = @"
+                SELECT      n.Note_ID
+                FROM        Note n
+                INNER JOIN  Case_Note cn ON cn.Note_ID = n.Note_ID
+                WHERE       cn.Case_ID = @CaseID";
+            List<Note> results = new List<Note>();
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(Note.Get(Convert.ToInt32(read["Note_ID"])));
+                }
+            }
+
+            Notes = results;
         }
 
         internal void AddNote(Note note)
         {
+            string sql = @"
+                INSERT INTO Case_Note (Case_ID, Note_ID)
+                VALUES                (@CaseID, @NoteID)";
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+                cmd.Parameters.AddWithValue("NoteID", note.NoteID);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         internal void DeleteNote(Note note)
         {
+            string sql = @"
+                DELETE FROM Case_Note
+                WHERE       Case_ID = @CaseID
+                AND         Note_ID = @NoteID";
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+                cmd.Parameters.AddWithValue("NoteID", note.NoteID);
+
+                cmd.ExecuteNonQuery();
+            }
         }
         #endregion
         #region Charge Methods
         internal void GetCharges()
         {
+            string sql = @"
+                SELECT      c.Charge_ID
+                FROM        Charge c
+                INNER JOIN  Case_Charge cc ON c.Charge_ID = cc.Charge_ID
+                WHERE       cc.Case_ID = @CaseID";
+            List<Charge> results = new List<Charge>();
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(Charge.Get(Convert.ToInt32(read["Charge_ID"])));
+                }
+            }
+
+            Charges = results;
         }
 
         internal void AddCharge(Charge charge)
         {
+            string sql = @"
+                INSERT INTO Case_Charge (Case_ID, Charge_ID)
+                VALUES                  (@CaseID, @ChargeID)";
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+                cmd.Parameters.AddWithValue("PersonID", charge.ChargeID);
+
+                cmd.ExecuteNonQuery();
+            }
         }
 
         internal void DeleteCharge(Charge charge)
         {
+            string sql = @"
+                DELETE FROM Case_Charge
+                WHERE       Case_ID = @CaseID
+                AND         Charge_ID = @Charge_ID";
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+                cmd.Parameters.AddWithValue("PersonID", charge.ChargeID);
+
+                cmd.ExecuteNonQuery();
+            }
         }
         #endregion
         #region Document Methods
         internal void GetDocuments()
         {
+            string sql = @"
+                SELECT      Document_ID
+                FROM        Document
+                WHERE       Case_ID = @CaseID";
+            List<Document> results = new List<Document>();
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(Document.Get(Convert.ToInt32(read["Document_ID"])));
+                }
+            }
+
+            Documents = results;
         }
 
         internal void AddDocument(Document doc)
         {
-
+            Document.Add(doc.CaseID, doc.PersonWhoModified.PersonID, doc.FileLocation);
         }
 
         internal void DeleteDocument(Document doc)
         {
-
+            doc.Delete();
         }
         #endregion
         #region Case Manager Methods
