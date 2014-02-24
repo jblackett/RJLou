@@ -233,11 +233,11 @@ namespace RJLou.Classes
                     {
                         CaseID = Convert.ToInt32(read["Case_ID"]),
                         CourtID = default(int),
-                        ReferralDate = Convert.ToDateTime(read["Referral_Date"]),
+                        ReferralDate = read["Referral_Date"] as DateTime? ?? default(DateTime),
                         ReferralNumber = Convert.ToInt32(read["Referral_Number"]),
-                        CourtDate = Convert.ToDateTime(read["Court_Date"]),
-                        DateOfFinalConference = Convert.ToDateTime(read["Final_Conference_Date"]),
-                        DateOfCompletion = Convert.ToDateTime(read["Closure_Date"]),
+                        CourtDate = read["Court_Date"] as DateTime? ?? default(DateTime),
+                        DateOfFinalConference = read["Final_Conference_Date"] as DateTime? ?? default(DateTime),
+                        DateOfCompletion = read["Closure_Date"] as DateTime? ?? default(DateTime),
                         Status = read["Status"].ToString()
                     };
 
@@ -654,17 +654,17 @@ namespace RJLou.Classes
 
                 SqlDataReader read = cmd.ExecuteReader();
 
-                if (read.Read())
+                while (read.Read())
                 {
                     Case newCase = new Case()
                     {
                         CaseID = Convert.ToInt32(read["Case_ID"]),
                         CourtID = default(int),
-                        ReferralDate = Convert.ToDateTime(read["Referral_Date"]),
+                        ReferralDate = read["Referral_Date"] as DateTime? ?? default(DateTime),
                         ReferralNumber = Convert.ToInt32(read["Referral_Number"]),
-                        CourtDate = Convert.ToDateTime(read["Court_Date"]),
-                        DateOfFinalConference = Convert.ToDateTime(read["Final_Conference_Date"]),
-                        DateOfCompletion = Convert.ToDateTime(read["Closure_Date"]),
+                        CourtDate = read["Court_Date"] as DateTime? ?? default(DateTime),
+                        DateOfFinalConference = read["Final_Conference_Date"] as DateTime? ?? default(DateTime),
+                        DateOfCompletion = read["Closure_Date"] as DateTime? ?? default(DateTime),
                         Status = read["Status"].ToString()
                     };
 

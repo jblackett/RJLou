@@ -317,7 +317,7 @@ table td {
     border: 1px solid black;
     height: 2rem;
     vertical-align: middle;
-    text-align: left;
+    text-align: center;
 }
 
 table.changes td {
@@ -327,6 +327,7 @@ table.changes td {
 
 table.nothing td {
     border: 0;
+    text-align: left;
 }
 
 table.changes td:hover {

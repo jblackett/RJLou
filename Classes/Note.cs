@@ -123,11 +123,14 @@ namespace RJLou.Classes
                     Note result = new Note()
                     {
                         NoteID = Convert.ToInt32(read["Note_ID"]),
-                        CreateDate = Convert.ToDateTime(read["CreateDate"]),
-                        EditDate = Convert.ToDateTime(read["EditDate"]),
-                        Author = (InternalUser) read["Author"],
-                        NoteText = read["NoteText"].ToString()
+                        CreateDate = read["CreateDate"] as DateTime? ?? default(DateTime),
+                        EditDate = read["EditDate"] as DateTime? ?? default(DateTime),
+                        NoteText = read["Note_Text"] as string
                     };
+
+                    var author = read["Author"] as int? ?? default(int);
+
+                    result.Author = InternalUser.Get(author);
 
                     return result;
                 }
@@ -152,14 +155,26 @@ namespace RJLou.Classes
 
                 while (read.Read())
                 {
-                    results.Add(new Note()
-                        {
-                            NoteID = Convert.ToInt32(read["Note_ID"]),
-                            CreateDate = Convert.ToDateTime(read["CreateDate"]),
-                            EditDate = Convert.ToDateTime(read["EditDate"]),
-                            Author = (InternalUser)read["Author"],
-                            NoteText = read["NoteText"].ToString()
-                        });
+                    Note result = new Note()
+                    {
+                        NoteID = Convert.ToInt32(read["Note_ID"]),
+                        Author = InternalUser.Get(Convert.ToInt32(read["Author"])),
+                        NoteText = read["NoteText"].ToString()
+                    };
+
+                    var readCreateDate = read["CreateDate"];
+                    if (readCreateDate is DBNull)
+                        result.CreateDate = default(DateTime);
+                    else
+                        result.CreateDate = Convert.ToDateTime(read["CreateDate"]);
+
+                    var readEditDate = read["EditDate"];
+                    if (readEditDate is DBNull)
+                        result.EditDate = default(DateTime);
+                    else
+                        result.EditDate = Convert.ToDateTime(read["EditDate"]);
+
+                    results.Add(result);
                 }
             }
             

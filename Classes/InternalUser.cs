@@ -84,7 +84,7 @@ namespace RJLou.Classes
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
                         Password = read["Password"].ToString(),
-                        Role = (Role)read["Title"]
+                        Role = read["Title"] as Role? ?? default(Role)
                     };
 
                     result.GetPhoneNumbers();

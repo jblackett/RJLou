@@ -4,9 +4,10 @@
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="content/style.css" />
+    <link rel="stylesheet" type="text/css" href="/content/style.css" />
 </head>
 <body>
+    <form runat="server">
     <div class="section admin_header">
         <div class="container admin_header">
             <a class="admin_nav_link active" href="#">Case</a>
@@ -25,5 +26,6 @@
 
         </asp:ContentPlaceHolder>
     </div>
+    </form>
 </body>
 </html>
