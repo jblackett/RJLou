@@ -2,7 +2,7 @@
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <asp:ScriptManager runat='server' ID='workingMan' />
-    <div class="container left">
+    <div id="container_left" class="container left">
         <table class="changes" cellspacing="0" border="0">
             <tr>
                 <td>All</td>
@@ -40,9 +40,13 @@
         <asp:UpdatePanel ID="MainContainer" runat="server" Visible="false">
             <ContentTemplate>
                 <div class="scroll-stick">
-                    <a class="smaller" href="#">Case Info</a>
-                    <a class="smaller" href="#">Notes</a>
-                    <a class="smaller" href="#">Documents</a>
+                    <a class="smaller" href="#case_info">Case Info</a>
+                    <a class="smaller" href="#victims">Victims</a>
+                    <a class="smaller" href="#offenders">Offenders</a>
+                    <a class="smaller" href="#affiliates">Affiliates</a>
+                    <a class="smaller" href="#notes">Notes</a>
+                    <a class="smaller" href="#charges">Charges</a>
+                    <a class="smaller" href="#documents">Documents</a>
                 </div>
                 <div style="clear: both;"></div>
                 <h1 id="case_info">Case Info</h1>
@@ -217,7 +221,7 @@
                             <ItemTemplate>
                                 <tr>
                                     <td><%#DataBinder.Eval(Container.DataItem, "ChargeID")%></td>
-                                    <td>KRS Code Goes Here</td>
+                                    <td><%#DataBinder.Eval(Container.DataItem, "KRSCode")%></td>
                                     <td><%#DataBinder.Eval(Container.DataItem, "UORCode")%></td>
                                     <td>
                                         <asp:LinkButton runat="server" ID="ChargeDeleteButton" OnClick="DeleteCharge" Text="Delete" CommandArgument='<%# Eval("ChargeID") %>' /> &nbsp;

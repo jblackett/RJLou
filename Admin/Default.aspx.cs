@@ -98,7 +98,36 @@ namespace RJLou
 
         protected void NotesRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Label NoteAuthorAndDate = (Label)e.Item.FindControl("NoteAuthorAndDate");
+                TextBox NoteText = (TextBox)e.Item.FindControl("NoteText");
+                Note currentNote = (Note)e.Item.DataItem;
 
+                string text = "";
+
+                if (currentNote.Author != null)
+                {
+                    text += currentNote.Author.FirstName + " " + currentNote.Author.LastName;
+                }
+                else
+                {
+                    text += "[[NO AUTHOR]]";
+                }
+
+                if (!string.IsNullOrEmpty(currentNote.EditDate.ToString()) && currentNote.EditDate != default(DateTime))
+                {
+                    text += " - " + ((DateTime)currentNote.EditDate).ToString("MM/dd/yyyy");
+                }
+                else if (!string.IsNullOrEmpty(currentNote.CreateDate.ToString()) && currentNote.CreateDate != default(DateTime))
+                {
+                    text += " - " + currentNote.CreateDate.ToString("MM/dd/yyyy");
+                }
+
+                NoteAuthorAndDate.Text = text;
+
+                NoteText.Text = currentNote.NoteText;
+            }
         }
 
         protected void ChargesRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)

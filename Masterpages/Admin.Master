@@ -26,6 +26,31 @@
 
         </asp:ContentPlaceHolder>
     </div>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $('.scroll-stick > .smaller').click(function () {
+            var href = $(this).attr('href').toString();
+            var top = $(href).offset();
+
+            $('html, body').animate({
+                scrollTop: top.top
+            }, 2000);
+        });
+
+        $(window).scroll(function () {
+            var scrollTop = $(window).scrollTop();
+            var minScrolled = $('#MainContent_MainContainer').offset();
+            
+            if (scrollTop > minScrolled.top) {
+                $('#container_left').addClass('fixed');
+                $('.scroll-stick').addClass('fixed');
+            }
+            else {
+                $('#container_left').removeClass('fixed');
+                $('.scroll-stick').removeClass('fixed');
+            }
+        });
+    </script>
     </form>
 </body>
 </html>
