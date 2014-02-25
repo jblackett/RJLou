@@ -51,7 +51,14 @@ namespace RJLou
                 Label thisLabel = (Label)e.Item.FindControl("Name");
                 Case currentCase = (Case)e.Item.DataItem;
 
-                string Name = currentCase.Offenders[0].FirstName + " " + currentCase.Offenders[0].LastName;
+                string Name;
+
+                if (currentCase.Offenders.Count > 0)
+                    Name = currentCase.Offenders[0].FirstName + " " + currentCase.Offenders[0].LastName;
+                else if (currentCase.Victims.Count > 0)
+                    Name = currentCase.Victims[0].FirstName + " " + currentCase.Victims[0].LastName;
+                else
+                    Name = "";
 
                 thisLabel.Text = Name;
             }
