@@ -5,10 +5,10 @@
     <div id="container_left" class="container left">
         <table class="changes" cellspacing="0" border="0">
             <tr>
-                <td>All</td>
-                <td>Open</td>
-                <td>Pending Approval</td>
-                <td>Closed</td>
+                <td><asp:LinkButton runat="server" ID="CaseSwitchAll" OnClick="SwitchCaseList" Text="All" CommandArgument="all" /></td>
+                <td><asp:LinkButton runat="server" ID="CaseSwitchOpen" OnClick="SwitchCaseList" Text="Open" CommandArgument="open" /></td>
+                <td><asp:LinkButton runat="server" ID="CaseSwitchPending" OnClick="SwitchCaseList" Text="Pending Approval" CommandArgument="pending" /></td>
+                <td><asp:LinkButton runat="server" ID="CaseSwitchClosed" OnClick="SwitchCaseList" Text="Closed" CommandArgument="closed" /></td>
             </tr>
         </table>
         <asp:Repeater runat="server" ID="CasesRepeater" OnItemDataBound="CasesRepeater_Databind">
@@ -49,6 +49,12 @@
                     <a class="smaller" href="#documents">Documents</a>
                 </div>
                 <div style="clear: both;"></div>
+                <asp:Panel ID="CaseUpdatedPanel" runat="server" CssClass="updatepanel">
+                    <p>
+                        This case was successfully saved!
+                    </p>
+                    <span class="x">X</span>
+                </asp:Panel>
                 <h1 id="case_info">Case Info</h1>
                 <table class="nothing">
                     <tr>
@@ -88,6 +94,7 @@
                         <td><asp:TextBox ID="District" runat="server" /></td>
                     </tr>
                 </table>
+                <asp:LinkButton runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />
                 <h1 id="victims">Victims</h1>
                 <div class="inner">
                     <asp:Repeater ID="VictimsRepeater" runat="server" OnItemDataBound="VictimsRepeater_ItemDataBound">
@@ -246,4 +253,9 @@
         </asp:UpdatePanel>
     </div>
     <div style="margin: 0; padding: 0; clear: both;"></div>
+    <script type="text/javascript">
+        $('span.x').click(function () {
+            $('.updatepanel').removeClass('visible');
+        });
+    </script>
 </asp:Content>

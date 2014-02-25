@@ -155,16 +155,57 @@ namespace RJLou
         {
             CaseID.Text = thisCase.CaseID.ToString();
             CaseID.ReadOnly = true;
-            CourtID.Text = thisCase.CourtID.ToString();
+            CourtID.Text = thisCase.CourtID.ToString("000000");
             ReferralDate.Text = (thisCase.ReferralDate == default(DateTime) ? "" : thisCase.ReferralDate.ToString("MM/dd/yyyy"));
             ReferralNumber.Text = thisCase.ReferralNumber.ToString();
             CourtDate.Text = (thisCase.CourtDate == default(DateTime) ? "" : thisCase.CourtDate.ToString("MM/dd/yyyy"));
             DateFinalConference.Text = (thisCase.DateOfFinalConference == default(DateTime) ? "" : thisCase.DateOfFinalConference.ToString("MM/dd/yyyy"));
             DateCompletion.Text = (thisCase.DateOfCompletion == default(DateTime) ? "" : thisCase.DateOfCompletion.ToString("MM/dd/yyyy"));
             Status.Text = thisCase.Status;
-            District.Text = thisCase.District;
+            District.Text = thisCase.District.ToString();
 
             MainContainer.Visible = true;
+        }
+
+        protected internal void SaveCase(object sender, EventArgs e)
+        {
+            int caseID = int.Parse(CaseID.Text);
+            thisCase = Case.Get(caseID);
+
+            
+            
+            thisCase.CourtID = Convert.ToInt32(CourtID.Text);
+
+            if (!string.IsNullOrEmpty(ReferralDate.Text))
+                thisCase.ReferralDate = Convert.ToDateTime(ReferralDate.Text);
+            else
+                thisCase.ReferralDate = default(DateTime);
+
+            thisCase.ReferralNumber = Convert.ToInt32(ReferralNumber.Text);
+
+            if (!string.IsNullOrEmpty(CourtDate.Text))
+                thisCase.CourtDate = Convert.ToDateTime(CourtDate.Text);
+            else
+                thisCase.CourtDate = default(DateTime);
+
+            if (!string.IsNullOrEmpty(DateFinalConference.Text))
+                thisCase.DateOfFinalConference = Convert.ToDateTime(DateFinalConference.Text);
+            else
+                thisCase.DateOfFinalConference = default(DateTime);
+
+            if (!string.IsNullOrEmpty(DateCompletion.Text))
+                thisCase.DateOfCompletion = Convert.ToDateTime(DateCompletion.Text);
+            else
+                thisCase.DateOfCompletion = default(DateTime);
+            
+            thisCase.Status = Status.Text;
+
+            thisCase.District = Convert.ToInt32(District.Text);
+
+
+          
+            thisCase.Update();
+            CaseUpdatedPanel.CssClass += " visible";
         }
 
         protected internal void DeleteVictim(object sender, EventArgs e)
@@ -205,6 +246,32 @@ namespace RJLou
         protected internal void ViewCharge(object sender, EventArgs e)
         {
 
+        }
+
+        protected internal void SwitchCaseList(object sender, EventArgs e)
+        {
+            string commandArg = (((LinkButton)sender).CommandArgument).ToString();
+
+            switch (commandArg)
+            {
+                case "all":
+                    cases = Case.GetCases();
+                    CasesRepeater.DataSource = cases;
+                    CasesRepeater.DataBind();
+                    break;
+                case "open":
+                case "pending":
+                case "closed":
+                    cases = Case.GetCases(commandArg);
+                    CasesRepeater.DataSource = cases;
+                    CasesRepeater.DataBind();
+                    break;
+                default:
+                    cases = Case.GetCases();
+                    CasesRepeater.DataSource = cases;
+                    CasesRepeater.DataBind();
+                    break;
+            }
         }
     }
 }

@@ -22,6 +22,42 @@ namespace RJLou {
         protected global::System.Web.UI.ScriptManager workingMan;
         
         /// <summary>
+        /// CaseSwitchAll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton CaseSwitchAll;
+        
+        /// <summary>
+        /// CaseSwitchOpen control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton CaseSwitchOpen;
+        
+        /// <summary>
+        /// CaseSwitchPending control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton CaseSwitchPending;
+        
+        /// <summary>
+        /// CaseSwitchClosed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton CaseSwitchClosed;
+        
+        /// <summary>
         /// CasesRepeater control.
         /// </summary>
         /// <remarks>
@@ -38,6 +74,15 @@ namespace RJLou {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel MainContainer;
+        
+        /// <summary>
+        /// CaseUpdatedPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel CaseUpdatedPanel;
         
         /// <summary>
         /// CaseID control.

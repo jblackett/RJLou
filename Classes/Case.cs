@@ -24,7 +24,7 @@ namespace RJLou.Classes
         private DateTime _dateFinalConf;
         private DateTime _dateCompletion;
         private string _status;
-        private string _district;
+        private int _district;
         private List<Document> _documents;
         private List<InternalUser> _caseManagers;
         #endregion
@@ -173,7 +173,7 @@ namespace RJLou.Classes
                 _status = value;
             }
         }
-        public string District
+        public int District
         {
             get
             {
@@ -232,13 +232,14 @@ namespace RJLou.Classes
                     Case result = new Case()
                     {
                         CaseID = Convert.ToInt32(read["Case_ID"]),
-                        CourtID = default(int),
+                        CourtID = Convert.ToInt32(read["Court_ID"]),
                         ReferralDate = read["Referral_Date"] as DateTime? ?? default(DateTime),
                         ReferralNumber = Convert.ToInt32(read["Referral_Number"]),
                         CourtDate = read["Court_Date"] as DateTime? ?? default(DateTime),
                         DateOfFinalConference = read["Final_Conference_Date"] as DateTime? ?? default(DateTime),
                         DateOfCompletion = read["Closure_Date"] as DateTime? ?? default(DateTime),
-                        Status = read["Status"].ToString()
+                        Status = read["Status"].ToString(),
+                        District = Convert.ToInt32(read["District"])
                     };
 
                     result.GetOffenders();
@@ -665,6 +666,50 @@ namespace RJLou.Classes
                         CourtDate = read["Court_Date"] as DateTime? ?? default(DateTime),
                         DateOfFinalConference = read["Final_Conference_Date"] as DateTime? ?? default(DateTime),
                         DateOfCompletion = read["Closure_Date"] as DateTime? ?? default(DateTime),
+                        Status = read["Status"].ToString(),
+                        District = Convert.ToInt32(read["District"])
+                    };
+
+                    newCase.GetOffenders();
+                    newCase.GetVictims();
+                    newCase.GetAffiliates();
+                    newCase.GetNotes();
+                    newCase.GetCharges();
+                    newCase.GetDocuments();
+
+                    results.Add(newCase);
+                }
+            }
+
+            return results;
+        }
+
+        public static List<Case> GetCases(string status)
+        {
+            List<Case> results = new List<Case>();
+            string sql = "SELECT * FROM RJL_Case WHERE Status LIKE @Status";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("Status", status);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    Case newCase = new Case()
+                    {
+                        CaseID = Convert.ToInt32(read["Case_ID"]),
+                        CourtID = default(int),
+                        ReferralDate = read["Referral_Date"] as DateTime? ?? default(DateTime),
+                        ReferralNumber = Convert.ToInt32(read["Referral_Number"]),
+                        CourtDate = read["Court_Date"] as DateTime? ?? default(DateTime),
+                        DateOfFinalConference = read["Final_Conference_Date"] as DateTime? ?? default(DateTime),
+                        DateOfCompletion = read["Closure_Date"] as DateTime? ?? default(DateTime),
                         Status = read["Status"].ToString()
                     };
 
@@ -817,12 +862,24 @@ namespace RJLou.Classes
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("CaseID", CaseID);
                 cmd.Parameters.AddWithValue("CourtID", CourtID);
-                cmd.Parameters.AddWithValue("ReferralDate", ReferralDate);
+                if (ReferralDate == default(DateTime))
+                    cmd.Parameters.AddWithValue("ReferralDate", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("ReferralDate", ReferralDate);
                 cmd.Parameters.AddWithValue("ReferralNumber", ReferralNumber);
-                cmd.Parameters.AddWithValue("CourtDate", CourtDate);
-                cmd.Parameters.AddWithValue("DateOfFinalConference", DateOfFinalConference);
+                if (CourtDate == default(DateTime))
+                    cmd.Parameters.AddWithValue("CourtDate", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("CourtDate", CourtDate);
+                if (DateOfFinalConference == default(DateTime))
+                    cmd.Parameters.AddWithValue("DateOfFinalConference", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("DateOfFinalConference", DateOfFinalConference);
                 cmd.Parameters.AddWithValue("Status", Status);
-                cmd.Parameters.AddWithValue("DateOfCompletion", DateOfCompletion);
+                if (DateOfCompletion == default(DateTime))
+                    cmd.Parameters.AddWithValue("DateOfCompletion", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("DateOfCompletion", DateOfCompletion);
                 cmd.Parameters.AddWithValue("District", District);
 
                 cmd.ExecuteNonQuery();
