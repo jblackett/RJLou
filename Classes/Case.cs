@@ -727,6 +727,85 @@ namespace RJLou.Classes
             return results;
         }
 
+        public static List<Case> GetCases(bool getBasics)
+        {
+            if (getBasics)
+            {
+                List<Case> results = new List<Case>();
+                string sql = "SELECT Case_ID, Status FROM RJL_Case";
+
+                using (SqlConnection conn = new SqlConnection(Constants.DSN))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.CommandType = CommandType.Text;
+
+                    SqlDataReader read = cmd.ExecuteReader();
+
+                    while (read.Read())
+                    {
+                        Case newCase = new Case()
+                        {
+                            CaseID = Convert.ToInt32(read["Case_ID"]),
+                            Status = read["Status"].ToString()
+                        };
+
+                        newCase.GetOffenders();
+                        newCase.GetVictims();
+
+                        results.Add(newCase);
+                    }
+                }
+
+                return results;
+            }
+            
+            return null;
+        }
+
+        public static List<Case> GetCases(bool getBasics, int personID)
+        {
+            if (getBasics)
+            {
+                List<Case> results = new List<Case>();
+                string sql = @"
+                    SELECT      c.Case_ID, Status 
+                    FROM        RJL_Case c
+                    INNER JOIN  Case_Manager cm ON c.Case_ID = cm.Case_ID
+                    WHERE       Person_ID = @PersonID";
+
+                using (SqlConnection conn = new SqlConnection(Constants.DSN))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("PersonID", personID);
+
+                    SqlDataReader read = cmd.ExecuteReader();
+
+                    while (read.Read())
+                    {
+                        Case newCase = new Case()
+                        {
+                            CaseID = Convert.ToInt32(read["Case_ID"]),
+                            Status = read["Status"].ToString()
+                        };
+
+                        newCase.GetOffenders();
+                        newCase.GetVictims();
+
+                        results.Add(newCase);
+                    }
+                }
+
+                return results;
+            }
+
+            return null;
+        }
+
         public static void Add(int courtID, DateTime refDate, int refNum, DateTime courtDate, string district,
             DateTime dateFinConf, DateTime dateComp, string status, List<Offender> offenders = null,
             List<Victim> victims = null, List<Affiliate> affiliates = null, List<Note> notes = null, 

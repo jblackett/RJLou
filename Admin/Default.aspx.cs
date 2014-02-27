@@ -12,14 +12,33 @@ namespace RJLou
     {
         Case thisCase;
         List<Case> cases;
+        int PersonID = -1;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            try { PersonID = Convert.ToInt32(Session["PersonID"]); }
+            catch { }
+
+            if (PersonID <= 0)
+            {
+                Response.Redirect("Login.aspx");
+            }
+
             if (!Page.IsPostBack)
             {
-                cases = Case.GetCases();
-                CasesRepeater.DataSource = cases;
-                CasesRepeater.DataBind();
+                InternalUser thisUser = InternalUser.Get(PersonID);
+                if (thisUser.Role == Role.CASE_MANAGER)
+                {
+                    cases = Case.GetCases(true, thisUser.PersonID);
+                    CasesRepeater.DataSource = cases;
+                    CasesRepeater.DataBind();
+                }
+                else
+                {
+                    cases = Case.GetCases(true);
+                    CasesRepeater.DataSource = cases;
+                    CasesRepeater.DataBind();
+                }
             }
         }
 
@@ -266,7 +285,19 @@ namespace RJLou
 
         protected internal void ViewOffender(object sender, EventArgs e)
         {
+            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
+            Offender thisOffender = Offender.Get(PersonID);
 
+            ModalName.InnerText = thisOffender.FirstName + " " + thisOffender.LastName;
+            ModalDateOfBirth.Text = thisOffender.DateOfBirth.ToString("MM/dd/yyyy");
+            ModalGender.Text = thisOffender.Gender;
+            ModalRace.Text = thisOffender.Race;
+            ModalPhoneNumbers.DataSource = thisOffender.PhoneNumbers;
+            ModalPhoneNumbers.DataBind();
+            ModalAddresses.DataSource = thisOffender.Addresses;
+            ModalAddresses.DataBind();
+
+            ViewPersonModalPanel.CssClass += " visible";
         }
 
         protected internal void DeleteAffiliate(object sender, EventArgs e)
@@ -276,7 +307,19 @@ namespace RJLou
 
         protected internal void ViewAffiliate(object sender, EventArgs e)
         {
+            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
+            Affiliate thisAffiliate = Affiliate.Get(PersonID);
 
+            ModalName.InnerText = thisAffiliate.FirstName + " " + thisAffiliate.LastName;
+            ModalDateOfBirth.Text = thisAffiliate.DateOfBirth.ToString("MM/dd/yyyy");
+            ModalGender.Text = thisAffiliate.Gender;
+            ModalRace.Text = thisAffiliate.Race;
+            ModalPhoneNumbers.DataSource = thisAffiliate.PhoneNumbers;
+            ModalPhoneNumbers.DataBind();
+            ModalAddresses.DataSource = thisAffiliate.Addresses;
+            ModalAddresses.DataBind();
+
+            ViewPersonModalPanel.CssClass += " visible";
         }
 
         protected internal void DeleteCharge(object sender, EventArgs e)
