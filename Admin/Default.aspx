@@ -267,7 +267,7 @@
                 </tr>
                 <tr>
                     <td>Race:</td>
-                    <td><asp:TextBox ID="ModalRace" runat="server" /></td>
+                    <td><asp:TextBox ID="ModalRace" runat="server" ReadOnly="true" /></td>
                 </tr>
                 <tr>
                     <td>Phone Numbers:</td>
@@ -291,7 +291,7 @@
                 </tr>
             </table>
             <a class="button" href="#">Edit Case</a>
-            <span class="x popup">X</span>
+            <span class="x popup" runat="server">X</span>
         </div>
     </asp:Panel>
     <script type="text/javascript">

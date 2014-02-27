@@ -45,6 +45,30 @@ namespace RJLou.Classes
         #endregion
 
         #region Methods
+        internal void GetRole(string role)
+        {
+            role = role.ToUpper();
+
+            switch (role)
+            {
+                case "ADMIN":
+                    Role = Classes.Role.ADMIN;
+                    break;
+                case "CASE MANAGER":
+                    Role = Classes.Role.CASE_MANAGER;
+                    break;
+                case "FACILITATOR":
+                    Role = Classes.Role.FACILITATOR;
+                    break;
+                case "VOLUNTEER":
+                    Role = Classes.Role.VOLUNTEER;
+                    break;
+                default:
+                    Role = Classes.Role.ADMIN;
+                    break;
+            }
+        }
+
         public static InternalUser Get(int personID)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
@@ -83,12 +107,12 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
-                        Password = read["Password"].ToString(),
-                        Role = read["Title"] as Role? ?? default(Role)
+                        Password = read["Password"].ToString()
                     };
 
                     result.GetPhoneNumbers();
                     result.GetAddresses();
+                    result.GetRole(read["Title"].ToString());
 
                     return result;
                 }
@@ -137,12 +161,12 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
-                        Password = read["Password"].ToString(),
-                        Role = (Role)read["Title"]
+                        Password = read["Password"].ToString()
                     };
 
                     result.GetPhoneNumbers();
                     result.GetAddresses();
+                    result.GetRole(read["Title"].ToString());
 
                     return result;
                 }
@@ -188,12 +212,12 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
-                        Password = read["Password"].ToString(),
-                        Role = (Role)read["Title"]
+                        Password = read["Password"].ToString()
                     };
 
                     newUser.GetPhoneNumbers();
                     newUser.GetAddresses();
+                    newUser.GetRole(read["Title"].ToString());
 
                     results.Add(newUser);
                 }
@@ -241,12 +265,12 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
-                        Password = read["Password"].ToString(),
-                        Role = (Role)read["Title"]
+                        Password = read["Password"].ToString()
                     };
 
                     newUser.GetPhoneNumbers();
                     newUser.GetAddresses();
+                    newUser.GetRole(read["Title"].ToString());
 
                     results.Add(newUser);
                 }

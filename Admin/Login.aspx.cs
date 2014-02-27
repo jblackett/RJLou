@@ -1,26 +1,20 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Windows;
 
 namespace RJLou.Admin
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login1 : System.Web.UI.Page
     {
-        string dsn = string.Empty;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserName"] != null)
+            if (Session["PersonID"] != null)
                 Response.Redirect("Default.aspx");
-
-            dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
 
             if (Page.IsPostBack)
             {
@@ -30,28 +24,33 @@ namespace RJLou.Admin
 
         protected void verifyInfo(object sender, EventArgs e)
         {
-            string userName = UserName.Text;
+            string email = Email.Text;
             string password = Password.Text;
 
-            if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
                 return;
 
-            using (SqlConnection conn = new SqlConnection(dsn))
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
             {
                 conn.Open();
 
-                string sql = "SELECT * FROM Internal_User WHERE Username = @UserName AND Password = @Password";
+                string sql = @"
+                    SELECT      p.Person_ID
+                    FROM        Internal_User iu
+                    INNER JOIN  Person p ON iu.Person_ID = p.Person_ID
+                    WHERE       p.Email = @Email
+                    AND         iu.Password = @Password";
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("userName", userName);
+                cmd.Parameters.AddWithValue("Email", email);
                 cmd.Parameters.AddWithValue("Password", password);
 
                 SqlDataReader read = cmd.ExecuteReader();
 
                 if (read.Read())
                 {
-                    Session["Person_ID"] = read["Person_ID"].ToString();
+                    Session["PersonID"] = read["Person_ID"].ToString();
                     Response.Redirect("Default.aspx");
                 }
             }
