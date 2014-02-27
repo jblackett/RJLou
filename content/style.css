@@ -507,3 +507,7 @@ input.mailing_list {
     width: 80%;
     border: none;
 }
+
+.scroll-stick.fixed {
+    background-color: #808080;
+}
