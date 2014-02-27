@@ -4,6 +4,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace RJLou.Classes
@@ -272,6 +273,21 @@ public static List<Address> GetAddresesByZip(string zip)
 
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder result = new StringBuilder();
+
+            result.Append(streetAddress);
+            result.Append(", ");
+            result.Append(city);
+            result.Append(", ");
+            result.Append(state);
+            result.Append(" ");
+            result.Append(zip);
+
+            return result.ToString();
         }
 
         #endregion

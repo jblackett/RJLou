@@ -12,7 +12,7 @@ namespace RJLou.Classes
     {
         #region Private Variables
         private string _pType;
-        private int _number;
+        private string _number;
         #endregion
 
         #region Public Properties
@@ -28,7 +28,7 @@ namespace RJLou.Classes
             }
         }
 
-        public int Number
+        public string Number
         {
             get
             {
@@ -44,7 +44,7 @@ namespace RJLou.Classes
         #region Constructors
         public PhoneNumber() { }
 
-        public PhoneNumber(string type, int number)
+        public PhoneNumber(string type, string number)
         {
             PType = type;
             Number = number;
@@ -73,7 +73,7 @@ namespace RJLou.Classes
                     PhoneNumber result = new PhoneNumber()
                     {
                         PType = read["Phone_Type"].ToString(),
-                        Number = Convert.ToInt32(read["Phone_Number"])
+                        Number = read["Phone_Number"].ToString()
                     };
 
                     return result;
@@ -102,7 +102,7 @@ namespace RJLou.Classes
                     results.Add(new PhoneNumber()
                     {
                         PType = read["Phone_Type"].ToString(),
-                        Number = Convert.ToInt32(read["Phone_Number"])
+                        Number = read["Phone_Number"].ToString()
                     });
                 }
             }
@@ -130,7 +130,7 @@ namespace RJLou.Classes
                     results.Add(new PhoneNumber()
                     {
                         PType = read["Phone_Type"].ToString(),
-                        Number = Convert.ToInt32(read["Phone_Number"])
+                        Number = read["Phone_Number"].ToString()
                     });
                 }
             }
@@ -158,7 +158,7 @@ namespace RJLou.Classes
                     results.Add(new PhoneNumber()
                     {
                         PType = read["Phone_Type"].ToString(),
-                        Number = Convert.ToInt32(read["Phone_Number"])
+                        Number = read["Phone_Number"].ToString()
                     });
                 }
             }
