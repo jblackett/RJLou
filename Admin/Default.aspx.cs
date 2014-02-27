@@ -222,7 +222,41 @@ namespace RJLou
 
         protected internal void ViewVictim(object sender, EventArgs e)
         {
+            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
+            Victim thisVictim = Victim.Get(PersonID);
 
+            ModalName.InnerText = thisVictim.FirstName + " " + thisVictim.LastName;
+            ModalDateOfBirth.Text = thisVictim.DateOfBirth.ToString("MM/dd/yyyy");
+            ModalGender.Text = thisVictim.Gender;
+            ModalRace.Text = thisVictim.Race;
+            ModalPhoneNumbers.DataSource = thisVictim.PhoneNumbers;
+            ModalPhoneNumbers.DataBind();
+            ModalAddresses.DataSource = thisVictim.Addresses;
+            ModalAddresses.DataBind();
+
+            ViewPersonModalPanel.CssClass += " visible";
+        }
+
+        protected void ModalPhoneNumbers_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                PhoneNumber thisNumber = (PhoneNumber)e.Item.DataItem;
+                TextBox ModalPhoneNum = (TextBox)e.Item.FindControl("ModalPhoneNum");
+
+                ModalPhoneNum.Text = thisNumber.ToString();
+            }
+        }
+
+        protected void ModalAddresses_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Address thisAddress = (Address)e.Item.DataItem;
+                TextBox ModalAddress = (TextBox)e.Item.FindControl("ModalAddress");
+
+                ModalAddress.Text = thisAddress.ToString();
+            }
         }
 
         protected internal void DeleteOffender(object sender, EventArgs e)

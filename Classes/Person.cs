@@ -161,7 +161,7 @@ namespace RJLou.Classes
                 {
                     results.Add(new PhoneNumber()
                     {
-                        Number = Convert.ToInt32(read["Phone_Number"]),
+                        Number = read["Phone_Number"].ToString(),
                         PType = read["Phone_Type"].ToString()
                     });
                 }
