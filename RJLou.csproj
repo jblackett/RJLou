@@ -698,18 +698,21 @@
   <ItemGroup>
     <Compile Include="Admin\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Logout.aspx.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Admin\Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
@@ -723,6 +726,7 @@
     <Compile Include="Classes\Guardian.cs" />
     <Compile Include="Classes\InternalUser.cs" />
     <Compile Include="Classes\KRS.cs" />
+    <Compile Include="Classes\NewClassThatServesNoPurpose.cs" />
     <Compile Include="Classes\Note.cs" />
     <Compile Include="Classes\Offender.cs" />
     <Compile Include="Classes\Person.cs" />
@@ -735,6 +739,7 @@
     </Compile>
     <Compile Include="Masterpages\Admin.Master.cs">
       <DependentUpon>Admin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Masterpages\Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
