@@ -726,7 +726,6 @@
     <Compile Include="Classes\Guardian.cs" />
     <Compile Include="Classes\InternalUser.cs" />
     <Compile Include="Classes\KRS.cs" />
-    <Compile Include="Classes\NewClassThatServesNoPurpose.cs" />
     <Compile Include="Classes\Note.cs" />
     <Compile Include="Classes\Offender.cs" />
     <Compile Include="Classes\Person.cs" />
