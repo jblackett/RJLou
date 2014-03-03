@@ -636,12 +636,14 @@
     <Content Include="Images\glyphicons_free\glyphicons_social\glyphicons_social_48_android.png" />
     <Content Include="Images\glyphicons_free\glyphicons_social\glyphicons_social_49_ios.png" />
     <Content Include="Images\hands-graphic1.jpg" />
-    <Content Include="Images\header-background-1.jpg" />
-    <Content Include="Images\header-background.jpg" />
+    <Content Include="Images\header-background-2.png" />
     <Content Include="Images\logo-v2-greenonwhite.svg" />
     <Content Include="Images\logo-v2-whiteongreen.svg" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logo.svg" />
+    <Content Include="Images\louisville-westend.png" />
+    <Content Include="Images\louisville-westend2.png" />
+    <Content Include="Images\louisville-westend3.png" />
     <Content Include="Images\nav-bckg.png" />
     <Content Include="Images\nav-bckg.svg" />
     <Content Include="Images\nav-dark-bckg.png" />
@@ -649,6 +651,7 @@
     <Content Include="Images\nav-green-bckg.png" />
     <Content Include="Images\placeholder.jpg" />
     <Content Include="Images\playbtn.png" />
+    <Content Include="Images\profile-pic.png" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll" />

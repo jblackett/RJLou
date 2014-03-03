@@ -39,7 +39,6 @@ C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\System.Web.Optimization.xml
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Antlr3.Runtime.pdb
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Newtonsoft.Json.xml
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.csprojResolveAssemblyReference.cache
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.dll
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.pdb
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Antlr3.Runtime.dll
