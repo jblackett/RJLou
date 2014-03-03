@@ -102,11 +102,14 @@
     <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Logout.aspx" />
     <Content Include="contacts.html" />
+    <Content Include="Content\admin.css" />
     <Content Include="Content\fonts\helveticaneueltstd-ultlt.svg" />
     <Content Include="Content\fonts\leaguegothic-condensed-italic-webfont.svg" />
     <Content Include="Content\fonts\leaguegothic-condensed-regular-webfont.svg" />
     <Content Include="Content\fonts\leaguegothic-italic-webfont.svg" />
     <Content Include="Content\fonts\leaguegothic-regular-webfont.svg" />
+    <Content Include="Content\mediaqueries-admin.css" />
+    <Content Include="Content\mediaqueries-home.css" />
     <Content Include="Content\style.css" />
     <Content Include="donate.html" />
     <Content Include="donations.html" />
