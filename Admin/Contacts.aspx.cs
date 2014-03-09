@@ -10,13 +10,18 @@ namespace RJLou
 {
     public partial class Contacts : System.Web.UI.Page
     {
-        Person thisPerson;
-        List<Person> persons;
+        Affiliate thisAffiliate;
+        Guardian thisGuardian;
+        InternalUser thisInternalUser;
+        Offender thisOffender;
+        Victim thisVictim;
+        List<Affiliate> affiliates;
+        List<Guardian> guardians;
+        List<InternalUser> internalUsers;
+        List<Offender> offenders;
+        List<Victim> victims;
         int PersonID = -1;
 
-        //Guessing this is for logging in, so i'm not changing anything besides the caes, casesprepeater stuff
-        //However, in our Persons class, we do not have a GetPersons method, so not sure what
-        //you all want to do about that.
         protected void Page_Load(object sender, EventArgs e)
         {
             try { PersonID = Convert.ToInt32(Session["PersonID"]); }
@@ -45,8 +50,7 @@ namespace RJLou
             }
         }
 
-        //Have not changed since back in my Contacts.aspx page I didn't do anything with 
-        //this seciton.
+        
         protected internal void BindData()
         {
             VictimsRepeater.DataSource = thisCase.Victims;
@@ -72,13 +76,11 @@ namespace RJLou
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                //Guessing we still need this? changed case to person
                 Label thisLabel = (Label)e.Item.FindControl("Name");
                 Person currentPerson = (Person)e.Item.DataItem;
 
                 string Name;
 
-                //is this wehre we would bind phonenumbers or addresses?
                 if (currentCase.Offenders.Count > 0)
                     Name = currentCase.Offenders[0].FirstName + " " + currentCase.Offenders[0].LastName;
                 else if (currentCase.Victims.Count > 0)
@@ -177,8 +179,6 @@ namespace RJLou
 
         protected internal void LoadPerson(object sender, EventArgs e)
         {
-            //hmm...used lowercase personID because I believe we were using uppercase
-            //PersonID for the logged in user, correct?
             int personID = -1;
             int.TryParse(((LinkButton)sender).CommandArgument, out personID);
 
@@ -202,7 +202,6 @@ namespace RJLou
 
         protected internal void SaveCase(object sender, EventArgs e)
         {
-            //when to use personID vs PersonID since PersonID at the top is also used for logging in?
             int personID = int.Parse(PersonID.Text);
             thisPerson = Person.Get(PersonID);
 
@@ -332,9 +331,6 @@ namespace RJLou
                     PersonsRepeater.DataSource = persons;
                     PersonsRepeater.DataBind();
                     break;
-                //Right now we have the other two columns as phone numbers and addresses,
-                //In my notes in the other page, I think maybe do a title (victim, offender, case manager, etc)
-                //and possible email instead.
                 case "open":
                 case "pending":
                 case "closed":

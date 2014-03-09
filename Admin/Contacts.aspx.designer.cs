@@ -139,6 +139,15 @@ namespace RJLou {
         protected global::System.Web.UI.WebControls.TextBox Race;
         
         /// <summary>
+        /// CourtID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox CourtID;
+        
+        /// <summary>
         /// CasesRepeater control.
         /// </summary>
         /// <remarks>
@@ -146,6 +155,15 @@ namespace RJLou {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater CasesRepeater;
+        
+        /// <summary>
+        /// GuardiansRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater GuardiansRepeater;
         
         /// <summary>
         /// ViewPersonModalPanel control.
