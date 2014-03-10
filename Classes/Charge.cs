@@ -176,6 +176,28 @@ VALUES              ((SELECT KRS_ID FROM KRS WHERE KRS_Code = @KRSCode)
                 cmd.ExecuteNonQuery();
             }
         }
+
+        internal void UpdateUOR()
+        {
+            string sql = @"
+                UPDATE  CHARGE
+                SET     UOR_Code = @UORCode,
+                        Description = @Description,
+                WHERE   Charge_ID = @ChargeID";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", ChargeID);
+                cmd.Parameters.AddWithValue("UOR_Code", UORCode);
+                cmd.Parameters.AddWithValue("Description", Description);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
         #endregion
     }
 }
