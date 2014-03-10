@@ -22,33 +22,6 @@ namespace RJLou.Admin {
         protected global::System.Web.UI.ScriptManager workingMan;
         
         /// <summary>
-        /// CodeSwitchAll control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton CodeSwitchAll;
-        
-        /// <summary>
-        /// CodeSwitchOpen control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton CodeSwitchOpen;
-        
-        /// <summary>
-        /// CodeSwitchPending control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton CodeSwitchPending;
-        
-        /// <summary>
         /// ChargesRepeater control.
         /// </summary>
         /// <remarks>
@@ -110,68 +83,5 @@ namespace RJLou.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Description;
-        
-        /// <summary>
-        /// ViewPersonModalPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ViewPersonModalPanel;
-        
-        /// <summary>
-        /// ModalName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ModalName;
-        
-        /// <summary>
-        /// ModalDateOfBirth control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalDateOfBirth;
-        
-        /// <summary>
-        /// ModalGender control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalGender;
-        
-        /// <summary>
-        /// ModalRace control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalRace;
-        
-        /// <summary>
-        /// ModalPhoneNumbers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater ModalPhoneNumbers;
-        
-        /// <summary>
-        /// ModalAddresses control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater ModalAddresses;
     }
 }

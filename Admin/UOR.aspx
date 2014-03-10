@@ -6,11 +6,6 @@
     <asp:ScriptManager runat='server' ID='workingMan' />
     <div id="container_left" class="container left">
         <table class="changes" cellspacing="0" border="0">
-            <tr>
-                <td><asp:LinkButton runat="server" ID="CodeSwitchAll" OnClick="SwitchCodeList" Text="All" CommandArgument="all" /></td>
-                <td><asp:LinkButton runat="server" ID="CodeSwitchOpen" OnClick="SwitchCodeList" Text="KRS" CommandArgument="krs" /></td>
-                <td><asp:LinkButton runat="server" ID="CodeSwitchPending" OnClick="SwitchCodeList" Text="UOR" CommandArgument="uor" /></td>
-            </tr>
         </table>
         <asp:Repeater runat="server" ID="ChargesRepeater" OnItemDataBound="ChargesRepeater_Databind">
             <HeaderTemplate>
@@ -28,8 +23,7 @@
             <ItemTemplate>
                 <tr>
                     <td><asp:LinkButton runat="server" ID="ChargeButton" OnClick="LoadCharge" Text='<%# Eval("ChargeID") %>' CommandArgument='<%# Eval("ChargeID") %>' /></td>
-                    <td><asp:Label ID="Name" runat="server"></asp:Label></td>
-                    <!--<td><%#DataBinder.Eval(Container.DataItem, "Status")%></td>-->
+                    <td><asp:Label ID="ChargeID" runat="server"></asp:Label></td>
                 </tr>
             </ItemTemplate>
             <FooterTemplate>
@@ -72,47 +66,6 @@
         </asp:UpdatePanel>
     </div>
     <div style="margin: 0; padding: 0; clear: both;"></div>
-    <!--<asp:Panel ID="ViewPersonModalPanel" runat="server" CssClass="modal-background">
-        <div class="modal">
-            <h1 id="ModalName" runat="server"></h1>
-            <table class="nothing">
-                <tr>
-                    <td>Date of Birth:</td>
-                    <td><asp:TextBox ID="ModalDateOfBirth" runat="server" ReadOnly="true" /></td>
-                </tr>
-                <tr>
-                    <td>Gender:</td>
-                    <td><asp:TextBox ID="ModalGender" runat="server" ReadOnly="true" /></td>
-                </tr>
-                <tr>
-                    <td>Race:</td>
-                    <td><asp:TextBox ID="ModalRace" runat="server" ReadOnly="true" /></td>
-                </tr>
-                <tr>
-                    <td>Phone Numbers:</td>
-                    <td>
-                        <asp:Repeater ID="ModalPhoneNumbers" runat="server" OnItemDataBound="ModalPhoneNumbers_ItemDataBound">
-                            <ItemTemplate>
-                                <asp:TextBox ID="ModalPhoneNum" runat="server" ReadOnly="true" /> <br />
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Addresses:</td>
-                    <td>
-                        <asp:Repeater ID="ModalAddresses" runat="server" OnItemDataBound="ModalAddresses_ItemDataBound">
-                            <ItemTemplate>
-                                <asp:TextBox ID="ModalAddress" runat="server" ReadOnly="true" Width="300" /> <br />
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </td>
-                </tr>
-            </table>
-            <a class="button" href="#">Edit Case</a>
-            <span class="x popup" runat="server">X</span>
-        </div>
-    </asp:Panel>-->
     <script type="text/javascript">
         $('span.x.alert').click(function () {
             $('.updatepanel').removeClass('visible');
