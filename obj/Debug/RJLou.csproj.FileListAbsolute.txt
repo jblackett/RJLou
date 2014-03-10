@@ -51,4 +51,3 @@ C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Newtonsoft.Json.xml
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.dll
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.pdb
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.csprojResolveAssemblyReference.cache

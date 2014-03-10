@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
  * 1. Add Case
  * 2. Role Management
  * 3. Victim/Affiliate/Offender
- *      - Delete
+ *      - Adding/Deleting refreshes the page weird
  * 4. Notes
  *      - Edit
  *      - New
