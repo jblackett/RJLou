@@ -460,6 +460,22 @@ namespace RJLou.Classes
             }
         }
         #endregion
+        public static void AddPerson(int personID, int caseID)
+        {
+            string sql = "INSERT INTO Case_File (Person_ID, Case_ID) VALUES (@PersonID, @CaseID)";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", personID);
+                cmd.Parameters.AddWithValue("CaseID", caseID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }        
         #region Note Methods
         internal void GetNotes()
         {

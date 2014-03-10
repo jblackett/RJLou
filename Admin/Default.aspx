@@ -124,7 +124,7 @@
                         <FooterTemplate>
                                 </tbody>
                             </table>
-                            <a class="button float-right" href="#">Add Victim</a>
+                            <asp:LinkButton runat="server" ID="VictimAddButton" OnClick="AddVictim" CssClass="button float-right" Text="Add Victim" />
                         </FooterTemplate>
                     </asp:Repeater>
                 </div>
@@ -157,7 +157,7 @@
                         <FooterTemplate>
                                 </tbody>
                             </table>
-                            <a class="button float-right" href="#">Add Offender</a>
+                            <asp:LinkButton runat="server" ID="OffenderAddButton" OnClick="AddOffender" CssClass="button float-right" Text="Add Offender" />
                         </FooterTemplate>
                     </asp:Repeater>
                 </div>
@@ -190,7 +190,7 @@
                         <FooterTemplate>
                                 </tbody>
                             </table>
-                            <a class="button float-right" href="#">Add Affiliate</a>
+                            <asp:LinkButton runat="server" ID="AffiliateAddButton" OnClick="AddAffiliate" CssClass="button float-right" Text="Add Affiliate" />
                         </FooterTemplate>
                     </asp:Repeater>
                 </div>
@@ -292,6 +292,27 @@
             </table>
             <a class="button" href="#">Edit Case</a>
             <span class="x popup" runat="server">X</span>
+        </div>
+    </asp:Panel>
+    <asp:Panel ID="AddPersonModalPanel" runat="server" CssClass="modal-background">
+        <div class="modal">
+            <h1 id="ModalType" runat="server"></h1>
+            <asp:GridView ID="NewCasePersonList" AllowPaging="true" PageSize="6" OnPageIndexChanging="NewCasePersonList_PageIndexChanging" AutoGenerateColumns="false" runat="server" OnRowDataBound="NewCasePersonList_RowDataBound" CellSpacing="0">
+                <Columns>
+                    <asp:TemplateField HeaderText="Name">
+                        <ItemTemplate>
+                            <asp:Label ID="PersonName" runat="server" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                    <asp:BoundField DataField="Gender" HeaderText="Gender" />
+                    <asp:BoundField DataField="Race" HeaderText="Race" />
+                    <asp:TemplateField HeaderText="Actions">
+                        <ItemTemplate>
+                            <asp:LinkButton runat="server" ID="NewPersonAddButton" OnClick="AddPersonToCaseList" Text="Add" CssClass="button" CommandArgument='<%# Eval("PersonID") %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
         </div>
     </asp:Panel>
     <script type="text/javascript">

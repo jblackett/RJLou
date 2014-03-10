@@ -82,8 +82,7 @@ namespace RJLou.Classes
                             Email,
                             Race
                 FROM        Affiliate a 
-                INNER JOIN  Person p ON a.Person_ID = p.Person_ID
-                WHERE       a.Person_ID = @PersonID";
+                INNER JOIN  Person p ON a.Person_ID = p.Person_ID";
             List<Affiliate> results = new List<Affiliate>();
 
             using (SqlConnection conn = new SqlConnection(dsn))

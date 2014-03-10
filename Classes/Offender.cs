@@ -112,8 +112,7 @@ namespace RJLou.Classes
                             Race,
                             Offender_Number
                 FROM        Offender o 
-                INNER JOIN  Person p ON o.Person_ID = p.Person_ID
-                WHERE       o.Person_ID = @PersonID";
+                INNER JOIN  Person p ON o.Person_ID = p.Person_ID";
             List<Offender> results = new List<Offender>();
 
             using (SqlConnection conn = new SqlConnection(dsn))

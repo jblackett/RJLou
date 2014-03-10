@@ -94,8 +94,7 @@ namespace RJLou.Classes
                             Email,
                             Race
                 FROM        Victim v 
-                INNER JOIN  Person p ON v.Person_ID = p.Person_ID
-                WHERE       v.Person_ID = @PersonID";
+                INNER JOIN  Person p ON v.Person_ID = p.Person_ID";
             List<Victim> results = new List<Victim>();
 
             using (SqlConnection conn = new SqlConnection(dsn))

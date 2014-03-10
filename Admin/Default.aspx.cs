@@ -6,6 +6,25 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+/************** THINGS TO BE DONE ***********************
+ * 
+ * 1. Add Case
+ * 2. Role Management
+ * 3. Victim/Affiliate/Offender
+ *      - Delete
+ * 4. Notes
+ *      - Edit
+ *      - New
+ *      - Delete(?)
+ * 5. Charges
+ *      - View
+ *      - Add
+ *      - Delete
+ * 6. Documents
+ *      - All of it
+ * 7. Responsive Design
+ * 
+ * *****************************************************/
 namespace RJLou
 {
     public partial class Default : System.Web.UI.Page
@@ -13,6 +32,9 @@ namespace RJLou
         Case thisCase;
         List<Case> cases;
         int PersonID = -1;
+        List<Victim> allVictims;
+        List<Offender> allOffenders;
+        List<Affiliate> allAffiliates;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -173,6 +195,8 @@ namespace RJLou
 
             thisCase = Case.Get(CaseID);
 
+            Session["CaseID"] = CaseID;
+
             BindData();
             LoadHeader();
         }
@@ -236,7 +260,13 @@ namespace RJLou
 
         protected internal void DeleteVictim(object sender, EventArgs e)
         {
+            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
+            Victim thisVictim = Victim.Get(PersonID);
+            int CaseID = Convert.ToInt32(Session["CaseID"]);
+            thisCase = Case.Get(CaseID);
 
+            thisCase.DeleteVictim(thisVictim);
+            DataBind();
         }
 
         protected internal void ViewVictim(object sender, EventArgs e)
@@ -254,6 +284,18 @@ namespace RJLou
             ModalAddresses.DataBind();
 
             ViewPersonModalPanel.CssClass += " visible";
+        }
+
+        protected internal void AddVictim(object sender, EventArgs e)
+        {
+            ModalType.InnerText = "Select Victim";
+            allVictims = Victim.GetVictims();
+            NewCasePersonList.DataSource = allVictims;
+            NewCasePersonList.DataBind();
+
+            AddPersonModalPanel.CssClass += " visible";
+
+            Session["AddType"] = "Victim";
         }
 
         protected void ModalPhoneNumbers_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -280,7 +322,13 @@ namespace RJLou
 
         protected internal void DeleteOffender(object sender, EventArgs e)
         {
+            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
+            Offender thisOffender = Offender.Get(PersonID);
+            int CaseID = Convert.ToInt32(Session["CaseID"]);
+            thisCase = Case.Get(CaseID);
 
+            thisCase.DeleteOffender(thisOffender);
+            BindData();
         }
 
         protected internal void ViewOffender(object sender, EventArgs e)
@@ -300,9 +348,27 @@ namespace RJLou
             ViewPersonModalPanel.CssClass += " visible";
         }
 
+        protected internal void AddOffender(object sender, EventArgs e)
+        {
+            ModalType.InnerText = "Select Offender";
+            allOffenders = Offender.GetOffenders();
+            NewCasePersonList.DataSource = allOffenders;
+            NewCasePersonList.DataBind();
+
+            AddPersonModalPanel.CssClass += " visible";
+
+            Session["AddType"] = "Offender";
+        }
+
         protected internal void DeleteAffiliate(object sender, EventArgs e)
         {
+            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
+            Affiliate thisAffiliate = Affiliate.Get(PersonID);
+            int CaseID = Convert.ToInt32(Session["CaseID"]);
+            thisCase = Case.Get(CaseID);
 
+            thisCase.DeleteAffiliate(thisAffiliate);
+            BindData();
         }
 
         protected internal void ViewAffiliate(object sender, EventArgs e)
@@ -320,6 +386,39 @@ namespace RJLou
             ModalAddresses.DataBind();
 
             ViewPersonModalPanel.CssClass += " visible";
+        }
+
+        protected internal void AddAffiliate(object sender, EventArgs e)
+        {
+            ModalType.InnerText = "Select Affiliate";
+            allAffiliates = Affiliate.GetAffiliates();
+            NewCasePersonList.DataSource = allAffiliates;
+            NewCasePersonList.DataBind();
+
+            AddPersonModalPanel.CssClass += " visible";
+
+            Session["AddType"] = "Affiliate";
+        }
+
+        protected internal void AddPersonToCaseList(object sender, EventArgs e)
+        {
+            int PersonID = -1;
+            int CaseID = -1;
+
+            try
+            {
+                PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
+                CaseID = Convert.ToInt32(Session["CaseID"]);
+            }
+            catch { }
+
+            if (PersonID <= 0 || CaseID <= 0)
+                return;
+
+            Case.AddPerson(PersonID, CaseID);
+            DataBind();
+
+            AddPersonModalPanel.CssClass = "modal-background";
         }
 
         protected internal void DeleteCharge(object sender, EventArgs e)
@@ -355,6 +454,29 @@ namespace RJLou
                     CasesRepeater.DataSource = cases;
                     CasesRepeater.DataBind();
                     break;
+            }
+        }
+
+        protected void NewCasePersonList_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            NewCasePersonList.PageIndex = e.NewPageIndex;
+            if (Session["AddType"].Equals("Victim"))
+                NewCasePersonList.DataSource = allVictims;
+            else if (Session["AddType"].Equals("Offender"))
+                NewCasePersonList.DataSource = allOffenders;
+            else if (Session["AddType"].Equals("Affiliate"))
+                NewCasePersonList.DataSource = allAffiliates;
+            NewCasePersonList.DataBind();
+        }
+
+        protected void NewCasePersonList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                Label PersonName = (Label)e.Row.FindControl("PersonName");
+                Person thisPerson = (Person)e.Row.DataItem;
+
+                PersonName.Text = thisPerson.FirstName + " " + thisPerson.LastName;
             }
         }
     }
