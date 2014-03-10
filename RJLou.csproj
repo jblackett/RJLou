@@ -98,6 +98,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Admin\Contacts.aspx" />
     <Content Include="Admin\Default.aspx" />
     <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Logout.aspx" />
@@ -823,6 +824,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin\Contacts.aspx.cs">
+      <DependentUpon>Contacts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Contacts.aspx.designer.cs">
+      <DependentUpon>Contacts.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Admin\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

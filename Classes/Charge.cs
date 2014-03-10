@@ -12,7 +12,7 @@ namespace RJLou.Classes
     {
         #region Private Variables
         private int _chargeID;
-        private int _krsCode;
+        private int _krsID;
         private string _uorCode;
         private string _description;
         #endregion
@@ -29,15 +29,15 @@ namespace RJLou.Classes
                 _chargeID = value;
             }
         }
-        public int KRSCode
+        public int KRSID
         {
             get
             {
-                return _krsCode;
+                return _krsID;
             }
             set
             {
-                _krsCode = value;
+                _krsID = value;
             }
         }
         public string UORCode
@@ -72,12 +72,7 @@ namespace RJLou.Classes
         public static Charge Get(int id)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = @"
-                SELECT      c.*,
-                            k.KRS_Code
-                FROM        Charge c
-                INNER JOIN  KRS k ON c.KRS_ID = k.KRS_ID
-                WHERE       Charge_ID = @ID";
+            string sql = "SELECT * FROM Charge WHERE Charge_ID = @ID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -94,7 +89,7 @@ namespace RJLou.Classes
                     Charge result = new Charge()
                     {
                         ChargeID = Convert.ToInt32(read["Charge_ID"]),
-                        KRSCode = Convert.ToInt32(read["KRS_Code"]),
+                        KRSID = Convert.ToInt32(read["KRS_ID"]),
                         UORCode = read["UOR_Code"].ToString(),
                         Description = read["Description"].ToString()
                     };
@@ -108,11 +103,7 @@ namespace RJLou.Classes
 
         public static List<Charge> GetCharges()
         {
-            string sql = @"
-                SELECT      c.*,
-                            k.KRS_Code
-                FROM        Charge c
-                INNER JOIN  KRS k ON c.KRS_ID = k.KRS_ID";
+            string sql = "SELECT * FROM Charge";
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             List<Charge> results = new List<Charge>();
 
@@ -130,7 +121,7 @@ namespace RJLou.Classes
                     results.Add(new Charge()
                     {
                         ChargeID = Convert.ToInt32(read["Charge_ID"]),
-                        KRSCode = Convert.ToInt32(read["KRS_Code"]),
+                        KRSID = Convert.ToInt32(read["KRS_ID"]),
                         UORCode = read["UOR_Code"].ToString(),
                         Description = read["Description"].ToString()
                     });
@@ -140,20 +131,17 @@ namespace RJLou.Classes
             return results;
         }
 
-        public static void Add(int krsCode, string uorCode, string description)
+        public static void Add(int krsID, string uorCode, string description)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = @"
-INSERT INTO Charge  (KRS_ID, UOR_Code, Description) 
-VALUES              ((SELECT KRS_ID FROM KRS WHERE KRS_Code = @KRSCode)
-                    , @UORCode, @Description)";
+            string sql = "INSERT INTO Charge (KRS_ID, UOR_Code, Description) VALUES (@KRSID, @UORCode, @Description)";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("KRSCode", krsCode);
+                cmd.Parameters.AddWithValue("KRSID", krsID);
                 cmd.Parameters.AddWithValue("UORCode", uorCode);
                 cmd.Parameters.AddWithValue("Description", description);
 
