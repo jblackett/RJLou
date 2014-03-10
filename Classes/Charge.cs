@@ -15,6 +15,7 @@ namespace RJLou.Classes
         private int _krsCode;
         private string _uorCode;
         private string _description;
+        private string _krsID;
         #endregion
 
         #region Public Properties
@@ -62,6 +63,17 @@ namespace RJLou.Classes
                 _description = value;
             }
         }
+        public string KrsID
+        {
+            get
+            {
+                return _krsID;
+            }
+            set
+            {
+                _krsID = value;
+            }
+        }
         #endregion
 
         #region Constructors
@@ -74,7 +86,8 @@ namespace RJLou.Classes
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
                 SELECT      c.*,
-                            k.KRS_Code
+                            k.KRS_Code,
+                            k.KRS_ID
                 FROM        Charge c
                 INNER JOIN  KRS k ON c.KRS_ID = k.KRS_ID
                 WHERE       Charge_ID = @ID";
@@ -96,7 +109,8 @@ namespace RJLou.Classes
                         ChargeID = Convert.ToInt32(read["Charge_ID"]),
                         KRSCode = Convert.ToInt32(read["KRS_Code"]),
                         UORCode = read["UOR_Code"].ToString(),
-                        Description = read["Description"].ToString()
+                        Description = read["Description"].ToString(),
+                        KrsID = read["KRS_ID"].ToString()
                     };
 
                     return result;
@@ -110,7 +124,8 @@ namespace RJLou.Classes
         {
             string sql = @"
                 SELECT      c.*,
-                            k.KRS_Code
+                            k.KRS_Code,
+                            k.KRS_ID
                 FROM        Charge c
                 INNER JOIN  KRS k ON c.KRS_ID = k.KRS_ID";
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
@@ -132,7 +147,8 @@ namespace RJLou.Classes
                         ChargeID = Convert.ToInt32(read["Charge_ID"]),
                         KRSCode = Convert.ToInt32(read["KRS_Code"]),
                         UORCode = read["UOR_Code"].ToString(),
-                        Description = read["Description"].ToString()
+                        Description = read["Description"].ToString(),
+                        KrsID = read["KRS_ID"].ToString()
                     });
                 }
             }
@@ -182,8 +198,12 @@ VALUES              ((SELECT KRS_ID FROM KRS WHERE KRS_Code = @KRSCode)
             string sql = @"
                 UPDATE  CHARGE
                 SET     UOR_Code = @UORCode,
-                        Description = @Description,
-                WHERE   Charge_ID = @ChargeID";
+                        Description = @Description
+                WHERE   Charge_ID = @ChargeID
+
+                UPDATE  KRS
+                SET     KRS_Code = @KRSCode
+                WHERE   KRS_ID = @KRSID";
 
             using (SqlConnection conn = new SqlConnection(Constants.DSN))
             {
@@ -191,13 +211,16 @@ VALUES              ((SELECT KRS_ID FROM KRS WHERE KRS_Code = @KRSCode)
 
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("CaseID", ChargeID);
-                cmd.Parameters.AddWithValue("UOR_Code", UORCode);
+                cmd.Parameters.AddWithValue("ChargeID", ChargeID);
+                cmd.Parameters.AddWithValue("UORCode", UORCode);
                 cmd.Parameters.AddWithValue("Description", Description);
+                cmd.Parameters.AddWithValue("KRSCode", KRSCode);
+                cmd.Parameters.AddWithValue("KRSID", KrsID);
 
                 cmd.ExecuteNonQuery();
             }
         }
+
         #endregion
     }
 }

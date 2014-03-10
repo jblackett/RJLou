@@ -56,13 +56,38 @@ namespace RJLou.Admin
 
         protected internal void SaveCharge(object sender, EventArgs e)
         {
+            int KRSHolder;
             int chargeID = int.Parse(ChargeID.Text);
             thisCharge = Charge.Get(chargeID);
+            thisCharge.UORCode = UOR_Code.Text;
+            thisCharge.Description = Description.Text;
+            if (int.TryParse(KRS_Code.Text, out KRSHolder) && KRSHolder != 0)
+            {
+                thisCharge.KRSCode = KRSHolder;
+            }
+            else
+                thisCharge.KRSCode = 000000;
 
 
 
             thisCharge.UpdateUOR();
             CaseUpdatedPanel.CssClass += " visible";
+        }
+
+        protected internal void ChargesRepeater_Databind(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Label thisLabel = (Label)e.Item.FindControl("ChargeID");
+                Charge currentCharge = (Charge)e.Item.DataItem;
+
+                string ChargeCode;
+
+
+                ChargeCode = currentCharge.Description;
+
+                thisLabel.Text = ChargeCode;
+            }
         }
     }
 }
