@@ -1,11 +1,10 @@
-﻿
-
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Donor.aspx.cs" Inherits="RJLou.Admin.Donor" %>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="StyleSheet.css" />
+    <link rel="stylesheet" type="text/css" href="/content/style.css" />
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 </head>
 <body>
@@ -70,21 +69,21 @@
 </script>
 
     <div id="container_left" class="container left">
-        <table class="changes" cellspacing="0" border="0">
+       <%-- <table class="changes" cellspacing="0" border="0">
             <tr>
                 <td><a id="MainContent_CaseSwitchAll" href="javascript:__doPostBack(&#39;ctl00$MainContent$CaseSwitchAll&#39;,&#39;&#39;)">All</a></td>
                 <td><a id="MainContent_CaseSwitchOpen" href="javascript:__doPostBack(&#39;ctl00$MainContent$CaseSwitchOpen&#39;,&#39;&#39;)">Open</a></td>
                 <td><a id="MainContent_CaseSwitchPending" href="javascript:__doPostBack(&#39;ctl00$MainContent$CaseSwitchPending&#39;,&#39;&#39;)">Pending Approval</a></td>
                 <td><a id="MainContent_CaseSwitchClosed" href="javascript:__doPostBack(&#39;ctl00$MainContent$CaseSwitchClosed&#39;,&#39;&#39;)">Closed</a></td>
             </tr>
-        </table>
+        </table>--%>
         
                 <table cellspacing="0" border="0">
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Phone</th>
-                            <th>Address</th>
+                            <%--<th>Address</th>--%>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,25 +104,25 @@
                 <tr>
                     <td><a id="MainContent_CasesRepeater_CaseButton_6" href="javascript:__doPostBack(&#39;ctl00$MainContent$CasesRepeater$ctl07$CaseButton&#39;,&#39;&#39;)"> </a></td>
                     <td><span id="MainContent_CasesRepeater_Name_6"> </span></td>
-                    <td> </td>
+                <%--    <td> </td>--%>
                 </tr>
             
                 <tr>
                     <td><a id="MainContent_CasesRepeater_CaseButton_7" href="javascript:__doPostBack(&#39;ctl00$MainContent$CasesRepeater$ctl08$CaseButton&#39;,&#39;&#39;)"> </a></td>
                     <td><span id="MainContent_CasesRepeater_Name_7"> </span></td>
-                    <td> </td>
+                 <%--   <td> </td>--%>
                 </tr>
             
                 <tr>
                     <td><a id="MainContent_CasesRepeater_CaseButton_8" href="javascript:__doPostBack(&#39;ctl00$MainContent$CasesRepeater$ctl09$CaseButton&#39;,&#39;&#39;)"> </a></td>
                     <td><span id="MainContent_CasesRepeater_Name_8"> </span></td>
-                    <td> </td>
+                   <%-- <td> </td>--%>
                 </tr>
             
                 <tr>
                     <td><a id="MainContent_CasesRepeater_CaseButton_9" href="javascript:__doPostBack(&#39;ctl00$MainContent$CasesRepeater$ctl10$CaseButton&#39;,&#39;&#39;)"> </a></td>
                     <td><span id="MainContent_CasesRepeater_Name_9"> </span></td>
-                    <td> </td>
+                 <%--   <td> </td>--%>
                 </tr>
             
                     </tbody>
@@ -132,7 +131,7 @@
     </div>
     <div class="container right">
         <div id="MainContent_MainContainer">
-	
+
                 <div class="scroll-stick">
                     <a class="smaller" href="#Donor">Donor</a>
                     <a class="smaller" href="#Donations">Donations</a>
@@ -140,7 +139,7 @@
                 </div>
                 <div style="clear: both;"></div>
                 <div id="MainContent_CaseUpdatedPanel" class="updatepanel">
-		
+
                     <p>
                         This case was successfully saved!
                     </p>
@@ -267,7 +266,7 @@
     </div>
     <div style="margin: 0; padding: 0; clear: both;"></div>
     <div id="MainContent_ViewPersonModalPanel" class="modal-background">
-	
+
         <div class="modal">
             <h1 id="MainContent_ModalName"></h1>
             <table class="nothing">
