@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Donor.aspx.cs" Inherits="RJLou.Admin.Donor" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Donations.aspx.cs" Inherits="RJLou.Admin.Donor" %>
 
 <!DOCTYPE html>
 <html>
@@ -50,10 +50,10 @@
     <div class="section admin_header">
         <div class="container admin_header">
             <a class="admin_nav_link active" href="Default.aspx">Case</a>
-            <a class="admin_nav_link" href="contacts.html">Contacts</a>
-            <a class="admin_nav_link" href="donations.html">Donations</a>
-            <a class="admin_nav_link" href="events.html">Events</a>
-            <a class="admin_nav_link" href="reports.html">Reports</a>
+            <a class="admin_nav_link" href="contacts.aspx">Contacts</a>
+            <a class="admin_nav_link" href="donations.aspx">Donations</a>
+            <a class="admin_nav_link" href="events.aspx">Events</a>
+            <a class="admin_nav_link" href="reports.aspx">Reports</a>
             <div class="float-right">
                 <input type="search" name="searchTxt" placeholder="Start searching..." />
                 <a class="button" href="#">+</a>
@@ -135,7 +135,9 @@
                 <div class="scroll-stick">
                     <a class="smaller" href="#Donor">Donor</a>
                     <a class="smaller" href="#Donations">Donations</a>
+                    <a class="smaller" href="#Address">Address</a>
                     <a class="smaller" href="#Events_Attended">Events Attended</a>
+                    <a class="smaller" href="#Phone">Phone Numbers</a>
                 </div>
                 <div style="clear: both;"></div>
                 <div id="MainContent_CaseUpdatedPanel" class="updatepanel">
@@ -200,7 +202,50 @@
                                 </tbody>
                             </table>
                             <a class="button float-right" href="#">Add Donation</a>
+                                </div>
+                
+            <h1 id="H1">Address</h1>
+                <div class="inner">
+                    
+                            <table cellspacing="0" border="0">
+                                <thead>
+                                    <tr>
+                                        <th>Street</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>ZIP Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                         
+                                    <tr>
+                                        <td><span id="Span1"> </span></td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td>
+                                            <a id="A1" href="javascript:__doPostBack(&#39;ctl00$MainContent$VictimsRepeater$ctl01$VictimDeleteButton&#39;,&#39;&#39;)">Delete</a> &nbsp;
+                                    
+                                        </td>
+                                    </tr>
+                        
+                                    <tr>
+                                        <td><span id="Span2"> </span></td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td> </td>
+                                        <td>
+                                            <a id="A2" href="javascript:__doPostBack(&#39;ctl00$MainContent$VictimsRepeater$ctl02$VictimDeleteButton&#39;,&#39;&#39;)">Delete</a> &nbsp;
+                                    
+                                        </td>
+                                    </tr>
+                        
+                                </tbody>
+                            </table>
+                            <a class="button float-right" href="#">Add Address</a>
+                        
+                </div> 
+                           
                 </div>
                 <h1 id="offenders">Events Attended</h1>
                 <div class="inner">
@@ -259,7 +304,7 @@
                             </table>
                             <a class="button float-right" href="#">Add Event</a>
                         
-                </div>
+
                     
             
 </div>
