@@ -357,5 +357,34 @@ namespace RJLou
                     break;
             }
         }
+
+        protected internal void ClosePersonModalPanel(object Sender, EventArgs e)
+        {
+            ViewPersonModalPanel.CssClass = "modal-background";
+        }
+
+        protected internal void AddManager(object Sender, EventArgs e)
+        {
+            //thisCase.AddCaseManagerToCase()
+        }
+
+        protected internal void OpenManagerModalPanel(object Sender, EventArgs e)
+        {
+                        List<InternalUser> UserList = InternalUser.GetInternalUsers();
+                        DropDownList populatedList = (DropDownList)FindControl("managerDropDown");
+
+                        for (int i = 0; i < UserList.Count; i++)
+                        {
+                            ListItem newItem = new ListItem();
+                            if (UserList[i].Role == Role.CASE_MANAGER)
+                            {
+                                newItem.Text = UserList[i].FirstName + " " + UserList[i].LastName;
+                                newItem.Value = UserList[i].PersonID.ToString();
+                                populatedList.Items.Add(newItem);
+                            }
+                        }
+
+            addManagerPanel.CssClass += " visible";
+        }
     }
 }

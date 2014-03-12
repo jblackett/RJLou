@@ -964,6 +964,14 @@ namespace RJLou.Classes
                 cmd.ExecuteNonQuery();
             }
         }
+
+        protected internal void AddCaseManagerToCase(InternalUser CaseManager)
+        {
+            if (CaseManager.Role == Role.CASE_MANAGER)
+            {
+                _caseManagers.Add(CaseManager);
+            }
+        }
         #endregion
     }
 }

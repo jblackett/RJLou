@@ -95,6 +95,7 @@
                     </tr>
                 </table>
                 <asp:LinkButton runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />
+                <asp:LinkButton runat="server" CssClass="button" Text="Add Case Manager" OnClick="OpenManagerModalPanel" />
                 <h1 id="victims">Victims</h1>
                 <div class="inner">
                     <asp:Repeater ID="VictimsRepeater" runat="server" OnItemDataBound="VictimsRepeater_ItemDataBound">
@@ -291,10 +292,29 @@
                 </tr>
             </table>
             <a class="button" href="#">Edit Case</a>
-            <span class="x popup" runat="server">X</span>
+            <asp:LinkButton ID ="CloseWindow" Text="Close" runat="server" OnClick="ClosePersonModalPanel" CssClass="button" />
+            <!--<span class="x popup" runat="server">X</span>-->
         </div>
     </asp:Panel>
-    <script type="text/javascript">
+
+    <asp:Panel ID="addManagerPanel" runat="server" CssClass="modal-background">
+        <div class="modal">
+            <h1 id="H1" runat="server"></h1>
+            <table class="nothing">
+                <tr>
+                    <td>Manager to Add</td>
+                    <td>
+                        
+                            <asp:DropDownList ID="managerDropDown" runat="server" width ="200px">
+                            </asp:DropDownList>
+                        
+                    </td>
+                </tr>
+                </table>
+            <asp:LinkButton runat="server" Text="Add" OnClick="AddManager"  CssClass="button"/>
+        </div>
+    </asp:Panel>
+    <!--<script type="text/javascript">
         $('span.x.alert').click(function () {
             $('.updatepanel').removeClass('visible');
         });
@@ -302,5 +322,5 @@
         $('span.x.popup').click(function () {
             $('.modal-background').removeClass('visible');
         })
-    </script>
+    </script>-->
 </asp:Content>
