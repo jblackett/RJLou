@@ -67,6 +67,7 @@ namespace RJLou.Classes
                         LastName = read["Last_Name"].ToString(),
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
+                        Email = read["Email"].ToString(),
                         Race = read["Race"].ToString()
                     };
 
@@ -94,8 +95,7 @@ namespace RJLou.Classes
                             Email,
                             Race
                 FROM        Victim v 
-                INNER JOIN  Person p ON v.Person_ID = p.Person_ID
-                WHERE       v.Person_ID = @PersonID";
+                INNER JOIN  Person p ON v.Person_ID = p.Person_ID";
             List<Victim> results = new List<Victim>();
 
             using (SqlConnection conn = new SqlConnection(dsn))
@@ -116,6 +116,7 @@ namespace RJLou.Classes
                         LastName = read["Last_Name"].ToString(),
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
+                        Email = read["Email"].ToString(),
                         Race = read["Race"].ToString()
                     };
 
@@ -203,6 +204,40 @@ namespace RJLou.Classes
             }
 
             Guardians = results;
+        }
+
+        internal void AddGuardian(Guardian newGuardian)
+        {
+            string sql = "INSERT INTO Guardian_List (Person_ID, Guardian_ID) VALUES (@PersonID, @GuardianID)";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+                cmd.Parameters.AddWithValue("GuardianID", newGuardian.GuardianID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        internal void DeleteGuardian(Guardian oldGuardian)
+        {
+            string sql = "DELETE FROM Guardian_List WHERE Person_ID = @PersonID AND Guardian_ID = @GuardianID";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+                cmd.Parameters.AddWithValue("GuardianID", oldGuardian.GuardianID);
+
+                cmd.ExecuteNonQuery();
+            }
         }
         #endregion
     }

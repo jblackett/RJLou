@@ -11,11 +11,24 @@ namespace RJLou.Classes
     public class PhoneNumber
     {
         #region Private Variables
+        private int _id;
         private string _pType;
         private string _number;
         #endregion
 
         #region Public Properties
+        public int PhoneID
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                _id = value;
+            }
+        }
+
         public string PType
         {
             get
@@ -72,6 +85,7 @@ namespace RJLou.Classes
                 {
                     PhoneNumber result = new PhoneNumber()
                     {
+                        PhoneID = Convert.ToInt32(read["Phone_ID"]),
                         PType = read["Phone_Type"].ToString(),
                         Number = read["Phone_Number"].ToString()
                     };
@@ -101,6 +115,7 @@ namespace RJLou.Classes
                 {
                     results.Add(new PhoneNumber()
                     {
+                        PhoneID = Convert.ToInt32(read["Phone_ID"]),
                         PType = read["Phone_Type"].ToString(),
                         Number = read["Phone_Number"].ToString()
                     });
@@ -129,6 +144,7 @@ namespace RJLou.Classes
                 {
                     results.Add(new PhoneNumber()
                     {
+                        PhoneID = Convert.ToInt32(read["Phone_ID"]),
                         PType = read["Phone_Type"].ToString(),
                         Number = read["Phone_Number"].ToString()
                     });
@@ -157,6 +173,7 @@ namespace RJLou.Classes
                 {
                     results.Add(new PhoneNumber()
                     {
+                        PhoneID = Convert.ToInt32(read["Phone_ID"]),
                         PType = read["Phone_Type"].ToString(),
                         Number = read["Phone_Number"].ToString()
                     });
@@ -184,7 +201,7 @@ namespace RJLou.Classes
             }
         }
 
-        internal void Delete(int id)
+        internal void Delete()
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = "DELETE FROM Phone_List WHERE Phone_ID = @ID";
@@ -194,11 +211,7 @@ namespace RJLou.Classes
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-
-                cmd.Parameters.AddWithValue("PhoneNumber", id);
-
-                cmd.Parameters.AddWithValue("ID", id);
-
+                cmd.Parameters.AddWithValue("ID", PhoneID);
 
                 cmd.ExecuteNonQuery();
             }

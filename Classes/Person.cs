@@ -161,6 +161,7 @@ namespace RJLou.Classes
                 {
                     results.Add(new PhoneNumber()
                     {
+                        PhoneID = Convert.ToInt32(read["Phone_ID"]),
                         Number = read["Phone_Number"].ToString(),
                         PType = read["Phone_Type"].ToString()
                     });
@@ -190,15 +191,45 @@ namespace RJLou.Classes
                 {
                     results.Add(new Address()
                         {
+                            AddressID = Convert.ToInt32(read["Address_ID"]),
                             streetAddress = read["Street_Address"].ToString(),
                             city = read["City"].ToString(),
                             state = read["State"].ToString(),
-                            zip = Convert.ToInt32(read["Zip"])
+                            zip = Convert.ToInt32(read["Zip"]),
+                            type = read["Address_Type"].ToString()
                         });
                 }
             }
 
             Addresses = results;
+        }
+
+        internal List<Case> GetCases()
+        {
+            string sql = @"
+                SELECT      c.Case_ID
+                FROM        RJL_Case c
+                INNER JOIN  Case_File cf ON c.Case_ID = cf.Case_ID
+                WHERE       Person_ID = @PersonID";
+            List<Case> results = new List<Case>();
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(Case.Get(Convert.ToInt32(read["Case_ID"])));
+                }
+            }
+
+            return results;
         }
 
         public static int Add(string fname, string lname, DateTime dob, string gender, string email,

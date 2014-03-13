@@ -12,7 +12,6 @@ namespace RJLou.Classes
     {
         #region Private Variables
         private string _krsCode;
-        private string _krsDescription;
         #endregion
 
         #region Public Properties
@@ -27,27 +26,14 @@ namespace RJLou.Classes
                 _krsCode = value;
             }
         }
-
-        public string KRSDescription
-        {
-            get
-            {
-                return _krsDescription;
-            }
-            set
-            {
-                _krsDescription = value;
-            }
-        }
         #endregion
 
         #region Constructors
         public KRS() { }
 
-        public KRS(string krscode, string krsdescription)
+        public KRS(string krscode)
         {
             KRSCode = krscode;
-            KRSDescription = krsdescription;
         }
         #endregion
 
@@ -55,7 +41,7 @@ namespace RJLou.Classes
         public static KRS Get(int id)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "SELECT * FROM KRS HWERE KRS_ID = @ID";
+            string sql = "SELECT * FROM KRS WHERE KRS_ID = @ID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -70,8 +56,7 @@ namespace RJLou.Classes
                 {
                     KRS result = new KRS()
                     {
-                        KRSCode = read["KRS_Code"].ToString(),
-                        KRSDescription = read["KRS_Description"].ToString()
+                        KRSCode = read["KRS_Code"].ToString()
                     };
 
                     return result;
@@ -81,10 +66,10 @@ namespace RJLou.Classes
             return null;
         }
 
-        public static void Add(int krsCode, int krsDescription)
+        public static void Add(int krsCode)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "INSERT INTO Phone_List (KRS_Code, KRS_Description) VALUES (@KRS_Code, @KRS_Description)";
+            string sql = "INSERT INTO KRS (KRS_Code) VALUES (@KRS_Code)";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -92,7 +77,6 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("KRS_Code", krsCode);
-                cmd.Parameters.AddWithValue("KRS_Description", krsDescription);
 
                 cmd.ExecuteNonQuery();
             }

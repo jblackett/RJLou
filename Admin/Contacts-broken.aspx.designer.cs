@@ -10,7 +10,7 @@
 namespace RJLou {
     
     
-    public partial class Default {
+    public partial class Contacts {
         
         /// <summary>
         /// workingMan control.
@@ -22,49 +22,49 @@ namespace RJLou {
         protected global::System.Web.UI.ScriptManager workingMan;
         
         /// <summary>
-        /// CaseSwitchAll control.
+        /// PersonSwitchAll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton CaseSwitchAll;
+        protected global::System.Web.UI.WebControls.LinkButton PersonSwitchAll;
         
         /// <summary>
-        /// CaseSwitchOpen control.
+        /// PersonSwitchEmployees control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton CaseSwitchOpen;
+        protected global::System.Web.UI.WebControls.LinkButton PersonSwitchEmployees;
         
         /// <summary>
-        /// CaseSwitchPending control.
+        /// PersonSwitchOffenders control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton CaseSwitchPending;
+        protected global::System.Web.UI.WebControls.LinkButton PersonSwitchOffenders;
         
         /// <summary>
-        /// CaseSwitchClosed control.
+        /// PersonSwitchVictims control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton CaseSwitchClosed;
+        protected global::System.Web.UI.WebControls.LinkButton PersonSwitchVictims;
         
         /// <summary>
-        /// CasesRepeater control.
+        /// PersonsRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater CasesRepeater;
+        protected global::System.Web.UI.WebControls.Repeater PersonsRepeater;
         
         /// <summary>
         /// MainContainer control.
@@ -76,22 +76,67 @@ namespace RJLou {
         protected global::System.Web.UI.UpdatePanel MainContainer;
         
         /// <summary>
-        /// CaseUpdatedPanel control.
+        /// PersonUpdatedPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel CaseUpdatedPanel;
+        protected global::System.Web.UI.WebControls.Panel PersonUpdatedPanel;
         
         /// <summary>
-        /// CaseID control.
+        /// FirstName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CaseID;
+        protected global::System.Web.UI.WebControls.TextBox FirstName;
+        
+        /// <summary>
+        /// LastName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox LastName;
+        
+        /// <summary>
+        /// DateOfBirth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox DateOfBirth;
+        
+        /// <summary>
+        /// Gender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Gender;
+        
+        /// <summary>
+        /// Email control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Email;
+        
+        /// <summary>
+        /// Race control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Race;
         
         /// <summary>
         /// CourtID control.
@@ -103,121 +148,22 @@ namespace RJLou {
         protected global::System.Web.UI.WebControls.TextBox CourtID;
         
         /// <summary>
-        /// ReferralDate control.
+        /// PersonCasesRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ReferralDate;
+        protected global::System.Web.UI.WebControls.Repeater PersonCasesRepeater;
         
         /// <summary>
-        /// ReferralNumber control.
+        /// GuardiansRepeater control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ReferralNumber;
-        
-        /// <summary>
-        /// CourtDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CourtDate;
-        
-        /// <summary>
-        /// DateFinalConference control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox DateFinalConference;
-        
-        /// <summary>
-        /// DateCompletion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox DateCompletion;
-        
-        /// <summary>
-        /// Status control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox Status;
-        
-        /// <summary>
-        /// District control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox District;
-        
-        /// <summary>
-        /// VictimsRepeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater VictimsRepeater;
-        
-        /// <summary>
-        /// OffendersRepeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater OffendersRepeater;
-        
-        /// <summary>
-        /// AffiliatesRepeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater AffiliatesRepeater;
-        
-        /// <summary>
-        /// NotesRepeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater NotesRepeater;
-        
-        /// <summary>
-        /// ChargesRepeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater ChargesRepeater;
-        
-        /// <summary>
-        /// DocumentsRepeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater DocumentsRepeater;
+        protected global::System.Web.UI.WebControls.Repeater GuardiansRepeater;
         
         /// <summary>
         /// ViewPersonModalPanel control.
@@ -281,32 +227,5 @@ namespace RJLou {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater ModalAddresses;
-        
-        /// <summary>
-        /// AddPersonModalPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel AddPersonModalPanel;
-        
-        /// <summary>
-        /// ModalType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ModalType;
-        
-        /// <summary>
-        /// NewCasePersonList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView NewCasePersonList;
     }
 }

@@ -22,6 +22,7 @@
 
 body {
 	font-family: Helvetica;
+    text-rendering: optimizeLegibility;
     font-size: 100%;
 	letter-spacing: 1.25px;
 	margin: 0;
@@ -29,14 +30,22 @@ body {
 
 h1 {
 	text-transform: uppercase;
-	font-size: 50px;
+	font-size: 3.125rem;
     font-family: 'Helvetica Neue Ultra Light';
     letter-spacing: 10px;
 }
 
 .header > h1 {
 	color: white;
-	font-size: 60px;
+	font-size: 6rem;
+    margin-bottom: 0;
+}
+
+.header > h2 {
+    color: #00C453;
+    font-size: 3.5rem;
+    font-family: 'Helvetica Neue Ultra Light';
+    margin-top: 0;
 }
 
 .container.right h1 {
@@ -52,22 +61,79 @@ h1 {
 
 .section.header {
 	padding: 0;
-	background-image: url('../images/header-background-1.jpg');
+	background-image: url('../images/header-background-2.png');
 	background-size: 100% 100%;
 	min-height: 30rem;
+}
+
+.section.header .float-right {
+    width: 75%;
+    text-align: right;
 }
 
 .section.header a.button {
     border: 1px solid black;
 }
 
-.section.getinvolved {
-    background-color: #292929;
+.section.header.static {
+    background-image: none;
+    background-color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    min-height: 0;
+    display: none;
+    box-shadow: rgba(0,0,0,0.5) 0 0 4rem;
+}
+
+.section.header.static > .container {
+    padding: 0.5rem 0;
+}
+
+.section.header.static a.nav_link {
+    color: black;
+}
+
+.section.header.static a.nav_link:hover {
+    color: #00C453;
+}
+
+.section.header.static.on {
+    display: block;
+}
+
+.section.background1 {
+    background-image: url('/images/louisville-westend2.png');
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    color: white;
+}
+
+.section.background2 {
+    text-align: center;
+    background-image: url('/images/louisville-westend3.png');
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    color: white;
+}
+
+.section.background3 {
+    text-align: center;
+    background-image: url('/images/louisville-westend.png');
+    background-attachment: fixed;
+    background-size: 100% 100%;
     color: white;
 }
 
 .section.content {
     text-align: center;
+}
+
+.section.content.dark {
+    background-color: #292929;
+    color: white;
 }
 
 .section.content p {
@@ -80,8 +146,8 @@ h1 {
     text-align: center;
 }
 
-.section.footer .float-left {
-    padding-right: 3rem;
+.section.footer .float-right {
+    padding-left: 1rem;
 }
 
 .section.footer h1 {
@@ -209,7 +275,7 @@ h1 {
 }
 
 .size-4 {
-    width: 30.83333333333333%;
+    width: 23.333333333333333333333333333333%;
     text-align: center;
 }
 
@@ -311,13 +377,13 @@ h1 {
 
 a.nav_link {
 	font-family: 'League Gothic';
-	font-size: 1.75rem;
+	font-size: 1.25rem;
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	text-decoration: none;
 	color: white;
 	padding: 0 0.5rem;
-	margin: 0;
+	margin: 0.5rem;
 }
 
 a.nav_link:hover {
@@ -413,6 +479,10 @@ table tr:nth-child(2n) {
 }
 
 table.nothing tr:nth-child(2n) {
+    background-color: transparent;
+}
+
+table.changes tr:nth-child(2n) {
     background-color: transparent;
 }
 

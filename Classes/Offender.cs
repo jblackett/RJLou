@@ -85,6 +85,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         CourtID = read["Offender_Number"].ToString()
                     };
 
@@ -112,8 +113,7 @@ namespace RJLou.Classes
                             Race,
                             Offender_Number
                 FROM        Offender o 
-                INNER JOIN  Person p ON o.Person_ID = p.Person_ID
-                WHERE       o.Person_ID = @PersonID";
+                INNER JOIN  Person p ON o.Person_ID = p.Person_ID";
             List<Offender> results = new List<Offender>();
 
             using (SqlConnection conn = new SqlConnection(dsn))
@@ -135,6 +135,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         CourtID = read["Offender_Number"].ToString()
                     };
 
@@ -199,7 +200,7 @@ namespace RJLou.Classes
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
                 UPDATE  Offender 
-                SET     CourtID = @CourtID
+                SET     Offender_Number = @CourtID
                 WHERE   Person_ID = @PersonID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
@@ -243,6 +244,40 @@ namespace RJLou.Classes
             }
 
             Guardians = results;
+        }
+
+        internal void AddGuardian(Guardian newGuardian)
+        {
+            string sql = "INSERT INTO Guardian_List (Person_ID, Guardian_ID) VALUES (@PersonID, @GuardianID)";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+                cmd.Parameters.AddWithValue("GuardianID", newGuardian.GuardianID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        internal void DeleteGuardian(Guardian oldGuardian)
+        {
+            string sql = "DELETE FROM Guardian_List WHERE Person_ID = @PersonID AND Guardian_ID = @GuardianID";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+                cmd.Parameters.AddWithValue("GuardianID", oldGuardian.GuardianID);
+
+                cmd.ExecuteNonQuery();
+            }
         }
         #endregion
     }

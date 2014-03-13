@@ -6,35 +6,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-/************** THINGS TO BE DONE ***********************
- * 
- * 1. Add Case
- * 2. Role Management
- * 3. Victim/Affiliate/Offender
- *      - Adding/Deleting refreshes the page weird
- * 4. Notes
- *      - Edit
- *      - New
- *      - Delete(?)
- * 5. Charges
- *      - View
- *      - Add
- *      - Delete
- * 6. Documents
- *      - All of it
- * 7. Responsive Design
- * 
- * *****************************************************/
 namespace RJLou
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class Contacts : System.Web.UI.Page
     {
-        Case thisCase;
-        List<Case> cases;
         int PersonID = -1;
-        List<Victim> allVictims;
-        List<Offender> allOffenders;
-        List<Affiliate> allAffiliates;
+        List<Offender> offenders;
+        List<Victim> victims;
+        List<InternalUser> internalUsers;
+        List<object> persons;
+        Person thisPerson;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -48,49 +29,43 @@ namespace RJLou
 
             if (!Page.IsPostBack)
             {
-                InternalUser thisUser = InternalUser.Get(PersonID);
-                if (thisUser.Role == Role.CASE_MANAGER)
+                victims = Victim.GetVictims();
+                offenders = Offender.GetOffenders();
+                internalUsers = InternalUser.GetInternalUsers();
+                foreach(var person in victims)
                 {
-                    cases = Case.GetCases(true, thisUser.PersonID);
-                    CasesRepeater.DataSource = cases;
-                    CasesRepeater.DataBind();
+                    persons.Add(person);
                 }
-                else
+                foreach (var person in offenders)
                 {
-                    cases = Case.GetCases(true);
-                    CasesRepeater.DataSource = cases;
-                    CasesRepeater.DataBind();
+                    persons.Add(person);
                 }
+                foreach (var person in internalUsers)
+                {
+                    persons.Add(person);
+                }
+
+                PersonsRepeater.DataSource = persons;
+                PersonsRepeater.DataBind();
             }
         }
 
+        
         protected internal void BindData()
         {
-            VictimsRepeater.DataSource = thisCase.Victims;
-            VictimsRepeater.DataBind();
+            //PersonCasesRepeater.DataSource = thisPerson.Cases;
+            //PersonCasesRepeater.DataBind();
 
-            OffendersRepeater.DataSource = thisCase.Offenders;
-            OffendersRepeater.DataBind();
-
-            AffiliatesRepeater.DataSource = thisCase.Affiliates;
-            AffiliatesRepeater.DataBind();
-
-            NotesRepeater.DataSource = thisCase.Notes;
-            NotesRepeater.DataBind();
-
-            ChargesRepeater.DataSource = thisCase.Charges;
-            ChargesRepeater.DataBind();
-
-            DocumentsRepeater.DataSource = thisCase.Documents;
-            DocumentsRepeater.DataBind();
+            //GuardiansRepeater.DataSource = thisPerson.Guardians;
+            //GuardiansRepeater.DataBind();
         }
 
-        protected internal void CasesRepeater_Databind(object sender, RepeaterItemEventArgs e)
+        protected internal void PersonsRepeater_Databind(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
                 Label thisLabel = (Label)e.Item.FindControl("Name");
-                Case currentCase = (Case)e.Item.DataItem;
+                Person currentPerson = (Person)e.Item.DataItem;
 
                 string Name;
 
@@ -144,6 +119,7 @@ namespace RJLou
             }
         }
 
+        /* Not relevant
         protected void NotesRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -187,15 +163,14 @@ namespace RJLou
         {
 
         }
+         */
 
-        protected internal void LoadCase(object sender, EventArgs e)
+        protected internal void LoadPerson(object sender, EventArgs e)
         {
-            int CaseID = -1;
-            int.TryParse(((LinkButton)sender).CommandArgument, out CaseID);
+            int personID = -1;
+            int.TryParse(((LinkButton)sender).CommandArgument, out personID);
 
-            thisCase = Case.Get(CaseID);
-
-            Session["CaseID"] = CaseID;
+            thisPerson = Person.Get(PersonID);
 
             BindData();
             LoadHeader();
@@ -203,70 +178,40 @@ namespace RJLou
 
         protected internal void LoadHeader()
         {
-            CaseID.Text = thisCase.CaseID.ToString();
-            CaseID.ReadOnly = true;
-            CourtID.Text = thisCase.CourtID.ToString("000000");
-            ReferralDate.Text = (thisCase.ReferralDate == default(DateTime) ? "" : thisCase.ReferralDate.ToString("MM/dd/yyyy"));
-            ReferralNumber.Text = thisCase.ReferralNumber.ToString();
-            CourtDate.Text = (thisCase.CourtDate == default(DateTime) ? "" : thisCase.CourtDate.ToString("MM/dd/yyyy"));
-            DateFinalConference.Text = (thisCase.DateOfFinalConference == default(DateTime) ? "" : thisCase.DateOfFinalConference.ToString("MM/dd/yyyy"));
-            DateCompletion.Text = (thisCase.DateOfCompletion == default(DateTime) ? "" : thisCase.DateOfCompletion.ToString("MM/dd/yyyy"));
-            Status.Text = thisCase.Status;
-            District.Text = thisCase.District.ToString();
+            FirstName.Text = thisPerson.FirstName.ToString();
+            LastName.Text = thisPerson.LastName.ToString();
+            DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
+            Gender.Text = thisPerson.Gender.ToString();
+            Email.Text = thisPerson.Email.ToString();
+            Race.Text = thisPerson.Race.ToString();
 
             MainContainer.Visible = true;
         }
 
         protected internal void SaveCase(object sender, EventArgs e)
         {
-            int caseID = int.Parse(CaseID.Text);
-            thisCase = Case.Get(caseID);
-
-            
-            
-            thisCase.CourtID = Convert.ToInt32(CourtID.Text);
-
-            if (!string.IsNullOrEmpty(ReferralDate.Text))
-                thisCase.ReferralDate = Convert.ToDateTime(ReferralDate.Text);
-            else
-                thisCase.ReferralDate = default(DateTime);
-
-            thisCase.ReferralNumber = Convert.ToInt32(ReferralNumber.Text);
-
-            if (!string.IsNullOrEmpty(CourtDate.Text))
-                thisCase.CourtDate = Convert.ToDateTime(CourtDate.Text);
-            else
-                thisCase.CourtDate = default(DateTime);
-
-            if (!string.IsNullOrEmpty(DateFinalConference.Text))
-                thisCase.DateOfFinalConference = Convert.ToDateTime(DateFinalConference.Text);
-            else
-                thisCase.DateOfFinalConference = default(DateTime);
-
-            if (!string.IsNullOrEmpty(DateCompletion.Text))
-                thisCase.DateOfCompletion = Convert.ToDateTime(DateCompletion.Text);
-            else
-                thisCase.DateOfCompletion = default(DateTime);
-            
-            thisCase.Status = Status.Text;
-
-            thisCase.District = Convert.ToInt32(District.Text);
+            int personID = int.Parse(PersonID.Text);
+            thisPerson = Person.Get(PersonID);
 
 
-          
-            thisCase.Update();
-            CaseUpdatedPanel.CssClass += " visible";
+
+            thisPerson.PersonID = Convert.ToInt32(PersonID.Text);
+
+            thisPerson.FirstName = FirstName.Text;
+            thisPerson.LastName = LastName.Text;
+            thisPerson.DateOfBirth = Convert.ToDateTime(ReferralDate.Text);
+            thisPerson.Gender = Gender.Text;
+            thisPerson.Email = Email.Text;
+            thisPerson.Race = Race.Text;
+
+            thisPerson.Update();
+            PersonUpdatedPanel.CssClass += " visible";
         }
 
+        /*
         protected internal void DeleteVictim(object sender, EventArgs e)
         {
-            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
-            Victim thisVictim = Victim.Get(PersonID);
-            int CaseID = Convert.ToInt32(Session["CaseID"]);
-            thisCase = Case.Get(CaseID);
 
-            thisCase.DeleteVictim(thisVictim);
-            DataBind();
         }
 
         protected internal void ViewVictim(object sender, EventArgs e)
@@ -284,18 +229,6 @@ namespace RJLou
             ModalAddresses.DataBind();
 
             ViewPersonModalPanel.CssClass += " visible";
-        }
-
-        protected internal void AddVictim(object sender, EventArgs e)
-        {
-            ModalType.InnerText = "Select Victim";
-            allVictims = Victim.GetVictims();
-            NewCasePersonList.DataSource = allVictims;
-            NewCasePersonList.DataBind();
-
-            AddPersonModalPanel.CssClass += " visible";
-
-            Session["AddType"] = "Victim";
         }
 
         protected void ModalPhoneNumbers_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -322,13 +255,7 @@ namespace RJLou
 
         protected internal void DeleteOffender(object sender, EventArgs e)
         {
-            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
-            Offender thisOffender = Offender.Get(PersonID);
-            int CaseID = Convert.ToInt32(Session["CaseID"]);
-            thisCase = Case.Get(CaseID);
 
-            thisCase.DeleteOffender(thisOffender);
-            BindData();
         }
 
         protected internal void ViewOffender(object sender, EventArgs e)
@@ -348,27 +275,9 @@ namespace RJLou
             ViewPersonModalPanel.CssClass += " visible";
         }
 
-        protected internal void AddOffender(object sender, EventArgs e)
-        {
-            ModalType.InnerText = "Select Offender";
-            allOffenders = Offender.GetOffenders();
-            NewCasePersonList.DataSource = allOffenders;
-            NewCasePersonList.DataBind();
-
-            AddPersonModalPanel.CssClass += " visible";
-
-            Session["AddType"] = "Offender";
-        }
-
         protected internal void DeleteAffiliate(object sender, EventArgs e)
         {
-            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
-            Affiliate thisAffiliate = Affiliate.Get(PersonID);
-            int CaseID = Convert.ToInt32(Session["CaseID"]);
-            thisCase = Case.Get(CaseID);
 
-            thisCase.DeleteAffiliate(thisAffiliate);
-            BindData();
         }
 
         protected internal void ViewAffiliate(object sender, EventArgs e)
@@ -388,39 +297,6 @@ namespace RJLou
             ViewPersonModalPanel.CssClass += " visible";
         }
 
-        protected internal void AddAffiliate(object sender, EventArgs e)
-        {
-            ModalType.InnerText = "Select Affiliate";
-            allAffiliates = Affiliate.GetAffiliates();
-            NewCasePersonList.DataSource = allAffiliates;
-            NewCasePersonList.DataBind();
-
-            AddPersonModalPanel.CssClass += " visible";
-
-            Session["AddType"] = "Affiliate";
-        }
-
-        protected internal void AddPersonToCaseList(object sender, EventArgs e)
-        {
-            int PersonID = -1;
-            int CaseID = -1;
-
-            try
-            {
-                PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
-                CaseID = Convert.ToInt32(Session["CaseID"]);
-            }
-            catch { }
-
-            if (PersonID <= 0 || CaseID <= 0)
-                return;
-
-            Case.AddPerson(PersonID, CaseID);
-            DataBind();
-
-            AddPersonModalPanel.CssClass = "modal-background";
-        }
-
         protected internal void DeleteCharge(object sender, EventArgs e)
         {
 
@@ -430,17 +306,18 @@ namespace RJLou
         {
 
         }
+         */
 
-        protected internal void SwitchCaseList(object sender, EventArgs e)
+        protected internal void SwitchPersonList(object sender, EventArgs e)
         {
             string commandArg = (((LinkButton)sender).CommandArgument).ToString();
 
             switch (commandArg)
             {
                 case "all":
-                    cases = Case.GetCases();
-                    CasesRepeater.DataSource = cases;
-                    CasesRepeater.DataBind();
+                    persons = Person.GetPersons();
+                    PersonsRepeater.DataSource = persons;
+                    PersonsRepeater.DataBind();
                     break;
                 case "open":
                 case "pending":
@@ -454,29 +331,6 @@ namespace RJLou
                     CasesRepeater.DataSource = cases;
                     CasesRepeater.DataBind();
                     break;
-            }
-        }
-
-        protected void NewCasePersonList_PageIndexChanging(object sender, GridViewPageEventArgs e)
-        {
-            NewCasePersonList.PageIndex = e.NewPageIndex;
-            if (Session["AddType"].Equals("Victim"))
-                NewCasePersonList.DataSource = allVictims;
-            else if (Session["AddType"].Equals("Offender"))
-                NewCasePersonList.DataSource = allOffenders;
-            else if (Session["AddType"].Equals("Affiliate"))
-                NewCasePersonList.DataSource = allAffiliates;
-            NewCasePersonList.DataBind();
-        }
-
-        protected void NewCasePersonList_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                Label PersonName = (Label)e.Row.FindControl("PersonName");
-                Person thisPerson = (Person)e.Row.DataItem;
-
-                PersonName.Text = thisPerson.FirstName + " " + thisPerson.LastName;
             }
         }
     }
