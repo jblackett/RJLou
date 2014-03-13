@@ -12,6 +12,7 @@ namespace RJLou.Classes
     public class Address
     {
         #region Private Variables
+        private int _id;
         private string _streetAddress;
         private string _addressType;
         private string _city;
@@ -19,6 +20,13 @@ namespace RJLou.Classes
         private int _zip;
         #endregion
         #region Public Properties
+        public int AddressID
+        {
+            get
+            { return _id; }
+            set
+            { _id = value; }
+        }
         public string streetAddress
         {
             get
@@ -80,10 +88,12 @@ namespace RJLou.Classes
                 {
                     Address result = new Address()
                     {
+                        AddressID = Convert.ToInt32(read["Address_ID"]),
                         streetAddress = read["Street_Address"].ToString(),
                         city= read["City"].ToString(),
                         state= read["State"].ToString(),
-                        zip= Convert.ToInt32(read["Zip"])
+                        zip= Convert.ToInt32(read["Zip"]),
+                        type = read["Address_Type"].ToString()
                     };
                     return result;
             }
@@ -112,10 +122,12 @@ namespace RJLou.Classes
                 {
                     results.Add(new Address()
                     {
+                        AddressID = Convert.ToInt32(read["Address_ID"]),
                         streetAddress = read["Street_Address"].ToString(),
                         city = read["City"].ToString(),
                         state = read["State"].ToString(),
-                        zip = Convert.ToInt32(read["Zip"])
+                        zip = Convert.ToInt32(read["Zip"]),
+                        type = read["Address_Type"].ToString()
                     });
                 }
             }
@@ -142,10 +154,12 @@ namespace RJLou.Classes
                 {
                     results.Add(new Address()
                     {
+                        AddressID = Convert.ToInt32(read["Address_ID"]),
                         streetAddress = read["Street_Address"].ToString(),
                         city = read["City"].ToString(),
                         state = read["State"].ToString(),
-                        zip = Convert.ToInt32(read["Zip"])
+                        zip = Convert.ToInt32(read["Zip"]),
+                        type = read["Address_Type"].ToString()
                     });
                 }
             }
@@ -172,10 +186,12 @@ namespace RJLou.Classes
                 {
                     results.Add(new Address()
                     {
+                        AddressID = Convert.ToInt32(read["Address_ID"]),
                         streetAddress = read["Street_Address"].ToString(),
                         city = read["City"].ToString(),
                         state = read["State"].ToString(),
-                        zip = Convert.ToInt32(read["Zip"])
+                        zip = Convert.ToInt32(read["Zip"]),
+                        type = read["Address_Type"].ToString()
                     });
                 }
             }
@@ -201,10 +217,12 @@ public static List<Address> GetAddresesByState(string state)
                 {
                     results.Add(new Address()
                     {
+                        AddressID = Convert.ToInt32(read["Address_ID"]),
                         streetAddress = read["Street_Address"].ToString(),
                         city = read["City"].ToString(),
                         state = read["State"].ToString(),
-                        zip = Convert.ToInt32(read["Zip"])
+                        zip = Convert.ToInt32(read["Zip"]),
+                        type = read["Address_Type"].ToString()
                     });
                 }
             }
@@ -230,10 +248,12 @@ public static List<Address> GetAddresesByZip(string zip)
                 {
                     results.Add(new Address()
                     {
+                        AddressID = Convert.ToInt32(read["Address_ID"]),
                         streetAddress = read["Street_Address"].ToString(),
                         city = read["City"].ToString(),
                         state = read["State"].ToString(),
-                        zip = Convert.ToInt32(read["Zip"])
+                        zip = Convert.ToInt32(read["Zip"]),
+                        type = read["Address_Type"].ToString()
                     });
                 }
             }

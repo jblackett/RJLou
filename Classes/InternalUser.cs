@@ -107,6 +107,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         Password = read["Password"].ToString()
                     };
 
@@ -161,6 +162,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         Password = read["Password"].ToString()
                     };
 
@@ -212,6 +214,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         Password = read["Password"].ToString()
                     };
 
@@ -265,6 +268,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         Password = read["Password"].ToString()
                     };
 

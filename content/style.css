@@ -482,6 +482,10 @@ table.nothing tr:nth-child(2n) {
     background-color: transparent;
 }
 
+table.changes tr:nth-child(2n) {
+    background-color: transparent;
+}
+
 span.green {
 	color: #00C453;
 	font-weight: bold;

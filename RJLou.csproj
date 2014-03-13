@@ -865,7 +865,6 @@
     <Compile Include="Classes\Offender.cs" />
     <Compile Include="Classes\Person.cs" />
     <Compile Include="Classes\PhoneNumbers.cs" />
-    <Compile Include="Classes\UOR.cs" />
     <Compile Include="Classes\Victim.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Global.asax.cs">

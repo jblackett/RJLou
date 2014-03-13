@@ -72,6 +72,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         Relationship = read["Relationship"].ToString(),
                     };
 
@@ -121,6 +122,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         Relationship = read["Relationship"].ToString(),
                     };
 
@@ -147,8 +149,7 @@ namespace RJLou.Classes
                             Race,
                             Relationship
                 FROM        Guardian g 
-                INNER JOIN  Person p ON g.Person_ID = p.Person_ID
-                WHERE       g.Person_ID = @PersonID";
+                INNER JOIN  Person p ON g.Person_ID = p.Person_ID";
             List<Guardian> results = new List<Guardian>();
 
             using (SqlConnection conn = new SqlConnection(dsn))
@@ -170,6 +171,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         Relationship = read["Relationship"].ToString()
                     };
 

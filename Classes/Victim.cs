@@ -67,6 +67,7 @@ namespace RJLou.Classes
                         LastName = read["Last_Name"].ToString(),
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
+                        Email = read["Email"].ToString(),
                         Race = read["Race"].ToString()
                     };
 
@@ -115,6 +116,7 @@ namespace RJLou.Classes
                         LastName = read["Last_Name"].ToString(),
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
+                        Email = read["Email"].ToString(),
                         Race = read["Race"].ToString()
                     };
 

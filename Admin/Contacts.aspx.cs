@@ -6,190 +6,135 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace RJLou
+namespace RJLou.Admin
 {
     public partial class Contacts : System.Web.UI.Page
     {
-        Affiliate thisAffiliate;
-        Guardian thisGuardian;
-        InternalUser thisInternalUser;
-        Offender thisOffender;
-        Victim thisVictim;
-        List<Affiliate> affiliates;
-        List<Guardian> guardians;
-        List<InternalUser> internalUsers;
-        List<Offender> offenders;
         List<Victim> victims;
-        int PersonID = -1;
+        List<Offender> offenders;
+        List<InternalUser> employees;
+        List<Guardian> guardians;
+        List<Affiliate> affiliates;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try { PersonID = Convert.ToInt32(Session["PersonID"]); }
-            catch { }
+            if (!IsPostBack)
+                SwitchPersonList();
+        }
 
-            if (PersonID <= 0)
-            {
-                Response.Redirect("Login.aspx");
-            }
+        protected internal void SwitchPersonList(object sender, EventArgs e)
+        {
+            string commandArg = (((LinkButton)sender).CommandArgument).ToString();
 
-            if (!Page.IsPostBack)
+            SwitchPersonList(commandArg);
+        }
+
+        protected internal void SwitchPersonList(string commandArg = "default")
+        {
+            switch (commandArg)
             {
-                InternalUser thisUser = InternalUser.Get(PersonID);
-                if (thisUser.Role == Role.CASE_MANAGER)
-                {
-                    persons = Person.GetPersons(true, thisUser.PersonID);
-                    PersonsRepeater.DataSource = persons;
+                case "victims":
+                    victims = Victim.GetVictims();
+                    Session["PersonType"] = "victim";
+                    PersonsRepeater.DataSource = victims;
                     PersonsRepeater.DataBind();
-                }
-                else
-                {
-                    persons = Person.GetPersons(true);
-                    PersonsRepeater.DataSource = persons;
+                    break;
+                case "offenders":
+                    offenders = Offender.GetOffenders();
+                    Session["PersonType"] = "offender";
+                    PersonsRepeater.DataSource = offenders;
                     PersonsRepeater.DataBind();
-                }
+                    break;
+                case "guardians":
+                    guardians = Guardian.GetGuardians();
+                    Session["PersonType"] = "guardian";
+                    PersonsRepeater.DataSource = guardians;
+                    PersonsRepeater.DataBind();
+                    break;
+                case "employees":
+                    employees = InternalUser.GetInternalUsers();
+                    Session["PersonType"] = "employee";
+                    PersonsRepeater.DataSource = employees;
+                    PersonsRepeater.DataBind();
+                    break;
+                case "affiliates":
+                    affiliates = Affiliate.GetAffiliates();
+                    Session["PersonType"] = "affiliate";
+                    PersonsRepeater.DataSource = affiliates;
+                    PersonsRepeater.DataBind();
+                    break;
+                default:
+                    employees = InternalUser.GetInternalUsers();
+                    Session["PersonType"] = "employee";
+                    PersonsRepeater.DataSource = employees;
+                    PersonsRepeater.DataBind();
+                    break;
             }
         }
 
-        
-        protected internal void BindData()
+        protected internal void BindData(InternalUser thisPerson)
         {
-            VictimsRepeater.DataSource = thisCase.Victims;
-            VictimsRepeater.DataBind();
+            PhoneNumbersRepeater.DataSource = thisPerson.PhoneNumbers;
+            PhoneNumbersRepeater.DataBind();
 
-            OffendersRepeater.DataSource = thisCase.Offenders;
-            OffendersRepeater.DataBind();
+            AddressesRepeater.DataSource = thisPerson.Addresses;
+            AddressesRepeater.DataBind();
 
-            AffiliatesRepeater.DataSource = thisCase.Affiliates;
-            AffiliatesRepeater.DataBind();
-
-            NotesRepeater.DataSource = thisCase.Notes;
-            NotesRepeater.DataBind();
-
-            ChargesRepeater.DataSource = thisCase.Charges;
-            ChargesRepeater.DataBind();
-
-            DocumentsRepeater.DataSource = thisCase.Documents;
-            DocumentsRepeater.DataBind();
+            CasesRepeater.DataSource = thisPerson.GetCases();
+            CasesRepeater.DataBind();
         }
 
-        protected internal void PersonsRepeater_Databind(object sender, RepeaterItemEventArgs e)
+        protected internal void LoadHeader(InternalUser thisPerson)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                Label thisLabel = (Label)e.Item.FindControl("Name");
-                Person currentPerson = (Person)e.Item.DataItem;
+            HeaderRelationship.Visible = false;
+            HeaderPassword.Visible = true;
+            HeaderUserType.Visible = true;
+            HeaderOffenderNumber.Visible = false;
 
-                string Name;
+            FirstName.Text = thisPerson.FirstName.ToString();
+            LastName.Text = thisPerson.LastName.ToString();
+            DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
+            Gender.Text = thisPerson.Gender.ToString();
+            Email.Text = thisPerson.Email.ToString();
+            Race.Text = thisPerson.Race.ToString();
+            UserType.Text = thisPerson.Role.ToString();
 
-                if (currentCase.Offenders.Count > 0)
-                    Name = currentCase.Offenders[0].FirstName + " " + currentCase.Offenders[0].LastName;
-                else if (currentCase.Victims.Count > 0)
-                    Name = currentCase.Victims[0].FirstName + " " + currentCase.Victims[0].LastName;
-                else
-                    Name = "";
+            //foreach (ListItem item in UserType.Items)
+            //{
+            //    if (item.Value == thisPerson.Role.ToString().ToLower())
+            //    {
+            //        item.Selected = true;
+            //        break;
+            //    }
+            //}
 
-                thisLabel.Text = Name;
-            }
+            MainContainer.Visible = true;
+            GuardiansPanel.Visible = false;
         }
 
-        protected void VictimsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        protected internal void BindData(Victim thisPerson)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                Label victimName = (Label)e.Item.FindControl("VictimName");
-                Victim currentVictim = (Victim)e.Item.DataItem;
+            PhoneNumbersRepeater.DataSource = thisPerson.PhoneNumbers;
+            PhoneNumbersRepeater.DataBind();
 
-                string name = currentVictim.FirstName + " " + currentVictim.LastName;
+            AddressesRepeater.DataSource = thisPerson.Addresses;
+            AddressesRepeater.DataBind();
 
-                victimName.Text = name;
-            }
+            GuardiansRepeater.DataSource = thisPerson.Guardians;
+            GuardiansRepeater.DataBind();
+
+            CasesRepeater.DataSource = thisPerson.GetCases();
+            CasesRepeater.DataBind();
         }
 
-        protected void OffendersRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        protected internal void LoadHeader(Victim thisPerson)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                Label offenderName = (Label)e.Item.FindControl("OffenderName");
-                Offender currentOffender = (Offender)e.Item.DataItem;
+            HeaderRelationship.Visible = false;
+            HeaderPassword.Visible = false;
+            HeaderUserType.Visible = false;
+            HeaderOffenderNumber.Visible = false;
 
-                string name = currentOffender.FirstName + " " + currentOffender.LastName;
 
-                offenderName.Text = name;
-            }
-        }
-
-        protected void AffiliatesRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                Label affiliateName = (Label)e.Item.FindControl("AffiliateName");
-                Affiliate currentAffiliate = (Affiliate)e.Item.DataItem;
-
-                string name = currentAffiliate.FirstName + " " + currentAffiliate.LastName;
-
-                affiliateName.Text = name;
-            }
-        }
-
-        /* Not relevant
-        protected void NotesRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                Label NoteAuthorAndDate = (Label)e.Item.FindControl("NoteAuthorAndDate");
-                TextBox NoteText = (TextBox)e.Item.FindControl("NoteText");
-                Note currentNote = (Note)e.Item.DataItem;
-
-                string text = "";
-
-                if (currentNote.Author != null)
-                {
-                    text += currentNote.Author.FirstName + " " + currentNote.Author.LastName;
-                }
-                else
-                {
-                    text += "[[NO AUTHOR]]";
-                }
-
-                if (!string.IsNullOrEmpty(currentNote.EditDate.ToString()) && currentNote.EditDate != default(DateTime))
-                {
-                    text += " - " + ((DateTime)currentNote.EditDate).ToString("MM/dd/yyyy");
-                }
-                else if (!string.IsNullOrEmpty(currentNote.CreateDate.ToString()) && currentNote.CreateDate != default(DateTime))
-                {
-                    text += " - " + currentNote.CreateDate.ToString("MM/dd/yyyy");
-                }
-
-                NoteAuthorAndDate.Text = text;
-
-                NoteText.Text = currentNote.NoteText;
-            }
-        }
-
-        protected void ChargesRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-
-        }
-
-        protected void DocumentsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-
-        }
-         */
-
-        protected internal void LoadPerson(object sender, EventArgs e)
-        {
-            int personID = -1;
-            int.TryParse(((LinkButton)sender).CommandArgument, out personID);
-
-            thisPerson = Person.Get(PersonID);
-
-            BindData();
-            LoadHeader();
-        }
-
-        protected internal void LoadHeader()
-        {
             FirstName.Text = thisPerson.FirstName.ToString();
             LastName.Text = thisPerson.LastName.ToString();
             DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
@@ -198,152 +143,269 @@ namespace RJLou
             Race.Text = thisPerson.Race.ToString();
 
             MainContainer.Visible = true;
+            GuardiansPanel.Visible = true;
         }
 
-        protected internal void SaveCase(object sender, EventArgs e)
+        protected internal void BindData(Offender thisPerson)
         {
-            int personID = int.Parse(PersonID.Text);
-            thisPerson = Person.Get(PersonID);
+            PhoneNumbersRepeater.DataSource = thisPerson.PhoneNumbers;
+            PhoneNumbersRepeater.DataBind();
 
+            AddressesRepeater.DataSource = thisPerson.Addresses;
+            AddressesRepeater.DataBind();
 
+            GuardiansRepeater.DataSource = thisPerson.Guardians;
+            GuardiansRepeater.DataBind();
 
-            thisPerson.PersonID = Convert.ToInt32(PersonID.Text);
-
-            thisPerson.FirstName = FirstName.Text;
-            thisPerson.LastName = LastName.Text;
-            thisPerson.DateOfBirth = Convert.ToDateTime(ReferralDate.Text);
-            thisPerson.Gender = Gender.Text;
-            thisPerson.Email = Email.Text;
-            thisPerson.Race = Race.Text;
-
-            thisPerson.Update();
-            PersonUpdatedPanel.CssClass += " visible";
+            CasesRepeater.DataSource = thisPerson.GetCases();
+            CasesRepeater.DataBind();
         }
 
-        /*
-        protected internal void DeleteVictim(object sender, EventArgs e)
+        protected internal void LoadHeader(Offender thisPerson)
         {
+            HeaderRelationship.Visible = false;
+            HeaderPassword.Visible = false;
+            HeaderUserType.Visible = false;
+            HeaderOffenderNumber.Visible = true;
 
+            FirstName.Text = thisPerson.FirstName.ToString();
+            LastName.Text = thisPerson.LastName.ToString();
+            DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
+            Gender.Text = thisPerson.Gender.ToString();
+            Email.Text = thisPerson.Email.ToString();
+            Race.Text = thisPerson.Race.ToString();
+            OffenderNumber.Text = thisPerson.CourtID;
+
+            MainContainer.Visible = true;
+            GuardiansPanel.Visible = true;
         }
 
-        protected internal void ViewVictim(object sender, EventArgs e)
+        protected internal void BindData(Guardian thisPerson)
         {
-            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
-            Victim thisVictim = Victim.Get(PersonID);
+            PhoneNumbersRepeater.DataSource = thisPerson.PhoneNumbers;
+            PhoneNumbersRepeater.DataBind();
 
-            ModalName.InnerText = thisVictim.FirstName + " " + thisVictim.LastName;
-            ModalDateOfBirth.Text = thisVictim.DateOfBirth.ToString("MM/dd/yyyy");
-            ModalGender.Text = thisVictim.Gender;
-            ModalRace.Text = thisVictim.Race;
-            ModalPhoneNumbers.DataSource = thisVictim.PhoneNumbers;
-            ModalPhoneNumbers.DataBind();
-            ModalAddresses.DataSource = thisVictim.Addresses;
-            ModalAddresses.DataBind();
+            AddressesRepeater.DataSource = thisPerson.Addresses;
+            AddressesRepeater.DataBind();
 
-            ViewPersonModalPanel.CssClass += " visible";
+            CasesRepeater.DataSource = thisPerson.GetCases();
+            CasesRepeater.DataBind();
         }
 
-        protected void ModalPhoneNumbers_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        protected internal void LoadHeader(Guardian thisPerson)
         {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            HeaderRelationship.Visible = true;
+            HeaderPassword.Visible = false;
+            HeaderUserType.Visible = false;
+            HeaderOffenderNumber.Visible = false;
+
+            FirstName.Text = thisPerson.FirstName.ToString();
+            LastName.Text = thisPerson.LastName.ToString();
+            DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
+            Gender.Text = thisPerson.Gender.ToString();
+            Email.Text = thisPerson.Email.ToString();
+            Race.Text = thisPerson.Race.ToString();
+            Relationship.Text = thisPerson.Relationship;
+
+            MainContainer.Visible = true;
+            GuardiansRepeater.Visible = false;
+        }
+
+        protected internal void BindData(Affiliate thisPerson)
+        {
+            PhoneNumbersRepeater.DataSource = thisPerson.PhoneNumbers;
+            PhoneNumbersRepeater.DataBind();
+
+            AddressesRepeater.DataSource = thisPerson.Addresses;
+            AddressesRepeater.DataBind();
+
+            CasesRepeater.DataSource = thisPerson.GetCases();
+            CasesRepeater.DataBind();
+        }
+
+        protected internal void LoadHeader(Affiliate thisPerson)
+        {
+            HeaderRelationship.Visible = false;
+            HeaderPassword.Visible = false;
+            HeaderUserType.Visible = false;
+            HeaderOffenderNumber.Visible = false;
+
+            FirstName.Text = thisPerson.FirstName.ToString();
+            LastName.Text = thisPerson.LastName.ToString();
+            DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
+            Gender.Text = thisPerson.Gender.ToString();
+            Email.Text = thisPerson.Email.ToString();
+            Race.Text = thisPerson.Race.ToString();
+
+            MainContainer.Visible = true;
+            GuardiansPanel.Visible = false;
+        }
+
+        protected internal void LoadPerson(object sender, EventArgs e)
+        {
+            int personID = -1;
+            int.TryParse(((LinkButton)sender).CommandArgument, out personID); 
+            string PersonType = "";
+            try { PersonType = Session["PersonType"].ToString(); }
+            catch { return; }
+
+            switch (PersonType)
             {
-                PhoneNumber thisNumber = (PhoneNumber)e.Item.DataItem;
-                TextBox ModalPhoneNum = (TextBox)e.Item.FindControl("ModalPhoneNum");
-
-                ModalPhoneNum.Text = thisNumber.ToString();
-            }
-        }
-
-        protected void ModalAddresses_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-            {
-                Address thisAddress = (Address)e.Item.DataItem;
-                TextBox ModalAddress = (TextBox)e.Item.FindControl("ModalAddress");
-
-                ModalAddress.Text = thisAddress.ToString();
-            }
-        }
-
-        protected internal void DeleteOffender(object sender, EventArgs e)
-        {
-
-        }
-
-        protected internal void ViewOffender(object sender, EventArgs e)
-        {
-            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
-            Offender thisOffender = Offender.Get(PersonID);
-
-            ModalName.InnerText = thisOffender.FirstName + " " + thisOffender.LastName;
-            ModalDateOfBirth.Text = thisOffender.DateOfBirth.ToString("MM/dd/yyyy");
-            ModalGender.Text = thisOffender.Gender;
-            ModalRace.Text = thisOffender.Race;
-            ModalPhoneNumbers.DataSource = thisOffender.PhoneNumbers;
-            ModalPhoneNumbers.DataBind();
-            ModalAddresses.DataSource = thisOffender.Addresses;
-            ModalAddresses.DataBind();
-
-            ViewPersonModalPanel.CssClass += " visible";
-        }
-
-        protected internal void DeleteAffiliate(object sender, EventArgs e)
-        {
-
-        }
-
-        protected internal void ViewAffiliate(object sender, EventArgs e)
-        {
-            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
-            Affiliate thisAffiliate = Affiliate.Get(PersonID);
-
-            ModalName.InnerText = thisAffiliate.FirstName + " " + thisAffiliate.LastName;
-            ModalDateOfBirth.Text = thisAffiliate.DateOfBirth.ToString("MM/dd/yyyy");
-            ModalGender.Text = thisAffiliate.Gender;
-            ModalRace.Text = thisAffiliate.Race;
-            ModalPhoneNumbers.DataSource = thisAffiliate.PhoneNumbers;
-            ModalPhoneNumbers.DataBind();
-            ModalAddresses.DataSource = thisAffiliate.Addresses;
-            ModalAddresses.DataBind();
-
-            ViewPersonModalPanel.CssClass += " visible";
-        }
-
-        protected internal void DeleteCharge(object sender, EventArgs e)
-        {
-
-        }
-
-        protected internal void ViewCharge(object sender, EventArgs e)
-        {
-
-        }
-         */
-
-        protected internal void SwitchPersonList(object sender, EventArgs e)
-        {
-            string commandArg = (((LinkButton)sender).CommandArgument).ToString();
-
-            switch (commandArg)
-            {
-                case "all":
-                    persons = Person.GetPersons();
-                    PersonsRepeater.DataSource = persons;
-                    PersonsRepeater.DataBind();
+                case "employee":
+                    InternalUser thisEmployee = InternalUser.Get(personID);
+                    LoadHeader(thisEmployee);
+                    BindData(thisEmployee);
                     break;
-                case "open":
-                case "pending":
-                case "closed":
-                    cases = Case.GetCases(commandArg);
-                    CasesRepeater.DataSource = cases;
-                    CasesRepeater.DataBind();
+                case "victim":
+                    Victim thisVictim = Victim.Get(personID);
+                    BindData(thisVictim);
+                    LoadHeader(thisVictim);
+                    break;
+                case "offender":
+                    Offender thisOffender = Offender.Get(personID);
+                    BindData(thisOffender);
+                    LoadHeader(thisOffender);
+                    break;
+                case "guardian":
+                    Guardian thisGuardian = Guardian.Get(personID);
+                    BindData(thisGuardian);
+                    LoadHeader(thisGuardian);
+                    break;
+                case "affiliate":
+                    Affiliate thisAffiliate = Affiliate.Get(personID);
+                    BindData(thisAffiliate);
+                    LoadHeader(thisAffiliate);
                     break;
                 default:
-                    cases = Case.GetCases();
-                    CasesRepeater.DataSource = cases;
-                    CasesRepeater.DataBind();
+                    InternalUser thisDefaultUser = InternalUser.Get(personID);
+                    LoadHeader(thisDefaultUser);
+                    BindData(thisDefaultUser);
                     break;
             }
+        }
+
+        protected void PersonsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                LinkButton PersonButton = (LinkButton)e.Item.FindControl("PersonButton");
+                Label Phone = (Label)e.Item.FindControl("Phone");
+                Label Address = (Label)e.Item.FindControl("Address");
+                string PersonType = Session["PersonType"].ToString();
+
+                switch (PersonType)
+                {
+                    case "employee":
+                        InternalUser thisInternalUser = (InternalUser)e.Item.DataItem;
+                        PersonButton.Text = thisInternalUser.FirstName + " " + thisInternalUser.LastName;
+                        Phone.Text = (thisInternalUser.PhoneNumbers.Count > 0 ? thisInternalUser.PhoneNumbers[0].Number.ToString() : "");
+                        Address.Text = (thisInternalUser.Addresses.Count > 0 ? thisInternalUser.Addresses[0].ToString() : "");
+                        break;
+                    case "victim":
+                        Victim thisVictim = (Victim)e.Item.DataItem;
+                        PersonButton.Text = thisVictim.FirstName + " " + thisVictim.LastName;
+                        Phone.Text = (thisVictim.PhoneNumbers.Count > 0 ? thisVictim.PhoneNumbers[0].Number.ToString() : "");
+                        Address.Text = (thisVictim.Addresses.Count > 0 ? thisVictim.Addresses[0].ToString() : "");
+                        break;
+                    case "offender":
+                        Offender thisOffender = (Offender)e.Item.DataItem;
+                        PersonButton.Text = thisOffender.FirstName + " " + thisOffender.LastName;
+                        Phone.Text = (thisOffender.PhoneNumbers.Count > 0 ? thisOffender.PhoneNumbers[0].Number.ToString() : "");
+                        Address.Text = (thisOffender.Addresses.Count > 0 ? thisOffender.Addresses[0].ToString() : "");
+                        break;
+                    case "guardian":
+                        Guardian thisGuardian = (Guardian)e.Item.DataItem;
+                        PersonButton.Text = thisGuardian.FirstName + " " + thisGuardian.LastName;
+                        Phone.Text = (thisGuardian.PhoneNumbers.Count > 0 ? thisGuardian.PhoneNumbers[0].Number.ToString() : "");
+                        Address.Text = (thisGuardian.Addresses.Count > 0 ? thisGuardian.Addresses[0].ToString() : "");
+                        break;
+                    case "affiliate":
+                        Affiliate thisAffiliate = (Affiliate)e.Item.DataItem;
+                        PersonButton.Text = thisAffiliate.FirstName + " " + thisAffiliate.LastName;
+                        Phone.Text = (thisAffiliate.PhoneNumbers.Count > 0 ? thisAffiliate.PhoneNumbers[0].Number.ToString() : "");
+                        Address.Text = (thisAffiliate.Addresses.Count > 0 ? thisAffiliate.Addresses[0].ToString() : "");
+                        break;
+                    default:
+                        InternalUser thisDefaultUser = (InternalUser)e.Item.DataItem;
+                        PersonButton.Text = thisDefaultUser.FirstName + " " + thisDefaultUser.LastName;
+                        Phone.Text = (thisDefaultUser.PhoneNumbers.Count > 0 ? thisDefaultUser.PhoneNumbers[0].Number.ToString() : "");
+                        Address.Text = (thisDefaultUser.Addresses.Count > 0 ? thisDefaultUser.Addresses[0].ToString() : "");
+                        break;
+                }
+            }
+        }
+
+        protected internal void SavePerson(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void PhoneNumbersRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+
+        }
+
+        protected internal void DeletePhone(object sender, EventArgs e)
+        {
+
+        }
+
+        protected internal void AddPhone(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void AddressesRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+
+        }
+
+        protected internal void DeleteAddress(object sender, EventArgs e)
+        {
+
+        }
+
+        protected internal void AddAddress(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void GuardiansRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Label guardianName = (Label)e.Item.FindControl("GuardianName");
+                Guardian currentGuardian = (Guardian)e.Item.DataItem;
+
+                string name = currentGuardian.FirstName + " " + currentGuardian.LastName;
+
+                guardianName.Text = name;
+            }
+        }
+
+        protected internal void ViewGuardian(object sender, EventArgs e)
+        {
+
+        }
+
+        protected internal void DeleteGuardian(object sender, EventArgs e)
+        {
+
+        }
+
+        protected internal void AddGuardian(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void CasesRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+
+        }
+
+        protected internal void ViewCase(object sender, EventArgs e)
+        {
+
         }
     }
 }

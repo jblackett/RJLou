@@ -85,6 +85,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         CourtID = read["Offender_Number"].ToString()
                     };
 
@@ -134,6 +135,7 @@ namespace RJLou.Classes
                         DateOfBirth = Convert.ToDateTime(read["Date_Of_Birth"]),
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
+                        Email = read["Email"].ToString(),
                         CourtID = read["Offender_Number"].ToString()
                     };
 
