@@ -50,3 +50,24 @@ C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Newtonsoft.Json.xml
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.dll
 C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.pdb
+D:\Users\Documents\GitHub\RJLou\bin\RJLou.dll.config
+D:\Users\Documents\GitHub\RJLou\bin\RJLou.dll
+D:\Users\Documents\GitHub\RJLou\bin\RJLou.pdb
+D:\Users\Documents\GitHub\RJLou\bin\Antlr3.Runtime.dll
+D:\Users\Documents\GitHub\RJLou\bin\AspNet.ScriptManager.bootstrap.dll
+D:\Users\Documents\GitHub\RJLou\bin\AspNet.ScriptManager.jQuery.dll
+D:\Users\Documents\GitHub\RJLou\bin\Microsoft.AspNet.FriendlyUrls.dll
+D:\Users\Documents\GitHub\RJLou\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll
+D:\Users\Documents\GitHub\RJLou\bin\Microsoft.ScriptManager.MSAjax.dll
+D:\Users\Documents\GitHub\RJLou\bin\Microsoft.ScriptManager.WebForms.dll
+D:\Users\Documents\GitHub\RJLou\bin\Microsoft.Web.Infrastructure.dll
+D:\Users\Documents\GitHub\RJLou\bin\Newtonsoft.Json.dll
+D:\Users\Documents\GitHub\RJLou\bin\System.Web.Optimization.dll
+D:\Users\Documents\GitHub\RJLou\bin\WebGrease.dll
+D:\Users\Documents\GitHub\RJLou\bin\System.Web.Optimization.xml
+D:\Users\Documents\GitHub\RJLou\bin\Antlr3.Runtime.pdb
+D:\Users\Documents\GitHub\RJLou\bin\Newtonsoft.Json.xml
+D:\Users\Documents\GitHub\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
+D:\Users\Documents\GitHub\RJLou\obj\Debug\RJLou.csprojResolveAssemblyReference.cache
+D:\Users\Documents\GitHub\RJLou\obj\Debug\RJLou.dll
+D:\Users\Documents\GitHub\RJLou\obj\Debug\RJLou.pdb
