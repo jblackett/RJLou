@@ -310,12 +310,21 @@ namespace RJLou {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl H1;
         
         /// <summary>
-        /// managerDropDown control.
+        /// ManagerDropDown control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList managerDropDown;
+        protected global::System.Web.UI.WebControls.DropDownList ManagerDropDown;
+        
+        /// <summary>
+        /// ddlCurrentManagers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCurrentManagers;
     }
 }

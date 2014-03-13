@@ -248,6 +248,7 @@ namespace RJLou.Classes
                     result.GetNotes();
                     result.GetCharges();
                     result.GetDocuments();
+                    result.GetCaseManagers();
 
                     return result;
                 }
@@ -637,8 +638,49 @@ namespace RJLou.Classes
         #region Case Manager Methods
         internal void GetCaseManagers()
         {
+            string sql = @"
+                SELECT      c.Person_ID
+                FROM        CASE_MANAGER c
+                WHERE       c.Case_ID = @CaseID";
+            List<InternalUser> results = new List<InternalUser>();
 
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    results.Add(InternalUser.Get(Convert.ToInt32(read["Person_ID"])));
+                }
+            }
+
+            CaseManagers = results;
         }
+        internal void AddCaseManager(InternalUser manager)
+        {
+            string sql = @"
+                INSERT INTO CASE_MANAGER (Case_ID, Person_ID)
+                VALUES                (@CaseID, @PersonID)";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+                cmd.Parameters.AddWithValue("PersonID", manager.PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
         #endregion
 
         public static List<Case> GetCases()
@@ -676,6 +718,7 @@ namespace RJLou.Classes
                     newCase.GetNotes();
                     newCase.GetCharges();
                     newCase.GetDocuments();
+                    newCase.GetCaseManagers();
 
                     results.Add(newCase);
                 }
@@ -719,6 +762,7 @@ namespace RJLou.Classes
                     newCase.GetNotes();
                     newCase.GetCharges();
                     newCase.GetDocuments();
+                    newCase.GetCaseManagers();
 
                     results.Add(newCase);
                 }
@@ -962,14 +1006,6 @@ namespace RJLou.Classes
                 cmd.Parameters.AddWithValue("District", District);
 
                 cmd.ExecuteNonQuery();
-            }
-        }
-
-        protected internal void AddCaseManagerToCase(InternalUser CaseManager)
-        {
-            if (CaseManager.Role == Role.CASE_MANAGER)
-            {
-                _caseManagers.Add(CaseManager);
             }
         }
         #endregion

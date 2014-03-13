@@ -296,25 +296,29 @@
             <!--<span class="x popup" runat="server">X</span>-->
         </div>
     </asp:Panel>
-
     <asp:Panel ID="addManagerPanel" runat="server" CssClass="modal-background">
         <div class="modal">
-            <h1 id="H1" runat="server"></h1>
+            <h2 id="H1" runat="server">Add a case manager </h2>
             <table class="nothing">
                 <tr>
-                    <td>Manager to Add</td>
+                    <td>Manager to Add:</td>
                     <td>
-                        
-                            <asp:DropDownList ID="managerDropDown" runat="server" width ="200px">
+                            <asp:DropDownList ID="ManagerDropDown" runat="server" width ="200px">
                             </asp:DropDownList>
-                        
+                    </td>
+                </tr>
+                <tr>
+                    <td>Current Managers:</td>
+                    <td><asp:DropDownList ID="ddlCurrentManagers" runat="server" Width="200px">
+                        </asp:DropDownList>
                     </td>
                 </tr>
                 </table>
             <asp:LinkButton runat="server" Text="Add" OnClick="AddManager"  CssClass="button"/>
+            <asp:LinkButton runat="server" Text="Close" OnClick="CloseManagerModalPanel" CssClass="button" />
         </div>
     </asp:Panel>
-    <!--<script type="text/javascript">
+    <script type="text/javascript">
         $('span.x.alert').click(function () {
             $('.updatepanel').removeClass('visible');
         });
@@ -322,5 +326,5 @@
         $('span.x.popup').click(function () {
             $('.modal-background').removeClass('visible');
         })
-    </script>-->
+    </script>
 </asp:Content>
