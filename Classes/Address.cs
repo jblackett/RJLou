@@ -73,7 +73,7 @@ namespace RJLou.Classes
         public static Address Get(int id)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "SELECT * FROM Address WERE Address_ID = @ID";
+            string sql = "SELECT * FROM Address_List WHERE Address_ID = @ID";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -260,26 +260,28 @@ public static List<Address> GetAddresesByZip(string zip)
 
             return results;
         }
-        public static void Add(string streetAddress, string city, string state, int zip)
+        public static void Add(int personID, string streetAddress, string city, string state, int zip, string type = null)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "INSERT INTO Address_List (Street_Address, City, State, Zip) VALUES (@Street_Address, @City, @State, @Zip)";
+            string sql = "INSERT INTO Address_List (Person_ID, Street_Address, City, State, Zip, Address_Type) VALUES (@PersonID, @Street_Address, @City, @State, @Zip, @Type)";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", personID);
                 cmd.Parameters.AddWithValue("Street_Address", streetAddress);
                 cmd.Parameters.AddWithValue("City", city);
                 cmd.Parameters.AddWithValue("State", state);
                 cmd.Parameters.AddWithValue("Zip", zip);
+                cmd.Parameters.AddWithValue("Type", type);
 
                 cmd.ExecuteNonQuery();
             }
         }
 
-        internal void Delete(int id)
+        internal void Delete()
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = "DELETE FROM Address_List WHERE Address_ID = @ID";
@@ -289,7 +291,7 @@ public static List<Address> GetAddresesByZip(string zip)
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("ID", id);
+                cmd.Parameters.AddWithValue("ID", AddressID);
 
                 cmd.ExecuteNonQuery();
             }

@@ -344,7 +344,7 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("PersonID", PersonID);
-                cmd.Parameters.AddWithValue("Role", Role);
+                cmd.Parameters.AddWithValue("Role", Role.ToString());
                 cmd.Parameters.AddWithValue("Password", Password);
 
                 cmd.ExecuteNonQuery();

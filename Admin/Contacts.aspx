@@ -3,49 +3,45 @@
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <asp:ScriptManager runat='server' ID='workingMan' />
     <div id="container_left" class="container left">
-        <asp:UpdatePanel ID="ContainerLeftUpdatePanel" runat="server">
-            <ContentTemplate>
-                <table class="changes" cellspacing="0" border="0">
-                    <tr>
-                        <td colspan="2">
-                            <asp:LinkButton runat="server" ID="PersonSwitchEmployees" OnClick="SwitchPersonList" Text="Employees" CommandArgument="employees" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><asp:LinkButton runat="server" ID="PersonSwitchOffenders" OnClick="SwitchPersonList" Text="Offenders" CommandArgument="offenders" /></td>
-                        <td><asp:LinkButton runat="server" ID="PersonSwitchVictims" OnClick="SwitchPersonList" Text="Victims" CommandArgument="victims" /></td>
-                    </tr>
-                    <tr>
-                        <td><asp:LinkButton runat="server" ID="PersonSwitchAffiliates" OnClick="SwitchPersonList" Text="Affiliates" CommandArgument="affiliates" /></td>
-                        <td><asp:LinkButton runat="server" ID="PersonSwitchGuardians" OnClick="SwitchPersonList" Text="Guardians" CommandArgument="guardians" /></td>
-                    </tr>
-                </table>
-                <asp:Repeater runat="server" ID="PersonsRepeater" OnItemDataBound="PersonsRepeater_ItemDataBound">
-                    <HeaderTemplate>
-                        <table cellspacing="0" border="0">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Phone</th>
-                                    <th>Address</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                    </HeaderTemplate>
-                    <ItemTemplate>
+        <table class="changes" cellspacing="0" border="0">
+            <tr>
+                <td colspan="2">
+                    <asp:LinkButton runat="server" ID="PersonSwitchEmployees" OnClick="SwitchPersonList" Text="Employees" CommandArgument="employees" />
+                </td>
+            </tr>
+            <tr>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchOffenders" OnClick="SwitchPersonList" Text="Offenders" CommandArgument="offenders" /></td>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchVictims" OnClick="SwitchPersonList" Text="Victims" CommandArgument="victims" /></td>
+            </tr>
+            <tr>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchAffiliates" OnClick="SwitchPersonList" Text="Affiliates" CommandArgument="affiliates" /></td>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchGuardians" OnClick="SwitchPersonList" Text="Guardians" CommandArgument="guardians" /></td>
+            </tr>
+        </table>
+        <asp:Repeater runat="server" ID="PersonsRepeater" OnItemDataBound="PersonsRepeater_ItemDataBound">
+            <HeaderTemplate>
+                <table cellspacing="0" border="0">
+                    <thead>
                         <tr>
-                            <td><asp:LinkButton runat="server" ID="PersonButton" OnClick="LoadPerson" CommandArgument='<%# Eval("PersonID") %>' /></td>
-                            <td><asp:Label ID="Phone" runat="server"></asp:Label></td>
-                            <td><asp:Label ID="Address" runat="server"></asp:Label></td>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Address</th>
                         </tr>
-                    </ItemTemplate>
-                    <FooterTemplate>
-                            </tbody>
-                        </table>
-                    </FooterTemplate>
-                </asp:Repeater>
-            </ContentTemplate>
-        </asp:UpdatePanel>
+                    </thead>
+                    <tbody>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <tr>
+                    <td><asp:LinkButton runat="server" ID="PersonButton" OnClick="LoadPerson" CommandArgument='<%# Eval("PersonID") %>' /></td>
+                    <td><asp:Label ID="Phone" runat="server"></asp:Label></td>
+                    <td><asp:Label ID="Address" runat="server"></asp:Label></td>
+                </tr>
+            </ItemTemplate>
+            <FooterTemplate>
+                    </tbody>
+                </table>
+            </FooterTemplate>
+        </asp:Repeater>
     </div>
     <div class="container right">
         <asp:UpdatePanel ID="MainContainer" runat="server" Visible="false">
@@ -65,6 +61,7 @@
                     <span class="x alert">X</span>
                 </asp:Panel>
                 <h1 id="contact">Contact</h1>
+                <asp:Label ID="PersonID" runat="server" Visible="false" />
                 <table class="nothing">
                     <tr>
                         <td>First Name:</td>
@@ -207,7 +204,7 @@
                                     <td><%#DataBinder.Eval(Container.DataItem, "Gender")%></td>
                                     <td><%#DataBinder.Eval(Container.DataItem, "Relationship")%></td>
                                     <td>
-                                        <asp:LinkButton runat="server" ID="GuardianDeleteButton" OnClick="DeleteGuardian" Text="Delete" CommandArgument='<%# Eval("PersonID") %>' /> &nbsp;
+                                        <asp:LinkButton runat="server" ID="GuardianDeleteButton" OnClick="DeleteGuardian" Text="Delete" CommandArgument='<%# Eval("GuardianID") %>' /> &nbsp;
                                         <asp:LinkButton runat="server" ID="GuardianViewButton" OnClick="ViewGuardian" Text="View" CommandArgument='<%# Eval("PersonID") %>' />
                                     </td>
                                 </tr>
@@ -253,4 +250,138 @@
         </asp:UpdatePanel>
     </div>
     <div style="margin: 0; padding: 0; clear: both;"></div>
+    <asp:Panel ID="ViewPersonModalPanel" runat="server" CssClass="modal-background">
+        <div class="modal">
+            <h1 id="ModalName" runat="server"></h1>
+            <table class="nothing">
+                <tr>
+                    <td>Date of Birth:</td>
+                    <td><asp:TextBox ID="ModalDateOfBirth" runat="server" ReadOnly="true" /></td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td><asp:TextBox ID="ModalGender" runat="server" ReadOnly="true" /></td>
+                </tr>
+                <tr>
+                    <td>Race:</td>
+                    <td><asp:TextBox ID="ModalRace" runat="server" ReadOnly="true" /></td>
+                </tr>
+                <tr>
+                    <td>Phone Numbers:</td>
+                    <td>
+                        <asp:Repeater ID="ModalPhoneNumbers" runat="server" OnItemDataBound="ModalPhoneNumbers_ItemDataBound">
+                            <ItemTemplate>
+                                <asp:TextBox ID="ModalPhoneNum" runat="server" ReadOnly="true" /> <br />
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Addresses:</td>
+                    <td>
+                        <asp:Repeater ID="ModalAddresses" runat="server" OnItemDataBound="ModalAddresses_ItemDataBound">
+                            <ItemTemplate>
+                                <asp:TextBox ID="ModalAddress" runat="server" ReadOnly="true" Width="300" /> <br />
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </td>
+                </tr>
+            </table>
+            <asp:LinkButton ID="ModalClosePerson" runat="server" OnClick="CloseModal" CssClass="button" Text="Close" />
+        </div>
+    </asp:Panel>
+    <asp:Panel ID="ViewCaseModalPanel" runat="server" CssClass="modal-background">
+        <div class="modal">
+            <h1 id="ModalCaseNumber" runat="server"></h1>
+            <table class="nothing">
+                <tr>
+                    <td>Case ID:</td>
+                    <td><asp:TextBox ID="ModalCaseID" runat="server" ReadOnly="true" /></td>
+                </tr>
+                <tr>
+                    <td>Referral Date:</td>
+                    <td><asp:TextBox ID="ModalReferralDate" runat="server" ReadOnly="true" /></td>
+                </tr>
+                <tr>
+                    <td>Referral Number:</td>
+                    <td><asp:TextBox ID="ModalReferralNumber" runat="server" ReadOnly="true" /></td>
+                </tr>
+                <tr>
+                    <td>Court Date:</td>
+                    <td><asp:TextBox ID="ModalCourtDate" runat="server" ReadOnly="true" /></td>
+                </tr>
+                <tr>
+                    <td>Date of Final Conference:</td>
+                    <td><asp:TextBox ID="ModalDateFinalConference" runat="server" ReadOnly="true" /></td>
+                </tr>
+                <tr>
+                    <td>Date of Completion:</td>
+                    <td><asp:TextBox ID="ModalDateCompletion" runat="server" ReadOnly="true" /></td>
+                </tr>
+                <tr>
+                    <td>Status:</td>
+                    <td><asp:TextBox ID="ModalStatus" runat="server" ReadOnly="true" /></td>
+                </tr>
+                <tr>
+                    <td>District:</td>
+                    <td><asp:TextBox ID="ModalDistrict" runat="server" ReadOnly="true" /></td>
+                </tr>
+            </table>
+            <asp:LinkButton ID="ModalCloseCase" runat="server" OnClick="CloseModal" CssClass="button" Text="Close" />
+        </div>
+    </asp:Panel>
+    <asp:Panel ID="NewPhoneNumber" runat="server" CssClass="modal-background">
+        <div class="modal">
+            <h1>New Phone Number</h1>
+            <table class="nothing">
+                <tr>
+                    <td>Phone Number (numbers only):</td>
+                    <td><asp:TextBox ID="NewNumber" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                    <td><asp:TextBox ID="NewType" runat="server" /></td>
+                </tr>
+            </table>
+            <asp:LinkButton runat="server" ID="SubmitNewPhoneNumber" OnClick="SavePhone" CssClass="button" Text="Submit" />
+        </div>
+    </asp:Panel>
+    <asp:Panel ID="NewAddressModal" runat="server" CssClass="modal-background">
+        <div class="modal">
+            <h1>New Address</h1>
+            <table class="nothing">
+                <tr>
+                    <td>Street Address</td>
+                    <td><asp:TextBox ID="NewStreetAddress" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>City</td>
+                    <td><asp:TextBox ID="NewCity" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>State</td>
+                    <td><asp:TextBox ID="NewState" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Zip</td>
+                    <td><asp:TextBox ID="NewZipCode" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td><asp:TextBox ID="NewAddressType" runat="server" /></td>
+                </tr>
+            </table>
+            <asp:LinkButton runat="server" ID="SubmitNewAddress" OnClick="SaveAddress" CssClass="button" Text="Submit" />
+        </div>
+    </asp:Panel>
+    <asp:Panel ID="NewGuardianModal" runat="server" CssClass="modal-background">
+        <div class="modal">
+            <h1>New Guardian</h1>
+            <p>Select a guardian from the list below:</p>
+            <asp:DropDownList ID="NewGuardian" runat="server"></asp:DropDownList>
+            <br />
+            <asp:LinkButton runat="server" ID="SubmitNewGuardian" OnClick="SaveGuardian" CssClass="button" Text="Submit" />
+            <asp:LinkButton runat="server" ID="CancelNewGuardian" OnClick="CancelGuardian" CssClass="button" Text="Cancel" />
+        </div>
+    </asp:Panel>
 </asp:Content>

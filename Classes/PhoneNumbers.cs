@@ -201,7 +201,7 @@ namespace RJLou.Classes
             }
         }
 
-        internal void Delete(int id)
+        internal void Delete()
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = "DELETE FROM Phone_List WHERE Phone_ID = @ID";
@@ -211,11 +211,7 @@ namespace RJLou.Classes
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
-
-                cmd.Parameters.AddWithValue("PhoneNumber", id);
-
-                cmd.Parameters.AddWithValue("ID", id);
-
+                cmd.Parameters.AddWithValue("ID", PhoneID);
 
                 cmd.ExecuteNonQuery();
             }

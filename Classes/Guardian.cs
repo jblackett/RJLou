@@ -12,6 +12,7 @@ namespace RJLou.Classes
     {
         #region Private Variables
         private string _relationship;
+        private int _guardianID;
         #endregion
 
         #region Properties
@@ -26,7 +27,18 @@ namespace RJLou.Classes
                 _relationship = value;
             }
         }        
-       
+
+        public int GuardianID
+        {
+            get
+            {
+                return _guardianID;
+            }
+            set
+            {
+                _guardianID = value;
+            }
+        }
         #endregion
 
         #region Constructors
@@ -41,6 +53,7 @@ namespace RJLou.Classes
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
                 SELECT      g.Person_ID,
+                            Guardian_ID,
                             First_Name,
                             Last_Name,
                             Date_Of_Birth,
@@ -74,6 +87,7 @@ namespace RJLou.Classes
                         Race = read["Race"].ToString(),
                         Email = read["Email"].ToString(),
                         Relationship = read["Relationship"].ToString(),
+                        GuardianID = Convert.ToInt32(read["Guardian_ID"])
                     };
 
                     result.GetPhoneNumbers();
@@ -91,6 +105,7 @@ namespace RJLou.Classes
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
                 SELECT      g.Person_ID,
+                            Guardian_ID,
                             First_Name,
                             Last_Name,
                             Date_Of_Birth,
@@ -124,6 +139,7 @@ namespace RJLou.Classes
                         Race = read["Race"].ToString(),
                         Email = read["Email"].ToString(),
                         Relationship = read["Relationship"].ToString(),
+                        GuardianID = Convert.ToInt32(read["Guardian_ID"])
                     };
 
                     result.GetPhoneNumbers();
@@ -141,6 +157,7 @@ namespace RJLou.Classes
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
                 SELECT      g.Person_ID,
+                            Guardian_ID,
                             First_Name,
                             Last_Name,
                             Date_Of_Birth,
@@ -172,7 +189,8 @@ namespace RJLou.Classes
                         Gender = read["Gender"].ToString(),
                         Race = read["Race"].ToString(),
                         Email = read["Email"].ToString(),
-                        Relationship = read["Relationship"].ToString()
+                        Relationship = read["Relationship"].ToString(),
+                        GuardianID = Convert.ToInt32(read["Guardian_ID"])
                     };
 
                     newGuardian.GetPhoneNumbers();

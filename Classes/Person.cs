@@ -161,6 +161,7 @@ namespace RJLou.Classes
                 {
                     results.Add(new PhoneNumber()
                     {
+                        PhoneID = Convert.ToInt32(read["Phone_ID"]),
                         Number = read["Phone_Number"].ToString(),
                         PType = read["Phone_Type"].ToString()
                     });
@@ -190,10 +191,12 @@ namespace RJLou.Classes
                 {
                     results.Add(new Address()
                         {
+                            AddressID = Convert.ToInt32(read["Address_ID"]),
                             streetAddress = read["Street_Address"].ToString(),
                             city = read["City"].ToString(),
                             state = read["State"].ToString(),
-                            zip = Convert.ToInt32(read["Zip"])
+                            zip = Convert.ToInt32(read["Zip"]),
+                            type = read["Address_Type"].ToString()
                         });
                 }
             }

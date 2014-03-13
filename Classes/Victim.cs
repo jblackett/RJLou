@@ -205,6 +205,40 @@ namespace RJLou.Classes
 
             Guardians = results;
         }
+
+        internal void AddGuardian(Guardian newGuardian)
+        {
+            string sql = "INSERT INTO Guardian_List (Person_ID, Guardian_ID) VALUES (@PersonID, @GuardianID)";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+                cmd.Parameters.AddWithValue("GuardianID", newGuardian.GuardianID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        internal void DeleteGuardian(Guardian oldGuardian)
+        {
+            string sql = "DELETE FROM Guardian_List WHERE Person_ID = @PersonID AND Guardian_ID = @GuardianID";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("PersonID", PersonID);
+                cmd.Parameters.AddWithValue("GuardianID", oldGuardian.GuardianID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
         #endregion
     }
 }
