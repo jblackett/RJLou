@@ -102,6 +102,7 @@
     <Content Include="Admin\Default.aspx" />
     <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Logout.aspx" />
+    <Content Include="Admin\UOR.aspx" />
     <Content Include="contacts.html" />
     <Content Include="Content\admin.css" />
     <Content Include="Content\fonts\helveticaneueltstd-ultlt.svg" />
@@ -744,7 +745,9 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Masterpages\Admin.Master" />
     <Content Include="Content\fonts\helveticaneueltstd-ultlt.eot" />
     <Content Include="Content\fonts\helveticaneueltstd-ultlt.ttf" />
@@ -851,6 +854,13 @@
     </Compile>
     <Compile Include="Admin\Logout.aspx.designer.cs">
       <DependentUpon>Logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\UOR.aspx.cs">
+      <DependentUpon>UOR.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\UOR.aspx.designer.cs">
+      <DependentUpon>UOR.aspx</DependentUpon>
     </Compile>
     <Compile Include="Classes\Address.cs" />
     <Compile Include="Classes\Affiliate.cs" />
