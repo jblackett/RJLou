@@ -58,15 +58,6 @@ namespace RJLou.Admin {
         protected global::System.Web.UI.WebControls.TextBox ChargeID;
         
         /// <summary>
-        /// KRS_Code control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox KRS_Code;
-        
-        /// <summary>
         /// UOR_Code control.
         /// </summary>
         /// <remarks>

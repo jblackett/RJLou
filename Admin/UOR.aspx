@@ -13,7 +13,6 @@
                     <thead>
                         <tr>
                             <th>ChargeID</th>
-                            <th>KRS</th>
                             <th>UOR</th>
                             <th>Desc.</th>
                         </tr>
@@ -24,7 +23,6 @@
                 <tr>
                     <td><asp:LinkButton runat="server" ID="ChargeButton" OnClick="LoadCharge" Text='<%# Eval("ChargeID") %>' CommandArgument='<%# Eval("ChargeID") %>' /></td>
                     <td><%#DataBinder.Eval(Container.DataItem, "UORCode")%></td>
-                    <td><%#DataBinder.Eval(Container.DataItem, "KRSCode")%></td>
                     <td><asp:Label ID="ChargeID" runat="server"></asp:Label></td>
                 </tr>
             </ItemTemplate>
@@ -49,10 +47,6 @@
                     <tr>
                         <td>Charge ID:</td>
                         <td><asp:TextBox ID="ChargeID" runat="server" /></td>
-                    </tr>
-                    <tr>
-                        <td>KRS Code:</td>
-                        <td><asp:TextBox ID="KRS_Code" runat="server" /></td>
                     </tr>
                     <tr>
                         <td>UOR Code:</td>

@@ -89,3 +89,4 @@ C:\Users\Ian\Documents\GitHub\RJLou\bin\Newtonsoft.Json.xml
 C:\Users\Ian\Documents\GitHub\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\Ian\Documents\GitHub\RJLou\obj\Debug\RJLou.dll
 C:\Users\Ian\Documents\GitHub\RJLou\obj\Debug\RJLou.pdb
+C:\Users\Ian\Documents\GitHub\RJLou\obj\Debug\RJLou.csprojResolveAssemblyReference.cache

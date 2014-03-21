@@ -218,7 +218,6 @@
                                     <thead>
                                         <tr>
                                             <th>Charge ID</th>
-                                            <th>KRS Code</th>
                                             <th>UOR Code</th>
                                             <th>Actions</th>
                                         </tr>
@@ -228,7 +227,6 @@
                             <ItemTemplate>
                                 <tr>
                                     <td><%#DataBinder.Eval(Container.DataItem, "ChargeID")%></td>
-                                    <td><%#DataBinder.Eval(Container.DataItem, "KRSCode")%></td>
                                     <td><%#DataBinder.Eval(Container.DataItem, "UORCode")%></td>
                                     <td>
                                         <asp:LinkButton runat="server" ID="ChargeDeleteButton" OnClick="DeleteCharge" Text="Delete" CommandArgument='<%# Eval("ChargeID") %>' /> &nbsp;
