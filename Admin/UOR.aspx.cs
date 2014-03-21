@@ -47,7 +47,6 @@ namespace RJLou.Admin
         {
             ChargeID.Text = thisCharge.ChargeID.ToString();
             ChargeID.ReadOnly = true;
-            KRS_Code.Text = thisCharge.KRSCode.ToString();
             UOR_Code.Text = thisCharge.UORCode.ToString();
             Description.Text = thisCharge.Description.ToString();
 
@@ -56,18 +55,10 @@ namespace RJLou.Admin
 
         protected internal void SaveCharge(object sender, EventArgs e)
         {
-            int KRSHolder;
             int chargeID = int.Parse(ChargeID.Text);
             thisCharge = Charge.Get(chargeID);
             thisCharge.UORCode = UOR_Code.Text;
             thisCharge.Description = Description.Text;
-            if (int.TryParse(KRS_Code.Text, out KRSHolder) && KRSHolder != 0)
-            {
-                thisCharge.KRSCode = KRSHolder;
-            }
-            else
-                thisCharge.KRSCode = 000000;
-
 
 
             thisCharge.UpdateUOR();
