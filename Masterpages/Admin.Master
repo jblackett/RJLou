@@ -11,11 +11,12 @@
     <form runat="server">
     <div class="section admin_header">
         <div class="container admin_header">
-            <a class="admin_nav_link active" href="Default.aspx">Case</a>
-            <a class="admin_nav_link" href="contacts.html">Contacts</a>
-            <a class="admin_nav_link" href="donations.html">Donations</a>
+            <a class="admin_nav_link active" href="/Admin/Default.aspx">Case</a>
+            <a class="admin_nav_link" href="/Admin/contacts.aspx">Contacts</a>
+            <%--<a class="admin_nav_link" href="donations.html">Donations</a>--%>
             <a class="admin_nav_link" href="events.html">Events</a>
             <a class="admin_nav_link" href="reports.html">Reports</a>
+            <a class="admin_nav_link" href="UOR.aspx">Charge</a>
             <div class="float-right">
                 <input type="search" name="searchTxt" placeholder="Start searching..." />
                 <a class="button" href="#">+</a>
