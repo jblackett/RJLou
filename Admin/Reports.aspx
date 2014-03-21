@@ -26,7 +26,7 @@
             </FooterTemplate>
     </div>
     <div class="container right">
-        <asp:UpdatePanel ID="MainContainer" runat="server" Visible="false">
+        <asp:UpdatePanel ID="MainContainer" runat="server" Visible="true">
             <ContentTemplate>
                 <div style="clear: both;"></div>
                 <asp:Panel ID="CaseUpdatedPanel" runat="server" CssClass="updatepanel">
@@ -37,8 +37,7 @@
                 </asp:Panel>
                 <h1 id="case_info">Report Options</h1>
                 <table class="nothing">
-                    <tr>
-                        <td>SORT BY</td>
+                    <tr><td>SORT BY</td></tr>
                         <td>Case Status</td>
                         <td><asp:CheckBox ID="CaseStatus" runat="server" /></td>
                         <td>Case Charge</td>
@@ -53,7 +52,8 @@
                         <td><asp:CheckBox ID="OffenderAge" runat="server" /></td>
                         <td>Offender Zip</td>
                         <td><asp:CheckBox ID="OffenderZip" runat="server" /></td>
-                        <td>INFORMATION INCLUDED</td>
+
+                     <tr><td>INFORMATION INCLUDED</td></tr>
                         <td>Case ID</td>
                         <td><asp:CheckBox ID="CaseID" runat="server" /></td>
                         <td>Offender Name</td>
@@ -68,17 +68,17 @@
                         <td><asp:CheckBox ID="Race" runat="server" /></td>
                         <td>Offender Gender</td>
                         <td><asp:CheckBox ID="Gender" runat="server" /></td>
-                        <td>Offender Age</td>
+                        <tr><td>Offender Age</td>
                         <td><asp:CheckBox ID="Age" runat="server" /></td>
                         <td>Offender Zip</td>
-                        <td><asp:CheckBox ID="Zip" runat="server" /></td>
+                        <td><asp:CheckBox ID="Zip" runat="server" /></td></tr>
 
-                        <td>SORT BY</td>
+                      <tr><td>SORT BY</td></tr>
                         <td>Offender</td>
                         <td><asp:CheckBox ID="OffenderName" runat="server" /></td>
                         <td>Victim</td>
                         <td><asp:CheckBox ID="VictimName" runat="server" /></td>
-                    </tr>
+                    
                 </table>
             </ContentTemplate>
         </asp:UpdatePanel>
