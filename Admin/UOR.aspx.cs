@@ -62,7 +62,7 @@ namespace RJLou.Admin
 
 
             thisCharge.UpdateUOR();
-            CaseUpdatedPanel.CssClass += " visible";
+            ChargeUpdatedPanel.CssClass += " visible";
         }
 
         protected internal void ChargesRepeater_Databind(object sender, RepeaterItemEventArgs e)
@@ -79,6 +79,10 @@ namespace RJLou.Admin
 
                 thisLabel.Text = ChargeCode;
             }
+        }
+        protected internal void CloseUpdatePanel()
+        {
+            ChargeUpdatedPanel.Visible = false;
         }
     }
 }

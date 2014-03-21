@@ -36,11 +36,11 @@
         <asp:UpdatePanel ID="MainContainer" runat="server" Visible="false">
             <ContentTemplate>
                 <div style="clear: both;"></div>
-                <asp:Panel ID="CaseUpdatedPanel" runat="server" CssClass="updatepanel">
+                <asp:Panel ID="ChargeUpdatedPanel" runat="server" CssClass="updatepanel">
                     <p>
-                        This case was successfully saved!
+                        This charge update was successfully saved!
                     </p>
-                    <span class="x alert">X</span>
+                    <span class="x alert" onclick="CloseUpdatePanel">X</span>
                 </asp:Panel>
                 <h1 id="case_info">Charge Info</h1>
                 <table class="nothing">

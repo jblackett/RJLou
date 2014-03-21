@@ -40,13 +40,13 @@ namespace RJLou.Admin {
         protected global::System.Web.UI.UpdatePanel MainContainer;
         
         /// <summary>
-        /// CaseUpdatedPanel control.
+        /// ChargeUpdatedPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel CaseUpdatedPanel;
+        protected global::System.Web.UI.WebControls.Panel ChargeUpdatedPanel;
         
         /// <summary>
         /// ChargeID control.
