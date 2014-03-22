@@ -94,7 +94,9 @@
                         <td><asp:TextBox ID="District" runat="server" /></td>
                     </tr>
                 </table>
-                <asp:LinkButton runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />
+                <asp:LinkButton ID="LinkButton1" runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />
+                <%--<asp:LinkButton runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />--%>
+                <asp:LinkButton ID="AddCaseManagerBtn" runat="server" CssClass="button" Text="Add Case Manager" OnClick="OpenManagerModalPanel" />
                 <h1 id="victims">Victims</h1>
                 <div class="inner">
                     <asp:Repeater ID="VictimsRepeater" runat="server" OnItemDataBound="VictimsRepeater_ItemDataBound">
@@ -311,6 +313,28 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
+        </div>
+    </asp:Panel>
+    <asp:Panel ID="addManagerPanel" runat="server" CssClass="modal-background">
+        <div class="modal">
+            <h2 id="H1" runat="server">Add a case manager </h2>
+            <table class="nothing">
+                <tr>
+                    <td>Manager to Add:</td>
+                    <td>
+                            <asp:DropDownList ID="ManagerDropDown" runat="server" width ="200px">
+                            </asp:DropDownList>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Current Managers:</td>
+                    <td><asp:DropDownList ID="ddlCurrentManagers" runat="server" Width="200px">
+                        </asp:DropDownList>
+                    </td>
+                </tr>
+                </table>
+            <asp:LinkButton ID="LinkButton2" runat="server" Text="Add" OnClick="AddManager"  CssClass="button"/>
+            <asp:LinkButton ID="LinkButton3" runat="server" Text="Close" OnClick="CloseManagerModalPanel" CssClass="button" />
         </div>
     </asp:Panel>
     <script type="text/javascript">
