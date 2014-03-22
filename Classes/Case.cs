@@ -696,6 +696,26 @@ namespace RJLou.Classes
                 cmd.ExecuteNonQuery();
             }
         }
+
+        internal void DeleteEmployee(InternalUser employee)
+        {
+            string sql = @"
+                DELETE FROM Case_Manager
+                WHERE       Case_ID = @CaseID
+                AND         Person_ID = @PersonID";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+                cmd.Parameters.AddWithValue("PersonID", employee.PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
         #endregion
 
         public static List<Case> GetCases()

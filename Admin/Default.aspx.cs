@@ -83,6 +83,9 @@ namespace RJLou
 
             DocumentsRepeater.DataSource = thisCase.Documents;
             DocumentsRepeater.DataBind();
+
+            EmployeeRepeater.DataSource = thisCase.CaseManagers;
+            EmployeeRepeater.DataBind();
         }
 
         protected internal void CasesRepeater_Databind(object sender, RepeaterItemEventArgs e)
@@ -141,6 +144,19 @@ namespace RJLou
                 string name = currentAffiliate.FirstName + " " + currentAffiliate.LastName;
 
                 affiliateName.Text = name;
+            }
+        }
+
+        protected void EmployeeRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                Label employeeName = (Label)e.Item.FindControl("EmployeeName");
+                InternalUser currentEmployee = (InternalUser)e.Item.DataItem;
+
+                string name = currentEmployee.FirstName + " " + currentEmployee.LastName;
+
+                employeeName.Text = name;
             }
         }
 
@@ -485,6 +501,33 @@ namespace RJLou
             addManagerPanel.CssClass = "modal-background";
         }
 
+        protected internal void ViewEmployee(object sender, EventArgs e)
+        {
+            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
+            InternalUser thisEmployee = InternalUser.Get(PersonID);
+
+            ModalName.InnerText = thisEmployee.FirstName + " " + thisEmployee.LastName;
+            ModalDateOfBirth.Text = thisEmployee.DateOfBirth.ToString("MM/dd/yyyy");
+            ModalGender.Text = thisEmployee.Gender;
+            ModalRace.Text = thisEmployee.Race;
+            ModalPhoneNumbers.DataSource = thisEmployee.PhoneNumbers;
+            ModalPhoneNumbers.DataBind();
+            ModalAddresses.DataSource = thisEmployee.Addresses;
+            ModalAddresses.DataBind();
+
+            ViewPersonModalPanel.CssClass += " visible";
+        }
+
+        protected internal void DeleteEmployeeFromCase(object sender, EventArgs e)
+        {
+            int PersonID = Convert.ToInt32(((LinkButton)sender).CommandArgument);
+            InternalUser thisEmployee = InternalUser.Get(PersonID);
+            int CaseID = Convert.ToInt32(Session["CaseID"]);
+            thisCase = Case.Get(CaseID);
+
+            thisCase.DeleteEmployee(thisEmployee);
+            BindData();
+        }
         protected internal void AddManager(object Sender, EventArgs e)
         {
             thisCase = Case.Get(int.Parse(CaseID.Text));
@@ -499,6 +542,8 @@ namespace RJLou
                         int personID = int.Parse(c.SelectedValue);
                         InternalUser addedManager = InternalUser.Get(personID);
                         thisCase.AddCaseManager(addedManager);
+                        CaseUpdatedPanel.CssClass += " visible";
+                        addManagerPanel.CssClass = "modal-background";
 
                     }
                 }
@@ -509,44 +554,34 @@ namespace RJLou
         {
             thisCase = Case.Get(int.Parse(CaseID.Text));
             List<InternalUser> UserList = InternalUser.GetInternalUsers();
-            List<InternalUser> currentManagers = thisCase.CaseManagers;
             LinkButton b = Sender as LinkButton;
             if (b != null)
             {
-                DropDownList c = (DropDownList)b.Parent.FindControl("ManagerDropDown");
+                DropDownList c = (DropDownList)b.Parent.Parent.Parent.FindControl("ManagerDropDown");
                 if (c != null)
                 {
                     c.Items.Clear();
                     for (int i = 0; i < UserList.Count; i++)
                     {
                         ListItem newItem = new ListItem();
-                        if (UserList[i].Role == Role.CASE_MANAGER)
+                        if (UserList[i].Role == Role.CASE_MANAGER || UserList[i].Role==Role.FACILITATOR)
                         {
-                            newItem.Text = UserList[i].FirstName + " " + UserList[i].LastName;
+                            string userRole = UserList[i].Role.ToString();
+                            newItem.Text = UserList[i].FirstName + " " + UserList[i].LastName + ", " + userRole.ToLower();
                             newItem.Value = UserList[i].PersonID.ToString();
                             c.Items.Add(newItem);
                         }
                     }
                 }
 
-                DropDownList d = (DropDownList)b.Parent.FindControl("ddlCurrentManagers");
-                if (d != null)
-                {
-                    d.Items.Clear();
-                    if (currentManagers.Count != 0)
-                    {
-                        for (int i = 0; i < currentManagers.Count; i++)
-                        {
-                            ListItem newItem = new ListItem();
-                            newItem.Text = currentManagers[i].FirstName + " " + currentManagers[i].LastName;
-                            newItem.Value = "Value";
-                            d.Items.Add(newItem);
-                        }
-                    }
-                }
             }
 
             addManagerPanel.CssClass += " visible";
+        }
+
+        protected internal void CloseUpdatedPanel(object Sender, EventArgs e)
+        {
+            CaseUpdatedPanel.CssClass = "modal-background";
         }
     }
 }

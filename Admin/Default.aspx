@@ -53,7 +53,7 @@
                     <p>
                         This case was successfully saved!
                     </p>
-                    <span class="x alert">X</span>
+                    <span class="x alert"><asp:LinkButton runat="server" OnClick="CloseUpdatedPanel" Text="X"></asp:LinkButton></span>
                 </asp:Panel>
                 <h1 id="case_info">Case Info</h1>
                 <table class="nothing">
@@ -94,9 +94,7 @@
                         <td><asp:TextBox ID="District" runat="server" /></td>
                     </tr>
                 </table>
-                <asp:LinkButton ID="LinkButton1" runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />
-                <%--<asp:LinkButton runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />--%>
-                <asp:LinkButton ID="AddCaseManagerBtn" runat="server" CssClass="button" Text="Add Case Manager" OnClick="OpenManagerModalPanel" />
+                <asp:LinkButton runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase"></asp:LinkButton>
                 <h1 id="victims">Victims</h1>
                 <div class="inner">
                     <asp:Repeater ID="VictimsRepeater" runat="server" OnItemDataBound="VictimsRepeater_ItemDataBound">
@@ -193,6 +191,36 @@
                                 </tbody>
                             </table>
                             <asp:LinkButton runat="server" ID="AffiliateAddButton" OnClick="AddAffiliate" CssClass="button float-right" Text="Add Affiliate" />
+                        </FooterTemplate>
+                    </asp:Repeater>
+                </div>
+                <h1 id="employees">Associated Employees</h1>
+                                <div class="inner">
+                    <asp:Repeater ID="EmployeeRepeater" runat="server" OnItemDataBound="EmployeeRepeater_ItemDataBound">
+                        <HeaderTemplate>
+                            <table cellspacing="0" border="0">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <tr>
+                                <td><asp:Label ID="EmployeeName" runat="server" /></td>
+                                <td><%#DataBinder.Eval(Container.DataItem, "Role")%></td>
+                                <td>
+                                    <asp:LinkButton runat="server" ID="EmployeeDeleteButton" OnClick="DeleteEmployeeFromCase" Text="Delete" CommandArgument='<%# Eval("PersonID") %>' /> &nbsp;
+                                    <asp:LinkButton runat="server" ID="EmployeeViewButton" OnClick="ViewEmployee" Text="View" CommandArgument='<%# Eval("PersonID") %>' />
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                                </tbody>
+                            </table>
+                            <asp:LinkButton runat="server" ID="EmployeeAddButton" OnClick="OpenManagerModalPanel" CssClass="button float-right" Text="Add Employee" />
                         </FooterTemplate>
                     </asp:Repeater>
                 </div>
@@ -317,33 +345,26 @@
     </asp:Panel>
     <asp:Panel ID="addManagerPanel" runat="server" CssClass="modal-background">
         <div class="modal">
-            <h2 id="H1" runat="server">Add a case manager </h2>
+            <h2 id="H1" runat="server">Add an Employee Association </h2>
             <table class="nothing">
                 <tr>
-                    <td>Manager to Add:</td>
+                    <td>Employee to Add:</td>
                     <td>
                             <asp:DropDownList ID="ManagerDropDown" runat="server" width ="200px">
                             </asp:DropDownList>
                     </td>
-                </tr>
-                <tr>
-                    <td>Current Managers:</td>
-                    <td><asp:DropDownList ID="ddlCurrentManagers" runat="server" Width="200px">
-                        </asp:DropDownList>
-                    </td>
-                </tr>
                 </table>
             <asp:LinkButton ID="LinkButton2" runat="server" Text="Add" OnClick="AddManager"  CssClass="button"/>
             <asp:LinkButton ID="LinkButton3" runat="server" Text="Close" OnClick="CloseManagerModalPanel" CssClass="button" />
         </div>
     </asp:Panel>
     <script type="text/javascript">
-        $('span.x.alert').click(function () {
+        <%--$('span.x.alert').click(function () {
             $('.updatepanel').removeClass('visible');
         });
 
         $('span.x.popup').click(function () {
             $('.modal-background').removeClass('visible');
-        })
+        })--%>
     </script>
 </asp:Content>
