@@ -3,6 +3,7 @@
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <div class="section">
         <div class="container">
+            <asp:Panel runat="server" DefaultButton="submitButton">
             <h1>Please Log In</h1>
             <asp:Label runat="server" ID="ErrorText" Text="Unfortunately, your login attempt has failed." Visible="false" /><br />
             
@@ -13,6 +14,7 @@
             <asp:TextBox runat="server" ID="Password" TextMode="Password" /><br />
             
             <asp:LinkButton runat="server" ID="submitButton" CssClass="button" Text="Log In" OnClick="verifyInfo" />
+                </asp:Panel>
         </div>
     </div>
 </asp:Content>
