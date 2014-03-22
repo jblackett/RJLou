@@ -17,7 +17,7 @@
             <a class="admin_nav_link" href="events.html">Events</a>
             <a class="admin_nav_link" href="reports.html">Reports</a>
             <a class="admin_nav_link" href="UOR.aspx">Charge</a>
-            <div class="float-right">
+            <div class="float-right" style="margin-top: 8px;">
                 <input type="search" name="searchTxt" placeholder="Start searching..." />
                 <a class="button" href="#">+</a>
             </div>

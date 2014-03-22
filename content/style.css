@@ -193,12 +193,16 @@ h1 {
 
 .section.admin_header {
     margin: 0;
+    padding: 0;
 }
 
 .section.admin_body {
-    margin: 2px;
-    border: 1px solid black;
-    min-height: 20rem;
+    border: .1em solid #aaa;
+    background: #eee;
+    display: block;
+	margin: -10px 0 30px;
+	padding: 1em;
+	border-radius: 3px;
 }
 	
 .container {
@@ -214,7 +218,10 @@ h1 {
 
 .container.admin_header {
     max-width: none;
-    padding: 0 3rem;
+    position: relative;
+	z-index: 1;
+	white-space: nowrap;
+    padding: 0 2rem;
 }
 
 .container.left {
@@ -341,7 +348,7 @@ h1 {
 
 .scroll-stick {
     text-align: center;
-    background-color: white;
+    background-color: transparent;
 }
 
 .scroll-stick > a {
@@ -391,22 +398,31 @@ a.nav_link:hover {
 }
 
 a.admin_nav_link {
-    float: left;
-    font-size: 1.5rem;
-    text-decoration: none;
-    width: 200px;
-    height: 60px;
-    padding-top: 30px;
-    padding-right: 20px;
-    margin-right: -50px;
-    text-align: center;
-    background-image: url('../images/nav-dark-bckg.png');
-    background-size: 100% 100%;
-    color: black;
+    position: relative;
+	display: inline-block;
+	padding: 1.5em 1.5em 1em;
+	color: inherit;
+	text-decoration: none;
+	margin: 0 -7px;
+    font-size: 1.25rem;
 }
 
-a.admin_nav_link:hover {
-    background-image: url('../images/nav-green-bckg.png');
+a.admin_nav_link::before {
+    border: .1em solid #aaa;
+    content: ''; /* To generate the box */
+	position: absolute;
+	top: 0; right: 0; bottom: .5em; left: 0;
+	z-index: -1;
+	border-bottom: none;
+	border-radius: 10px 10px 0 0;
+	background: #ddd;
+	box-shadow: 0 2px hsla(0,0%,100%,.5) inset;
+	transform: perspective(5px);
+	transform-origin: bottom;
+}
+
+a.admin_nav_link:hover::before {
+    background: #59d58e;
 }
 
 a.admin_nav_link.smaller {
@@ -415,9 +431,13 @@ a.admin_nav_link.smaller {
 }
 
 a.admin_nav_link.active {
-    border-bottom: none;
-    background-image: url('../images/nav-bckg.png');
-    z-index: 5;
+    z-index: 2;
+}
+
+a.admin_nav_link.active::before {
+    margin-bottom: -1px;
+	border-top-width: 1px;
+    background: #eee;
 }
 
 .button {
@@ -438,13 +458,22 @@ table {
     margin: 0 auto;
 }
 
+table tbody {
+    background-color: white;
+}
+
 table.changes {
     box-shadow: black 2px 2px;
     margin-bottom: 5px;
+    background-color: white;
 }
 
 table.nothing {
     margin: 0;
+}
+
+table.nothing tbody {
+    background-color: transparent;
 }
 
 table td {
@@ -465,7 +494,7 @@ table.nothing td {
 }
 
 table.changes td:hover {
-    background-color: #00C453;
+    background-color: #59d58e;
     cursor: pointer;
 }
 
