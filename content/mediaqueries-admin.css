@@ -240,6 +240,10 @@
         display: none;
     }
 
+    .scroll-stick.fixed {
+        display: none;
+    }
+
     .undo {
         display: none;
         position: fixed;
