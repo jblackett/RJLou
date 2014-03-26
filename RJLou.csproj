@@ -117,6 +117,10 @@
     <Content Include="donations.html" />
     <Content Include="events.html" />
     <Content Include="getinvolved.html" />
+    <Content Include="Images\arrow-left.png" />
+    <Content Include="Images\arrow-left.svg" />
+    <Content Include="Images\down-chevron.png" />
+    <Content Include="Images\down-chevron.svg" />
     <Content Include="Images\glyphicons_free\glyphicons\glyphicons_000_glass.png" />
     <Content Include="Images\glyphicons_free\glyphicons\glyphicons_001_leaf.png" />
     <Content Include="Images\glyphicons_free\glyphicons\glyphicons_002_dog.png" />
@@ -653,7 +657,10 @@
     <Content Include="Images\nav-green-bckg.png" />
     <Content Include="Images\placeholder.jpg" />
     <Content Include="Images\playbtn.png" />
+    <Content Include="Images\post-38498-Obama-heckler-gif-Imgur-LMP6.gif" />
     <Content Include="Images\profile-pic.png" />
+    <Content Include="Images\sandwich-bar.png" />
+    <Content Include="Images\sandwich-bar.svg" />
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll" />
