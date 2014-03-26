@@ -3,6 +3,10 @@
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <asp:ScriptManager runat='server' ID='workingMan' />
     <div id="container_left" class="container left">
+        <div style="margin: 1rem;">
+            <input type="search" class="search" name="searchTxt" placeholder="Start searching..." />
+            <a href="#" class="button search">Go</a>
+        </div>
         <table class="changes" cellspacing="0" border="0">
             <tr>
                 <td><asp:LinkButton runat="server" ID="CaseSwitchAll" OnClick="SwitchCaseList" Text="All" CommandArgument="all" /></td>
@@ -36,7 +40,7 @@
             </FooterTemplate>
         </asp:Repeater>
     </div>
-    <div class="container right">
+    <div class="container right" id="RightContainer" runat="server">
         <asp:UpdatePanel ID="MainContainer" runat="server" Visible="false">
             <ContentTemplate>
                 <div class="scroll-stick">
@@ -55,8 +59,18 @@
                     </p>
                     <span class="x alert">X</span>
                 </asp:Panel>
-                <h1 id="case_info">Case Info</h1>
-                <table class="nothing">
+                <h1 id="case_info" class="statusheader" runat="server"></h1>
+                <asp:LinkButton ID="AddNewCase" CssClass="button add" runat="server" Text="+" OnClick="AddCase" />
+                <div id="statusbar" class="status">
+                    <h1 id="Status" runat="server"></h1>
+                    <div class="status dropdown">
+                        <asp:LinkButton ID="StatusOpen" runat="server" Text="Open" OnClick="SetStatus" CommandArgument="Open" />
+                        <asp:LinkButton ID="StatusPending" runat="server" Text="Pending Approval" OnClick="SetStatus" CommandArgument="Pending" />
+                        <asp:LinkButton ID="StatusClosedSuccess" runat="server" Text="Closed" OnClick="SetStatus" CommandArgument="Closed" />
+                        <%--<asp:LinkButton ID="StatusClosedFail" runat="server" Text="Closed Unsuccessfully" OnClick="SetStatus" CommandArgument="ClosedFail" />--%>
+                    </div>
+                </div>
+                <table class="nothing main">
                     <tr>
                         <td>Case ID:</td>
                         <td><asp:TextBox ID="CaseID" runat="server" /></td>
@@ -85,10 +99,10 @@
                         <td>Date of Completion:</td>
                         <td><asp:TextBox ID="DateCompletion" runat="server" /></td>
                     </tr>
-                    <tr>
+                    <%--<tr>
                         <td>Status:</td>
                         <td><asp:TextBox ID="Status" runat="server" /></td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                         <td>District:</td>
                         <td><asp:TextBox ID="District" runat="server" /></td>
@@ -253,6 +267,9 @@
         </asp:UpdatePanel>
     </div>
     <div style="margin: 0; padding: 0; clear: both;"></div>
+    <asp:LinkButton ID="UnloadCaseButton" runat="server" CssClass="undo" OnClick="UnloadCase">
+        <img src="/images/arrow-left.png" />
+    </asp:LinkButton>
     <asp:Panel ID="ViewPersonModalPanel" runat="server" CssClass="modal-background">
         <div class="modal">
             <h1 id="ModalName" runat="server"></h1>
@@ -284,7 +301,7 @@
                     <td>
                         <asp:Repeater ID="ModalAddresses" runat="server" OnItemDataBound="ModalAddresses_ItemDataBound">
                             <ItemTemplate>
-                                <asp:TextBox ID="ModalAddress" runat="server" ReadOnly="true" Width="300" /> <br />
+                                <asp:TextBox ID="ModalAddress" runat="server" ReadOnly="true" CssClass="address" /> <br />
                             </ItemTemplate>
                         </asp:Repeater>
                     </td>
@@ -344,6 +361,12 @@
 
         $('span.x.popup').click(function () {
             $('.modal-background').removeClass('visible');
-        })
+        });
+
+        $('.status').click(function () {
+            $('.status.dropdown').slideToggle(500);
+        });
+
+        $('#cases').addClass('active');
     </script>
 </asp:Content>

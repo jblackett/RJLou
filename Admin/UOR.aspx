@@ -69,6 +69,8 @@
 
         $('span.x.popup').click(function () {
             $('.modal-background').removeClass('visible');
-        })
+        });
+
+        $('#charges').addClass('active');
     </script>
 </asp:content>

@@ -31,25 +31,6 @@ C:\Users\zachw38\Dropbox\Web Folders\New-RJLou\bin\Microsoft.AspNet.FriendlyUrls
 C:\Users\zachw38\Dropbox\Web Folders\New-RJLou\obj\Debug\RJLou.csprojResolveAssemblyReference.cache
 C:\Users\zachw38\Dropbox\Web Folders\New-RJLou\obj\Debug\RJLou.dll
 C:\Users\zachw38\Dropbox\Web Folders\New-RJLou\obj\Debug\RJLou.pdb
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\RJLou.dll.config
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\RJLou.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\RJLou.pdb
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Antlr3.Runtime.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\AspNet.ScriptManager.bootstrap.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\AspNet.ScriptManager.jQuery.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.AspNet.FriendlyUrls.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.ScriptManager.MSAjax.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.ScriptManager.WebForms.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.Web.Infrastructure.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Newtonsoft.Json.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\System.Web.Optimization.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\WebGrease.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\System.Web.Optimization.xml
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Newtonsoft.Json.xml
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.dll
-C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.pdb
 D:\Users\Documents\GitHub\RJLou\bin\RJLou.dll.config
 D:\Users\Documents\GitHub\RJLou\bin\RJLou.dll
 D:\Users\Documents\GitHub\RJLou\bin\RJLou.pdb
@@ -87,7 +68,6 @@ C:\Users\Ian\Documents\GitHub\RJLou\bin\WebGrease.dll
 C:\Users\Ian\Documents\GitHub\RJLou\bin\System.Web.Optimization.xml
 C:\Users\Ian\Documents\GitHub\RJLou\bin\Newtonsoft.Json.xml
 C:\Users\Ian\Documents\GitHub\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
-<<<<<<< HEAD
 C:\Users\Ian\Documents\GitHub\RJLou\obj\Debug\RJLou.dll
 C:\Users\Ian\Documents\GitHub\RJLou\obj\Debug\RJLou.pdb
 C:\Users\Ian\Documents\GitHub\RJLou\obj\Debug\RJLou.csprojResolveAssemblyReference.cache
@@ -110,5 +90,23 @@ C:\Users\zpwood01\Documents\GitHub\RJLou\bin\System.Web.Optimization.xml
 C:\Users\zpwood01\Documents\GitHub\RJLou\bin\Newtonsoft.Json.xml
 C:\Users\zpwood01\Documents\GitHub\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\zpwood01\Documents\GitHub\RJLou\obj\Debug\RJLou.pdb
-=======
->>>>>>> Ian-Bug-Fixes
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\RJLou.dll.config
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\RJLou.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\RJLou.pdb
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Antlr3.Runtime.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\AspNet.ScriptManager.bootstrap.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\AspNet.ScriptManager.jQuery.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.AspNet.FriendlyUrls.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.ScriptManager.MSAjax.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.ScriptManager.WebForms.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Newtonsoft.Json.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\System.Web.Optimization.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\WebGrease.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\System.Web.Optimization.xml
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Newtonsoft.Json.xml
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.dll
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.pdb
+C:\Users\zachw38\Dropbox\Web Folders\RJLou\obj\Debug\RJLou.csprojResolveAssemblyReference.cache

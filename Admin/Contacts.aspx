@@ -3,19 +3,23 @@
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <asp:ScriptManager runat='server' ID='workingMan' />
     <div id="container_left" class="container left">
+        <div style="margin: 1rem;">
+            <input type="search" class="search" name="searchTxt" placeholder="Start searching..." />
+            <a href="#" class="button search">Go</a>
+        </div>
         <table class="changes" cellspacing="0" border="0">
             <tr>
                 <td colspan="2">
-                    <asp:LinkButton runat="server" ID="PersonSwitchEmployees" OnClick="SwitchPersonList" Text="Employees" CommandArgument="employees" Width="346px"/>
+                    <asp:LinkButton runat="server" ID="PersonSwitchEmployees" OnClick="SwitchPersonList" Text="Employees" CommandArgument="employees" />
                 </td>
             </tr>
             <tr>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchOffenders" OnClick="SwitchPersonList" Text="Offenders" CommandArgument="offenders" Width="173px" /></td>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchVictims" OnClick="SwitchPersonList" Text="Victims" CommandArgument="victims" Width="173px" /></td>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchOffenders" OnClick="SwitchPersonList" Text="Offenders" CommandArgument="offenders" /></td>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchVictims" OnClick="SwitchPersonList" Text="Victims" CommandArgument="victims" /></td>
             </tr>
             <tr>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchAffiliates" OnClick="SwitchPersonList" Text="Affiliates" CommandArgument="affiliates" Width="173px" /></td>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchGuardians" OnClick="SwitchPersonList" Text="Guardians" CommandArgument="guardians" Width="173px" /></td>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchAffiliates" OnClick="SwitchPersonList" Text="Affiliates" CommandArgument="affiliates" /></td>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchGuardians" OnClick="SwitchPersonList" Text="Guardians" CommandArgument="guardians" /></td>
             </tr>
         </table>
         <asp:Repeater runat="server" ID="PersonsRepeater" OnItemDataBound="PersonsRepeater_ItemDataBound">
@@ -107,7 +111,7 @@
                         </td>
                     </tr>--%>
                     <tr id="HeaderUserType" runat="server">
-                        <td>Employee Type</td>
+                        <td>Employee Type:</td>
                         <td><asp:TextBox ID="UserType" runat="server" /></td>
                     </tr>
                     <tr id="HeaderOffenderNumber" runat="server">
@@ -384,4 +388,8 @@
             <asp:LinkButton runat="server" ID="CancelNewGuardian" OnClick="CancelGuardian" CssClass="button" Text="Cancel" />
         </div>
     </asp:Panel>
+
+    <script type="text/javascript">
+        $('#contacts').addClass('active');
+    </script>
 </asp:Content>

@@ -105,6 +105,16 @@ namespace RJLou
             }
         }
 
+        protected void AddCase(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void SetStatus(object sender, EventArgs e)
+        {
+
+        }
+
         protected void VictimsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
@@ -199,10 +209,21 @@ namespace RJLou
 
             BindData();
             LoadHeader();
+            RightContainer.Attributes.CssStyle["display"] = "block";
+            UnloadCaseButton.CssClass = "undo show";
+        }
+
+        protected internal void UnloadCase(object sender, EventArgs e)
+        {
+            RightContainer.Attributes.CssStyle["display"] = "none";
+            UnloadCaseButton.CssClass = "undo";
         }
 
         protected internal void LoadHeader()
         {
+            case_info.InnerText = "Case #" + thisCase.CourtID;
+            Status.InnerText = thisCase.Status;
+
             CaseID.Text = thisCase.CaseID.ToString();
             CaseID.ReadOnly = true;
             CourtID.Text = thisCase.CourtID.ToString("000000");
@@ -211,7 +232,6 @@ namespace RJLou
             CourtDate.Text = (thisCase.CourtDate == default(DateTime) ? "" : thisCase.CourtDate.ToString("MM/dd/yyyy"));
             DateFinalConference.Text = (thisCase.DateOfFinalConference == default(DateTime) ? "" : thisCase.DateOfFinalConference.ToString("MM/dd/yyyy"));
             DateCompletion.Text = (thisCase.DateOfCompletion == default(DateTime) ? "" : thisCase.DateOfCompletion.ToString("MM/dd/yyyy"));
-            Status.Text = thisCase.Status;
             District.Text = thisCase.District.ToString();
 
             MainContainer.Visible = true;
@@ -247,8 +267,6 @@ namespace RJLou
                 thisCase.DateOfCompletion = Convert.ToDateTime(DateCompletion.Text);
             else
                 thisCase.DateOfCompletion = default(DateTime);
-            
-            thisCase.Status = Status.Text;
 
             thisCase.District = Convert.ToInt32(District.Text);
 

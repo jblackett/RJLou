@@ -4,22 +4,46 @@
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="/content/style.css" />
+    <meta name="viewport" content="width=device-width, target-densityDpi=device-dpi, initial-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="/content/admin.css" />
+    <link rel="stylesheet" type="text/css" href="/content/mediaqueries-admin.css" />
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <link href="//fonts.googleapis.com/css?family=Source+Sans Pro:400,200italic,200,300italic,300,400italic,600italic,600,700italic,700,900italic,900" rel="stylesheet" type="text/css">
 </head>
 <body>
     <form runat="server">
     <div class="section admin_header">
         <div class="container admin_header">
-            <a class="admin_nav_link active" href="/Admin/Default.aspx">Case</a>
-            <a class="admin_nav_link" href="/Admin/contacts.aspx">Contacts</a>
-            <%--<a class="admin_nav_link" href="donations.html">Donations</a>--%>
-            <a class="admin_nav_link" href="events.html">Events</a>
-            <a class="admin_nav_link" href="reports.html">Reports</a>
-            <a class="admin_nav_link" href="UOR.aspx">Charge</a>
-            <div class="float-right" style="margin-top: 8px;">
-                <input type="search" name="searchTxt" placeholder="Start searching..." />
-                <a class="button" href="#">+</a>
+            <div id="normal-menu">
+                <a id="cases" class="admin_nav_link" href="/Admin/Default.aspx">Case</a>
+                <a id="contacts" class="admin_nav_link" href="/Admin/contacts.aspx">Contacts</a>
+                <%--<a class="admin_nav_link" href="donations.html">Donations</a>--%>
+                <a id="events" class="admin_nav_link" href="events.html">Events</a>
+                <a id="reports" class="admin_nav_link" href="reports.html">Reports</a>
+                <a id="charges" class="admin_nav_link" href="UOR.aspx">Charge</a>
+                <a class="admin_nav_link logout" href="/Admin/Logout.aspx">Log Out</a>
+                <div class="nav-right">
+                    RJLou Admin
+                    <img src="../Images/logo-v2-whiteongreen.svg" />
+                </div>
+            </div>
+            <div id="mobile-menu">
+                <div class="nav-right">
+                    RJLou Admin
+                    <img src="../Images/logo-v2-whiteongreen.svg" />
+                </div>
+                <div id="mobilenav" class="nav">
+                    <a class="nav_link" href="#">Menu</a>
+                </div>
+                <div class="nav hidden">
+                    <a class="nav_link active" href="/Admin/Default.aspx">Case</a>
+                    <a class="nav_link" href="/Admin/contacts.aspx">Contacts</a>
+                    <%--<a class="admin_nav_link" href="donations.html">Donations</a>--%>
+                    <a class="nav_link" href="events.html">Events</a>
+                    <a class="nav_link" href="reports.html">Reports</a>
+                    <a class="nav_link" href="UOR.aspx">Charge</a>
+                    <a class="nav_link logout" href="/Admin/Logout.aspx">Log Out</a>
+                </div>
             </div>
         </div>
     </div>
@@ -50,6 +74,10 @@
                 $('#container_left').removeClass('fixed');
                 $('.scroll-stick').removeClass('fixed');
             }
+        });
+
+        $('#mobilenav').click(function () {
+            $('.nav.hidden').slideToggle(500);
         });
     </script>
     </form>
