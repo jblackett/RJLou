@@ -657,7 +657,6 @@
     <Content Include="index.html" />
     <Content Include="packages.config" />
     <Content Include="packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll" />
-    <Content Include="packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.pdb" />
     <Content Include="packages\AspNet.ScriptManager.bootstrap.3.0.0\lib\net40\AspNet.ScriptManager.bootstrap.dll" />
     <Content Include="packages\AspNet.ScriptManager.bootstrap.3.0.0\lib\net45\AspNet.ScriptManager.bootstrap.dll" />
     <Content Include="packages\AspNet.ScriptManager.jQuery.1.10.2\lib\net40\AspNet.ScriptManager.jQuery.dll" />
