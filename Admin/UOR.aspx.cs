@@ -63,6 +63,8 @@ namespace RJLou.Admin
 
             thisCharge.UpdateUOR();
             ChargeUpdatedPanel.CssClass += " visible";
+
+            Response.Redirect(Request.Url.AbsoluteUri);
         }
 
         protected internal void ChargesRepeater_Databind(object sender, RepeaterItemEventArgs e)

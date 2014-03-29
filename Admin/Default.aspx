@@ -80,6 +80,10 @@
                         <td><asp:TextBox ID="CourtID" runat="server" /></td>
                     </tr>
                     <tr>
+                        <td>District:</td>
+                        <td><asp:TextBox ID="District" runat="server" /></td>
+                    </tr>
+                    <tr>
                         <td>Referral Date:</td>
                         <td><asp:TextBox ID="ReferralDate" runat="server" /></td>
                     </tr>
@@ -103,10 +107,6 @@
                         <td>Status:</td>
                         <td><asp:TextBox ID="Status" runat="server" /></td>
                     </tr>--%>
-                    <tr>
-                        <td>District:</td>
-                        <td><asp:TextBox ID="District" runat="server" /></td>
-                    </tr>
                 </table>
                 <asp:LinkButton ID="LinkButton1" runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />
                 <%--<asp:LinkButton runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />--%>
