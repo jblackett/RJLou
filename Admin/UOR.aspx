@@ -7,6 +7,7 @@
     <div id="container_left" class="container left">
         <table class="changes" cellspacing="0" border="0">
         </table>
+        <asp:LinkButton runat="server" ID="CreateChargeButton" CssClass="button float-left" Text ="+" OnClick="OpenNewChargeModalPanel"/>
         <asp:Repeater runat="server" ID="ChargesRepeater" OnItemDataBound="ChargesRepeater_Databind">
             <HeaderTemplate>
                 <table cellspacing="0" border="0">
@@ -61,6 +62,24 @@
             </ContentTemplate>
         </asp:UpdatePanel>
     </div>
+    <asp:Panel ID="NewChargeModalPanel" runat="server" CssClass="modal-background">
+        <div class="modal">
+            <h1 id="modalname">New Charge</h1>
+            <Table class="nothing">
+                <tr>
+                    <td><asp:Label ID="uorLabel" runat="server" Text="UOR Code:"></asp:Label></td>
+                    <td><asp:TextBox ID="uorTextbox" runat="server"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td><asp:Label ID="descriptionLabel" runat="server" Text="Charge Description:"></asp:Label></td>
+                    <td><asp:TextBox ID="descriptionTextbox" runat="server"></asp:TextBox></td>
+                </tr>
+            </Table>
+            <asp:LinkButton ID="AddCharge" runat="server" CssClass="button" Text="Add" OnClick="NewCharge"></asp:LinkButton>
+            <asp:LinkButton ID="CloseNewCharge" runat="server" CssClass="button" Text="Close" OnClick="CloseNewChargeModalPanel"></asp:LinkButton>
+            <span><asp:Label runat="server" ID="statusLabel" Text="" ForeColor="Red"/></span>
+        </div>
+    </asp:Panel>
     <div style="margin: 0; padding: 0; clear: both;"></div>
     <script type="text/javascript">
         $('span.x.alert').click(function () {

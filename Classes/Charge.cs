@@ -122,7 +122,7 @@ namespace RJLou.Classes
             return results;
         }
 
-        public static void Add(int krsCode, string uorCode, string description)
+        public static void Add(string uorCode, string description)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"

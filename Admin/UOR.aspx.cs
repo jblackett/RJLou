@@ -84,5 +84,44 @@ namespace RJLou.Admin
         {
             ChargeUpdatedPanel.Visible = false;
         }
+
+        protected internal void OpenNewChargeModalPanel(object Sender, EventArgs e)
+        {
+            NewChargeModalPanel.CssClass += " visible";
+        }
+
+        protected internal void CloseNewChargeModalPanel(object Sender, EventArgs e)
+        {
+            LinkButton CloseButton = Sender as LinkButton;
+            Label statusLabel = (Label)CloseButton.Parent.FindControl("statusLabel");
+            statusLabel.Text = "";
+            NewChargeModalPanel.CssClass = "modal-background";
+        }
+
+        protected internal void NewCharge(object Sender, EventArgs e)
+        {
+            LinkButton AddButton = Sender as LinkButton;
+
+            if (AddButton != null)
+            {
+                TextBox uorBox = (TextBox)AddButton.Parent.FindControl("uorTextbox");
+                TextBox descriptionBox = (TextBox)AddButton.Parent.FindControl("descriptionTextbox");
+                Label statusLabel = (Label)AddButton.Parent.FindControl("statusLabel");
+
+                if (uorBox != null && descriptionBox != null)
+                {
+                    if(!(string.IsNullOrWhiteSpace(uorBox.Text) || string.IsNullOrWhiteSpace(descriptionBox.Text)))
+                    {
+                        Charge.Add(uorBox.Text, descriptionBox.Text);
+                        ChargeUpdatedPanel.CssClass+= " visible";
+                        NewChargeModalPanel.CssClass="modal-background";
+                    }
+                    else
+                    {
+                        statusLabel.Text="All fields must be filled out!";
+                    }
+                }
+            }
+        }
     }
 }
