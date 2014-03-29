@@ -61,15 +61,15 @@
                 </asp:Panel>
                 <h1 id="case_info" class="statusheader" runat="server"></h1>
                 <asp:LinkButton ID="AddNewCase" CssClass="button add" runat="server" Text="+" OnClick="AddCase" />
-                <div id="statusbar" class="status">
+                <%--<div id="statusbar" class="status">
                     <h1 id="Status" runat="server"></h1>
                     <div class="status dropdown">
                         <asp:LinkButton ID="StatusOpen" runat="server" Text="Open" OnClick="SetStatus" CommandArgument="Open" />
                         <asp:LinkButton ID="StatusPending" runat="server" Text="Pending Approval" OnClick="SetStatus" CommandArgument="Pending" />
                         <asp:LinkButton ID="StatusClosedSuccess" runat="server" Text="Closed" OnClick="SetStatus" CommandArgument="Closed" />
                         <%--<asp:LinkButton ID="StatusClosedFail" runat="server" Text="Closed Unsuccessfully" OnClick="SetStatus" CommandArgument="ClosedFail" />--%>
-                    </div>
-                </div>
+                    <%--</div>
+                </div>--%>
                 <table class="nothing main">
                     <tr>
                         <td>Case ID:</td>
@@ -82,6 +82,14 @@
                     <tr>
                         <td>District:</td>
                         <td><asp:TextBox ID="District" runat="server" /></td>
+                    </tr>
+                    <tr>
+                        <td>Status:</td>
+                        <td><asp:DropDownList runat="server" ID="StatusDDL" CssClass="dropdown" OnSelectedIndexChanged="SetStatus">
+                            <asp:ListItem Text="Open" Value="Open" />
+                            <asp:ListItem Text="Pending Approval" Value="Pending Approval" />
+                            <asp:ListItem Text="Closed" Value="Closed" />
+                        </asp:DropDownList></td>
                     </tr>
                     <tr>
                         <td>Referral Date:</td>
@@ -108,6 +116,7 @@
                         <td><asp:TextBox ID="Status" runat="server" /></td>
                     </tr>--%>
                 </table>
+                
                 <asp:LinkButton ID="LinkButton1" runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />
                 <%--<asp:LinkButton runat="server" CssClass="button" Text="Save Case" OnClick="SaveCase" />--%>
                 <asp:LinkButton ID="AddCaseManagerBtn" runat="server" CssClass="button" Text="Add Case Manager" OnClick="OpenManagerModalPanel" />

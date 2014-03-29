@@ -112,6 +112,22 @@ namespace RJLou
 
         protected void SetStatus(object sender, EventArgs e)
         {
+            DropDownList a =  sender as DropDownList;
+            DropDownList b = (DropDownList)a.Parent.FindControl("StatusDDL");
+            string commandArg = b.SelectedItem.Value;
+            //string commandArg = (((LinkButton)sender).CommandArgument).ToString();
+
+            int caseID = int.Parse(CaseID.Text);
+            thisCase = Case.Get(caseID);
+
+            if (commandArg == "Open")
+                thisCase.Status = "Open";
+            else if (commandArg == "Pending Approval")
+                thisCase.Status = "Pending Approval";
+            else
+                thisCase.Status = "Closed";
+            
+            thisCase.Update();
 
         }
 
@@ -222,7 +238,7 @@ namespace RJLou
         protected internal void LoadHeader()
         {
             case_info.InnerText = "Case #" + thisCase.CourtID;
-            Status.InnerText = thisCase.Status;
+            StatusDDL.Text = thisCase.Status;
 
             CaseID.Text = thisCase.CaseID.ToString();
             CaseID.ReadOnly = true;

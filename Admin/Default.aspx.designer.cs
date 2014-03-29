@@ -112,42 +112,6 @@ namespace RJLou {
         protected global::System.Web.UI.WebControls.LinkButton AddNewCase;
         
         /// <summary>
-        /// Status control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Status;
-        
-        /// <summary>
-        /// StatusOpen control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton StatusOpen;
-        
-        /// <summary>
-        /// StatusPending control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton StatusPending;
-        
-        /// <summary>
-        /// StatusClosedSuccess control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton StatusClosedSuccess;
-        
-        /// <summary>
         /// CaseID control.
         /// </summary>
         /// <remarks>
@@ -173,6 +137,15 @@ namespace RJLou {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox District;
+        
+        /// <summary>
+        /// StatusDDL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList StatusDDL;
         
         /// <summary>
         /// ReferralDate control.
