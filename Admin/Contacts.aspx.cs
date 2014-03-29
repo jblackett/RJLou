@@ -473,6 +473,8 @@ namespace RJLou.Admin
             }
 
             PersonUpdatedPanel.CssClass += " visible";
+
+            Response.Redirect(Request.Url.AbsoluteUri);
         }
 
         protected void PhoneNumbersRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
