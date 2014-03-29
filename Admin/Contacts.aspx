@@ -10,16 +10,16 @@
         <table class="changes" cellspacing="0" border="0">
             <tr>
                 <td colspan="2">
-                    <asp:LinkButton runat="server" ID="PersonSwitchEmployees" OnClick="SwitchPersonList" Text="Employees" CommandArgument="employees" />
+                    <asp:LinkButton runat="server" ID="PersonSwitchEmployees" OnClick="SwitchPersonList" Text="Employees" width=100% CommandArgument="employees" />
                 </td>
             </tr>
             <tr>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchOffenders" OnClick="SwitchPersonList" Text="Offenders" CommandArgument="offenders" /></td>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchVictims" OnClick="SwitchPersonList" Text="Victims" CommandArgument="victims" /></td>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchOffenders" OnClick="SwitchPersonList" Text="Offenders" width=100% CommandArgument="offenders" /></td>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchVictims" OnClick="SwitchPersonList" Text="Victims" width=100% CommandArgument="victims" /></td>
             </tr>
             <tr>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchAffiliates" OnClick="SwitchPersonList" Text="Affiliates" CommandArgument="affiliates" /></td>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchGuardians" OnClick="SwitchPersonList" Text="Guardians" CommandArgument="guardians" /></td>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchAffiliates" OnClick="SwitchPersonList" Text="Affiliates" width=100% CommandArgument="affiliates" /></td>
+                <td><asp:LinkButton runat="server" ID="PersonSwitchGuardians" OnClick="SwitchPersonList" Text="Guardians" width=100% CommandArgument="guardians" /></td>
             </tr>
         </table>
         <asp:Repeater runat="server" ID="PersonsRepeater" OnItemDataBound="PersonsRepeater_ItemDataBound">
