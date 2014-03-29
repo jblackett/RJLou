@@ -274,6 +274,8 @@ namespace RJLou
           
             thisCase.Update();
             CaseUpdatedPanel.CssClass += " visible";
+
+            Response.Redirect(Request.Url.AbsoluteUri);
         }
 
         protected internal void DeleteVictim(object sender, EventArgs e)
