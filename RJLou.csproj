@@ -103,6 +103,7 @@
     <Content Include="Admin\Login.aspx" />
     <Content Include="Admin\Logout.aspx" />
     <Content Include="Admin\UOR.aspx" />
+    <Content Include="Admin\Search.aspx" />
     <Content Include="contacts.html" />
     <Content Include="Content\admin.css" />
     <Content Include="Content\fonts\helveticaneueltstd-ultlt.svg" />
@@ -867,6 +868,13 @@
     </Compile>
     <Compile Include="Admin\UOR.aspx.designer.cs">
       <DependentUpon>UOR.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Search.aspx.designer.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
     </Compile>
     <Compile Include="Classes\Address.cs" />
     <Compile Include="Classes\Affiliate.cs" />

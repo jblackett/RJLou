@@ -151,3 +151,22 @@ C:\Users\Joseph\Documents\GitHub\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\Joseph\Documents\GitHub\RJLou\obj\Debug\RJLou.csprojResolveAssemblyReference.cache
 C:\Users\Joseph\Documents\GitHub\RJLou\obj\Debug\RJLou.dll
 C:\Users\Joseph\Documents\GitHub\RJLou\obj\Debug\RJLou.pdb
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\obj\Debug\RJLou.csprojResolveAssemblyReference.cache
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\obj\Debug\RJLou.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\RJLou.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\RJLou.pdb
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\Antlr3.Runtime.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\AspNet.ScriptManager.bootstrap.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\AspNet.ScriptManager.jQuery.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\Microsoft.AspNet.FriendlyUrls.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\Microsoft.AspNet.Web.Optimization.WebForms.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\Microsoft.ScriptManager.MSAjax.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\Microsoft.ScriptManager.WebForms.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\Microsoft.Web.Infrastructure.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\Newtonsoft.Json.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\System.Web.Optimization.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\WebGrease.dll
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\System.Web.Optimization.xml
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\Newtonsoft.Json.xml
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
+\\vmware-host\Shared Folders\Desktop\GitHub\RJLou\obj\Debug\RJLou.pdb
