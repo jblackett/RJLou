@@ -130,11 +130,7 @@ C:\Users\Anna\Documents\GitHub\RJLou\bin\Newtonsoft.Json.xml
 C:\Users\Anna\Documents\GitHub\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\Anna\Documents\GitHub\RJLou\obj\Debug\RJLou.dll
 C:\Users\Anna\Documents\GitHub\RJLou\obj\Debug\RJLou.pdb
-<<<<<<< HEAD
 >>>>>>> anna3
-<<<<<<< HEAD
-=======
-=======
 >>>>>>> 225835260dbf4c5a2512a0923590985b1373a5ec
 >>>>>>> anna4
 C:\Users\Joseph\Documents\GitHub\RJLou\bin\RJLou.dll.config
@@ -157,5 +153,4 @@ C:\Users\Joseph\Documents\GitHub\RJLou\bin\Microsoft.AspNet.FriendlyUrls.xml
 C:\Users\Joseph\Documents\GitHub\RJLou\obj\Debug\RJLou.csprojResolveAssemblyReference.cache
 C:\Users\Joseph\Documents\GitHub\RJLou\obj\Debug\RJLou.dll
 C:\Users\Joseph\Documents\GitHub\RJLou\obj\Debug\RJLou.pdb
-=======
 >>>>>>> parent of 9b47069... tested anna changes

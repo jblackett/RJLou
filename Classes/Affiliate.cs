@@ -159,27 +159,32 @@ namespace RJLou.Classes
             }
         }
 
-        internal override void Update()
-        {
-            base.Update();
+//        internal override void Update()
+//        {
+//            base.Update();
 
-            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = @"
-                UPDATE  Affiliate 
-                SET     Relationship = @Relationship
-                WHERE   Person_ID = @PersonID";
+//            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
+//            string sql = @"
+//                UPDATE  Affiliate 
+//                SET     First_Name = @FName,
+//                        Last_Name = @LName,
+//                        Date_Of_Birth = @DOB,
+//                        Gender = @Gender,
+//                        Email = @Email,
+//                        Race = @Race
+//                WHERE   Person_ID = @PersonID";
 
-            using (SqlConnection conn = new SqlConnection(dsn))
-            {
-                conn.Open();
+//            using (SqlConnection conn = new SqlConnection(dsn))
+//            {
+//                conn.Open();
 
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("PersonID", PersonID);
+//                SqlCommand cmd = new SqlCommand(sql, conn);
+//                cmd.CommandType = CommandType.Text;
+//                cmd.Parameters.AddWithValue("PersonID", PersonID);
 
-                cmd.ExecuteNonQuery();
-            }
-        }
+//                cmd.ExecuteNonQuery();
+//            }
+//          }
         #endregion
     }
 }
