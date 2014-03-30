@@ -159,9 +159,9 @@ namespace RJLou.Classes
             }
         }
 
-//        internal override void Update()
-//        {
-//            base.Update();
+        internal override void Update()
+        {
+            base.Update();
 
 //            string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
 //            string sql = @"
@@ -184,7 +184,7 @@ namespace RJLou.Classes
 
 //                cmd.ExecuteNonQuery();
 //            }
-//          }
+        }
         #endregion
     }
 }
