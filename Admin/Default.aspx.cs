@@ -284,6 +284,8 @@ namespace RJLou
             else
                 thisCase.DateOfCompletion = default(DateTime);
 
+            //thisCase.Status = 
+
             thisCase.District = Convert.ToInt32(District.Text);
 
 
