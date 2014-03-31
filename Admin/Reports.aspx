@@ -1,4 +1,5 @@
-﻿<%@ Page MasterPageFile="~/Masterpages/Admin.master" Language="C#" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="RJLou.Reports" %>
+﻿<%--@ Page MasterPageFile="~/Masterpages/Admin.master" Language="C#" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="RJLou.Reports" --%>
+<%@ Page MasterPageFile="~/Masterpages/Admin.master" Language="C#" AutoEventWireup="true" CodeBehind="Reports.aspx.cs" Inherits="RJLou.Reports" %>
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <asp:ScriptManager runat='server' ID='workingMan' />
@@ -10,7 +11,7 @@
         <asp:LinkButton runat="server" ID="Report5" OnClick="ReportClick" Text="Case By Age" CommandArgument="5"></asp:LinkButton>
     </div>
     <div class="container right">
-        <asp:Repeater ID="ReportsRepeater" runat="server">
+        <asp:Repeater ID="ReportsRepeater" runat="server" OnItemDataBound="ReportsRepeater_ItemDataBound">
             <HeaderTemplate>
                 <table border="0">
                     <thead>
@@ -25,9 +26,12 @@
             <ItemTemplate>
                 <tr>
                     <td>
-                        <%#DataBinder.Eval(Container.DataItem, "FilterItem") %>
-                        <%#DataBinder.Eval(Container.DataItem, "Case ID") %>
-                        <%#DataBinder.Eval(Container.DataItem, "Status") %>
+                        <%--#DataBinder.Eval(Container.DataItem, "FilterItem") --%>
+                        <asp:Label ID="FilterItem" runat="server" Text="" />
+                        <%--#DataBinder.Eval(Container.DataItem, "Case ID") --%>
+                        <asp:Label ID="CaseID" runat="server" Text="" />
+                        <%--#DataBinder.Eval(Container.DataItem, "Status") --%>
+                        <asp:Label ID="Status" runat="server" Text="" />
                     </td>
                 </tr>
             </ItemTemplate>
