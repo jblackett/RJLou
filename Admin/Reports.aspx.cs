@@ -29,6 +29,8 @@ namespace RJLou
             int QueryType = Convert.ToInt32((((LinkButton)sender).CommandArgument));
             LinkButton reportClick = sender as LinkButton;
             Repeater ReportsRepeater = (Repeater)reportClick.Parent.FindControl("ReportsRepeater");
+            Label secondColumn = (Label)reportClick.Parent.FindControl("secondColumn");
+            Label thirdColumn = (Label)reportClick.Parent.FindControl("thirdColumn");
 
 
 
@@ -43,40 +45,36 @@ namespace RJLou
                     SqlDataAdapter cmd = new SqlDataAdapter(Query, conn);
                     DataSet ds = new DataSet();
                     cmd.Fill(ds);
-                    ReportsRepeater.DataSource = ds;
-                    ReportsRepeater.DataBind();
+                    ReportsRepeater.DataSourceID = "StatusSqlDataSource";
+
                     break;
                 case 2:
                     Query = "SELECT Description, C.Status, C.Case_ID FROM RJL_Case C JOIN CASE_CHARGE CC ON C.Case_ID = CC.Case_ID JOIN CHARGE CH ON CH.Charge_ID = CC.Charge_ID ORDER BY Description";
                     SqlDataAdapter cmd2 = new SqlDataAdapter(Query, conn);
                     DataSet ds2 = new DataSet();
                     cmd2.Fill(ds2);
-                    ReportsRepeater.DataSource = ds2;
-                    ReportsRepeater.DataBind();
+                    ReportsRepeater.DataSourceID = "OffenseSqlDataSource";
                     break;
                 case 3:
                     Query = "SELECT Race, C.Status, C.Case_ID FROM RJL_Case C JOIN CASE_FILE CF ON CF.Case_ID = C.Case_ID JOIN PERSON P ON P.Person_ID = CF.Person_ID JOIN OFFENDER O ON O.Person_ID = P.Person_ID ORDER BY Race";
                     SqlDataAdapter cmd3 = new SqlDataAdapter(Query, conn);
                     DataSet ds3 = new DataSet();
                     cmd3.Fill(ds3);
-                    ReportsRepeater.DataSource = ds3;
-                    ReportsRepeater.DataBind();
+                    ReportsRepeater.DataSourceID = "EthnicitySqlDataSource";
                     break;
                 case 4:
                     Query = "SELECT Gender, C.Status, C.Case_ID FROM RJL_Case C JOIN CASE_FILE CF ON CF.Case_ID = C.Case_ID JOIN PERSON P ON P.Person_ID = CF.Person_ID JOIN OFFENDER O ON O.Person_ID = P.Person_ID ORDER BY Gender";
                     SqlDataAdapter cmd4 = new SqlDataAdapter(Query, conn);
                     DataSet ds4 = new DataSet();
                     cmd4.Fill(ds4);
-                    ReportsRepeater.DataSource = ds4;
-                    ReportsRepeater.DataBind();
+                    ReportsRepeater.DataSourceID = "GenderSqlDataSource";
                     break;
                 case 5:
                     Query = "SELECT Date_Of_Birth, C.Status, C.Case_ID FROM RJL_Case C JOIN CASE_FILE CF ON CF.Case_ID = C.Case_ID JOIN PERSON P ON P.Person_ID = CF.Person_ID JOIN OFFENDER O ON O.Person_ID = P.Person_ID ORDER BY Date_Of_Birth DESC";
                     SqlDataAdapter cmd5 = new SqlDataAdapter(Query, conn);
                     DataSet ds5 = new DataSet();
                     cmd5.Fill(ds5);
-                    ReportsRepeater.DataSource = ds5;
-                    ReportsRepeater.DataBind();
+                    ReportsRepeater.DataSourceID = "AgeSqlDataSource";
                     break;
                 default:
                     Query = "";
@@ -86,11 +84,19 @@ namespace RJLou
 
         protected void ReportsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            Label filterItemLabel = (Label)e.Item.FindControl("FilterItem");
+            Label filterItemLabel = (Label)e.Item.Page.FindControl("FilterItem");
             Label caseIDLabel = (Label)e.Item.FindControl("CaseID");
             Label statusLabel = (Label)e.Item.FindControl("Status");
 
-            filterItemLabel.Text = e.Item.DataItem.ToString();
+
+
+           // DataSet thisDataSet = (DataSet)e.Item.DataItem;
+            //DataView thisDataView = new DataView((DataTable)thisDataSet.Tables);
+
+
+            //filterItemLabel.Text = "something";//thisDataSet.Tables[0].Rows[0][0].ToString();
+            //caseIDLabel.Text = thisDataSet.Tables[0].Rows[0][1].ToString();
+            //statusLabel.Text = thisDataSet.Tables[0].Rows[0][1].ToString();
             /*SqlCommand cmd = new SqlCommand();
             cmd.CommandType = CommandType.Text;
 
