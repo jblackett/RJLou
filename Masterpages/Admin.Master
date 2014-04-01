@@ -18,8 +18,8 @@
                 <a id="cases" class="admin_nav_link" href="/Admin/Default.aspx">Case</a>
                 <a id="contacts" class="admin_nav_link" href="/Admin/contacts.aspx">Contacts</a>
                 <%--<a class="admin_nav_link" href="donations.html">Donations</a>--%>
-                <a id="events" class="admin_nav_link" href="events.html">Events</a>
-                <a id="reports" class="admin_nav_link" href="reports.html">Reports</a>
+                <%--<a id="events" class="admin_nav_link" href="events.html">Events</a>--%>
+                <a id="reports" class="admin_nav_link" href="Reports.aspx">Reports</a>
                 <a id="charges" class="admin_nav_link" href="UOR.aspx">Charge</a>
                 <a class="admin_nav_link logout" href="/Admin/Logout.aspx">Log Out</a>
                 <div class="nav-right">
