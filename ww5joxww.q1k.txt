@@ -1,0 +1,41 @@
+﻿[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+	hideDotFiles = dotGitOnly
+[remote "origin"]
+	url = https://github.com/jblackett/RJLou.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master
+[branch "zach1"]
+	remote = origin
+	merge = refs/heads/zach1
+[branch "UOR_Page"]
+	remote = origin
+	merge = refs/heads/UOR_Page
+[branch "testPhil"]
+	remote = origin
+	merge = refs/heads/testPhil
+[branch "testanna"]
+	remote = origin
+	merge = refs/heads/testanna
+[branch "Donor-Page_Alex"]
+	remote = origin
+	merge = refs/heads/Donor-Page_Alex
+[branch "IanReport"]
+	remote = origin
+	merge = refs/heads/IanReport
+[branch "zachtest"]
+	remote = origin
+	merge = refs/heads/zachtest
+
+
+[remote "appharbor"]
+	url = https://RJLou@appharbor.com/rjlou-1.git
+	fetch = +refs/heads/*:refs/remotes/appharbor/*
+
