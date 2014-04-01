@@ -586,7 +586,7 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("CaseID", CaseID);
-                cmd.Parameters.AddWithValue("PersonID", charge.ChargeID);
+                cmd.Parameters.AddWithValue("ChargeID", charge.ChargeID);
 
                 cmd.ExecuteNonQuery();
             }
@@ -597,7 +597,7 @@ namespace RJLou.Classes
             string sql = @"
                 DELETE FROM Case_Charge
                 WHERE       Case_ID = @CaseID
-                AND         Charge_ID = @Charge_ID";
+                AND         Charge_ID = @ChargeID";
 
             using (SqlConnection conn = new SqlConnection(Constants.DSN))
             {
@@ -606,7 +606,7 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("CaseID", CaseID);
-                cmd.Parameters.AddWithValue("PersonID", charge.ChargeID);
+                cmd.Parameters.AddWithValue("ChargeID", charge.ChargeID);
 
                 cmd.ExecuteNonQuery();
             }
@@ -696,6 +696,26 @@ namespace RJLou.Classes
                 cmd.ExecuteNonQuery();
             }
         }
+
+        internal void DeleteCaseManager(InternalUser manager)
+        {
+            string sql = @"
+                DELETE FROM CASE_MANAGER
+                WHERE       Case_ID = @CaseID
+                AND         Person_ID = @PersonID";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("CaseID", CaseID);
+                cmd.Parameters.AddWithValue("PersonID", manager.PersonID);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
         #endregion
 
         public static List<Case> GetCases()
@@ -725,49 +745,6 @@ namespace RJLou.Classes
                         DateOfCompletion = read["Closure_Date"] as DateTime? ?? default(DateTime),
                         Status = read["Status"].ToString(),
                         District = Convert.ToInt32(read["District"])
-                    };
-
-                    newCase.GetOffenders();
-                    newCase.GetVictims();
-                    newCase.GetAffiliates();
-                    newCase.GetNotes();
-                    newCase.GetCharges();
-                    newCase.GetDocuments();
-                    newCase.GetCaseManagers();
-                    results.Add(newCase);
-                }
-            }
-
-            return results;
-        }
-
-        public static List<Case> GetCases(string status)
-        {
-            List<Case> results = new List<Case>();
-            string sql = "SELECT * FROM RJL_Case WHERE Status LIKE @Status";
-
-            using (SqlConnection conn = new SqlConnection(Constants.DSN))
-            {
-                conn.Open();
-
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.CommandType = CommandType.Text;
-                cmd.Parameters.AddWithValue("Status", status);
-
-                SqlDataReader read = cmd.ExecuteReader();
-
-                while (read.Read())
-                {
-                    Case newCase = new Case()
-                    {
-                        CaseID = Convert.ToInt32(read["Case_ID"]),
-                        CourtID = default(int),
-                        ReferralDate = read["Referral_Date"] as DateTime? ?? default(DateTime),
-                        ReferralNumber = Convert.ToInt32(read["Referral_Number"]),
-                        CourtDate = read["Court_Date"] as DateTime? ?? default(DateTime),
-                        DateOfFinalConference = read["Final_Conference_Date"] as DateTime? ?? default(DateTime),
-                        DateOfCompletion = read["Closure_Date"] as DateTime? ?? default(DateTime),
-                        Status = read["Status"].ToString()
                     };
 
                     newCase.GetOffenders();
@@ -863,7 +840,99 @@ namespace RJLou.Classes
             return null;
         }
 
-        public static void Add(int courtID, DateTime refDate, int refNum, DateTime courtDate, string district,
+        public static List<Case> GetCases(bool getBasics, string status)
+        {
+            List<Case> results = new List<Case>();
+            string sql = "SELECT * FROM RJL_Case WHERE Status LIKE @Status";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("Status", "%" + status + "%");
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    Case newCase = new Case()
+                    {
+                        CaseID = Convert.ToInt32(read["Case_ID"]),
+                        CourtID = default(int),
+                        ReferralDate = read["Referral_Date"] as DateTime? ?? default(DateTime),
+                        ReferralNumber = Convert.ToInt32(read["Referral_Number"]),
+                        CourtDate = read["Court_Date"] as DateTime? ?? default(DateTime),
+                        DateOfFinalConference = read["Final_Conference_Date"] as DateTime? ?? default(DateTime),
+                        DateOfCompletion = read["Closure_Date"] as DateTime? ?? default(DateTime),
+                        Status = read["Status"].ToString()
+                    };
+
+                    newCase.GetOffenders();
+                    newCase.GetVictims();
+                    newCase.GetAffiliates();
+                    newCase.GetNotes();
+                    newCase.GetCharges();
+                    newCase.GetDocuments();
+                    newCase.GetCaseManagers();
+                    results.Add(newCase);
+                }
+            }
+
+            return results;
+        }
+
+        public static List<Case> GetCases(bool getBasics, int personID, string status)
+        {
+            List<Case> results = new List<Case>();
+            string sql = @"
+                    SELECT  * 
+                    FROM        RJL_Case c
+                    INNER JOIN  Case_Manager cm ON c.Case_ID = cm.Case_ID
+                    WHERE       Person_ID = @PersonID
+                    AND         Status LIKE @Status";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("Status", "%" + status + "%");
+                cmd.Parameters.AddWithValue("PersonID", personID);
+
+                SqlDataReader read = cmd.ExecuteReader();
+
+                while (read.Read())
+                {
+                    Case newCase = new Case()
+                    {
+                        CaseID = Convert.ToInt32(read["Case_ID"]),
+                        CourtID = default(int),
+                        ReferralDate = read["Referral_Date"] as DateTime? ?? default(DateTime),
+                        ReferralNumber = Convert.ToInt32(read["Referral_Number"]),
+                        CourtDate = read["Court_Date"] as DateTime? ?? default(DateTime),
+                        DateOfFinalConference = read["Final_Conference_Date"] as DateTime? ?? default(DateTime),
+                        DateOfCompletion = read["Closure_Date"] as DateTime? ?? default(DateTime),
+                        Status = read["Status"].ToString()
+                    };
+
+                    newCase.GetOffenders();
+                    newCase.GetVictims();
+                    newCase.GetAffiliates();
+                    newCase.GetNotes();
+                    newCase.GetCharges();
+                    newCase.GetDocuments();
+                    newCase.GetCaseManagers();
+                    results.Add(newCase);
+                }
+            }
+
+            return results;
+        }
+
+        public static int Add(int courtID, DateTime refDate, int refNum, DateTime courtDate, string district,
             DateTime dateFinConf, DateTime dateComp, string status, List<Offender> offenders = null,
             List<Victim> victims = null, List<Affiliate> affiliates = null, List<Note> notes = null, 
             List<Charge> charges = null, List<Document> documents = null)
@@ -884,12 +953,31 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("CourtID", courtID);
-                cmd.Parameters.AddWithValue("ReferralDate", refDate);
-                cmd.Parameters.AddWithValue("ReferralNumber", refNum);
-                cmd.Parameters.AddWithValue("CourtDate", courtDate);
-                cmd.Parameters.AddWithValue("FinalConferenceDate", dateFinConf);
+                if (refDate == default(DateTime))
+                    cmd.Parameters.AddWithValue("ReferralDate", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("ReferralDate", refDate);
+
+                if (refNum == 0)
+                    cmd.Parameters.AddWithValue("ReferralNumber", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("ReferralNumber", refNum);
+
+                if (courtDate == default(DateTime))
+                    cmd.Parameters.AddWithValue("CourtDate", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("CourtDate", courtDate);
+
+                if (dateFinConf == default(DateTime))
+                    cmd.Parameters.AddWithValue("FinalConferenceDate", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("FinalConferenceDate", dateFinConf);
                 cmd.Parameters.AddWithValue("Status", status);
-                cmd.Parameters.AddWithValue("ClosureDate", dateFinConf);
+
+                if (dateComp == default(DateTime))
+                    cmd.Parameters.AddWithValue("ClosureDate", DBNull.Value);
+                else
+                    cmd.Parameters.AddWithValue("ClosureDate", dateComp);
                 cmd.Parameters.AddWithValue("District", district);
 
                 caseID = Convert.ToInt32(cmd.ExecuteScalar());
@@ -897,35 +985,43 @@ namespace RJLou.Classes
 
             Case thisCase = Case.Get(caseID);
 
-            foreach (Offender offender in offenders)
-            {
-                thisCase.AddOffender(offender);
-            }
+            if (offenders != null)
+                foreach (Offender offender in offenders)
+                {
+                    thisCase.AddOffender(offender);
+                }
 
-            foreach (Victim victim in victims)
-            {
-                thisCase.AddVictim(victim);
-            }
+            if (victims != null)
+                foreach (Victim victim in victims)
+                {
+                    thisCase.AddVictim(victim);
+                }
 
-            foreach (Affiliate affiliate in affiliates)
-            {
-                thisCase.AddAffiliate(affiliate);
-            }
+            if (affiliates != null)
+                foreach (Affiliate affiliate in affiliates)
+                {
+                    thisCase.AddAffiliate(affiliate);
+                }
 
-            foreach (Note note in notes)
-            {
-                thisCase.AddNote(note);
-            }
+            if (notes != null)
+                foreach (Note note in notes)
+                {
+                    thisCase.AddNote(note);
+                }
 
-            foreach (Charge charge in charges)
-            {
-                thisCase.AddCharge(charge);
-            }
+            if (charges != null)
+                foreach (Charge charge in charges)
+                {
+                    thisCase.AddCharge(charge);
+                }
 
-            foreach (Document doc in documents)
-            {
-                thisCase.AddDocument(doc);
-            }
+            if (documents != null)
+                foreach (Document doc in documents)
+                {
+                    thisCase.AddDocument(doc);
+                }
+
+            return caseID;
         }
 
         internal void Delete()

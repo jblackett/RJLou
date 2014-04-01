@@ -82,7 +82,7 @@ namespace RJLou {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel MainContainer;
+        protected global::System.Web.UI.WebControls.Panel MainContainer;
         
         /// <summary>
         /// CaseUpdatedPanel control.
@@ -229,15 +229,6 @@ namespace RJLou {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton1;
         
         /// <summary>
-        /// AddCaseManagerBtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton AddCaseManagerBtn;
-        
-        /// <summary>
         /// VictimsRepeater control.
         /// </summary>
         /// <remarks>
@@ -290,6 +281,15 @@ namespace RJLou {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater DocumentsRepeater;
+        
+        /// <summary>
+        /// CaseManagersRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater CaseManagersRepeater;
         
         /// <summary>
         /// UnloadCaseButton control.
@@ -364,6 +364,15 @@ namespace RJLou {
         protected global::System.Web.UI.WebControls.Repeater ModalAddresses;
         
         /// <summary>
+        /// ClosePersonModal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton ClosePersonModal;
+        
+        /// <summary>
         /// AddPersonModalPanel control.
         /// </summary>
         /// <remarks>
@@ -388,60 +397,240 @@ namespace RJLou {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView NewCasePersonList;
+        protected global::System.Web.UI.WebControls.DropDownList NewCasePersonList;
         
         /// <summary>
-        /// addManagerPanel control.
+        /// AddPersonConfirm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel addManagerPanel;
+        protected global::System.Web.UI.WebControls.LinkButton AddPersonConfirm;
         
         /// <summary>
-        /// H1 control.
+        /// AddPersonCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl H1;
+        protected global::System.Web.UI.WebControls.LinkButton AddPersonCancel;
         
         /// <summary>
-        /// ManagerDropDown control.
+        /// ViewChargesModalPanel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ManagerDropDown;
+        protected global::System.Web.UI.WebControls.Panel ViewChargesModalPanel;
         
         /// <summary>
-        /// ddlCurrentManagers control.
+        /// ModalChargeNumber control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCurrentManagers;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl ModalChargeNumber;
         
         /// <summary>
-        /// LinkButton2 control.
+        /// ModalUORCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
+        protected global::System.Web.UI.WebControls.TextBox ModalUORCode;
         
         /// <summary>
-        /// LinkButton3 control.
+        /// ModalDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton3;
+        protected global::System.Web.UI.WebControls.TextBox ModalDescription;
+        
+        /// <summary>
+        /// CloseChargesModal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton CloseChargesModal;
+        
+        /// <summary>
+        /// AddChargeModalPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel AddChargeModalPanel;
+        
+        /// <summary>
+        /// ChargesList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ChargesList;
+        
+        /// <summary>
+        /// AddNewCharge control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton AddNewCharge;
+        
+        /// <summary>
+        /// CloseAddChargePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton CloseAddChargePanel;
+        
+        /// <summary>
+        /// AddDocumentModalPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel AddDocumentModalPanel;
+        
+        /// <summary>
+        /// ModalFileUploader control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload ModalFileUploader;
+        
+        /// <summary>
+        /// ModalNewDocument control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton ModalNewDocument;
+        
+        /// <summary>
+        /// ModalCancelDocument control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton ModalCancelDocument;
+        
+        /// <summary>
+        /// NewCaseModalPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel NewCaseModalPanel;
+        
+        /// <summary>
+        /// ModalCourtID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ModalCourtID;
+        
+        /// <summary>
+        /// ModalDistrict control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ModalDistrict;
+        
+        /// <summary>
+        /// ModalReferralDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ModalReferralDate;
+        
+        /// <summary>
+        /// ModalReferralNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ModalReferralNumber;
+        
+        /// <summary>
+        /// ModalCourtDate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ModalCourtDate;
+        
+        /// <summary>
+        /// ModalDateFinalConf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ModalDateFinalConf;
+        
+        /// <summary>
+        /// ModalDateCompletion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ModalDateCompletion;
+        
+        /// <summary>
+        /// ModalStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ModalStatus;
+        
+        /// <summary>
+        /// CreateCase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton CreateCase;
+        
+        /// <summary>
+        /// CancelCase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton CancelCase;
     }
 }

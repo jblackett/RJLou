@@ -181,10 +181,11 @@ namespace RJLou.Classes
             return results;
         }
 
-        public static void Add(DateTime createDate, InternalUser author, string noteText)
+        public static int Add(DateTime createDate, InternalUser author, string noteText)
         {
+            int result = -1;
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
-            string sql = "INSERT INTO NOTE (CreateDate, Author, Note_Text) VALUES (@CreateDate, @Author, @NoteText)";
+            string sql = "INSERT INTO NOTE (CreateDate, Author, Note_Text) OUTPUT INSERTED.Note_ID VALUES (@CreateDate, @Author, @NoteText)";
 
             using (SqlConnection conn = new SqlConnection(dsn))
             {
@@ -192,11 +193,13 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("CreateDate", createDate);
-                cmd.Parameters.AddWithValue("Author", author);
+                cmd.Parameters.AddWithValue("Author", author.PersonID);
                 cmd.Parameters.AddWithValue("NoteText", noteText);
 
-                cmd.ExecuteNonQuery();
+                result = (int)cmd.ExecuteScalar();
             }
+
+            return result;
         }
 
         internal void Delete(int id)
@@ -210,6 +213,30 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("ID", id);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        internal void Update()
+        {
+            string sql = @"
+                UPDATE  Note
+                SET     Note_Text = @NoteText,
+                        Author = @Author,
+                        EditDate = @EditDate
+                WHERE   Note_ID = @NoteID";
+
+            using (SqlConnection conn = new SqlConnection(Constants.DSN))
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.CommandType = CommandType.Text;
+                cmd.Parameters.AddWithValue("NoteID", NoteID);
+                cmd.Parameters.AddWithValue("NoteText", NoteText);
+                cmd.Parameters.AddWithValue("Author", Author.PersonID);
+                cmd.Parameters.AddWithValue("EditDate", EditDate);
 
                 cmd.ExecuteNonQuery();
             }
