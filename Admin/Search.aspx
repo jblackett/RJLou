@@ -19,6 +19,7 @@
         </td>
         <td> 
         <asp:Button ID="Button1" runat="server" Text="Go" OnClick="search1" />
+        <asp:Label ID="errorlabel" runat="server" Text="" />
         </td>
         
         </tr>
@@ -26,8 +27,13 @@
 </table>
 <table><tr><td><p><asp:Label ID="Label2" runat="server" Text=""></asp:Label>  </p></td></tr></table>
  
-<asp:GridView ID="GridView1" runat="server" >
-    </asp:GridView> 
+        <asp:GridView ID="GridView1" runat="server" ></asp:GridView> 
+        <asp:GridView ID="GridView2" runat="server" ></asp:GridView> 
+        <asp:GridView ID="GridView3" runat="server" ></asp:GridView> 
+        <asp:GridView ID="GridView4" runat="server" ></asp:GridView> 
+        <asp:GridView ID="GridView5" runat="server" ></asp:GridView> 
+        <asp:GridView ID="GridView6" runat="server" ></asp:GridView> 
+        <asp:GridView ID="GridView7" runat="server" ></asp:GridView>   
     </div>
  </form>
 </body>
