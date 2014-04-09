@@ -18,6 +18,13 @@ namespace RJLou
         //to the SqlDataAdapter. By default this variable is null because we don't want any information displayed until
         //a report type is selected.
         string Query = "";
+        string selectQuerySegment = "";
+        string fromQuerySegment = " FROM RJL_Case C JOIN CASE_CHARGE CC ON C.Case_ID = CC.Case_ID JOIN CHARGE CH ON CH.Charge_ID = CC.Charge_ID " +
+                           "JOIN Case_File CF ON CF.Case_ID = C.Case_ID JOIN Case_Manager CM ON CM.Case_ID = C.Case_ID JOIN CASE_NOTE CN ON CN.CASE_ID = C.Case_ID " +
+                           "JOIN Document D ON D.Case_ID = C.Case_ID JOIN Person P ON CF.Person_ID = P.Person_ID " +
+                           "JOIN OFFENDER O ON O.Person_ID = P.Person_ID ";
+        string whereQuerySegment = "";
+        string fullQuery = "";
         SqlConnection conn = new SqlConnection(Constants.DSN);
 
         protected void Page_Load(object sender, EventArgs e)
@@ -31,6 +38,7 @@ namespace RJLou
             Repeater ReportsRepeater = (Repeater)reportClick.Parent.FindControl("ReportsRepeater");
             Label secondColumn = (Label)reportClick.Parent.FindControl("secondColumn");
             Label thirdColumn = (Label)reportClick.Parent.FindControl("thirdColumn");
+            SqlDataSource dynamicQuery = (SqlDataSource)reportClick.Parent.FindControl("DynamicSqlDataSource");
 
 
 
@@ -76,6 +84,12 @@ namespace RJLou
                     cmd5.Fill(ds5);
                     ReportsRepeater.DataSourceID = "AgeSqlDataSource";
                     break;
+                case 6:
+                    fullQuery = selectQuerySegment + fromQuerySegment + whereQuerySegment;
+                    dynamicQuery.SelectCommand = fullQuery;
+                    ReportsRepeater.DataSourceID = "DynamicSqlDataSource";
+                    break;
+
                 default:
                     Query = "";
                     break;
@@ -103,5 +117,70 @@ namespace RJLou
             SqlDataReader read = cmd.ExecuteReader();*/
 
         }
+
+        protected void ReportPrep(object sender, EventArgs e)
+        {
+            RadioButtonList choiceList = sender as RadioButtonList;
+            Panel panel2 = (Panel)choiceList.Parent.Parent.FindControl("listPanel2");
+            Panel panel3 = (Panel)choiceList.Parent.Parent.FindControl("listPanel3");
+
+                if (choiceList.SelectedItem.Value=="Cases")
+                {
+                    panel2.Visible = true;
+                    panel3.Visible = false;
+                    selectQuerySegment = "";
+                    whereQuerySegment = "WHERE C.Case_ID > 0";
+                }
+
+                else if (choiceList.SelectedItem.Value=="People")
+                {
+
+                    panel2.Visible = false;
+                    panel3.Visible = true;
+                    selectQuerySegment = "";
+                    whereQuerySegment = "WHERE P.Person_ID = O.Person_ID";
+                }
+            }
+
+        protected void ReportPrep2(object sender, EventArgs e)
+        {
+            RadioButtonList choiceList2 = sender as RadioButtonList;
+            Panel panel4 = (Panel)choiceList2.Parent.Parent.FindControl("listPanel4");
+
+            if(choiceList2.SelectedItem.Value=="Name")
+            {
+                selectQuerySegment = "SELECT P.Last_Name + ', ' + P.First_Name AS [Column1]";
+                panel4.Visible = true;
+            }
+
+            else if (choiceList2.SelectedItem.Value == "Age")
+            {
+                selectQuerySegment = "SELECT FLOOR(DATEDIFF(MM,Person.Date_Of_Birth,GETDATE())/12) AS [Column1]";
+                panel4.Visible = true;
+            }
+
+            else if (choiceList2.SelectedItem.Value == "Race")
+            {
+                selectQuerySegment = "SELECT P.RACE AS [Column1]";
+                panel4.Visible = true;
+            }
+
+            else if (choiceList2.SelectedItem.Value == "Gender")
+            {
+                selectQuerySegment = "SELECT P.Gender AS [Column1]";
+                panel4.Visible = true;
+            }
+        }
+
+        protected void ReportPrep3(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void ReportPrep4(object sender, EventArgs e)
+        {
+
+        }
+        }
     }
-}
+
