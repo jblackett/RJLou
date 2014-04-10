@@ -45,7 +45,7 @@ namespace RJLou.Classes
         #endregion
 
         #region Methods
-        internal void GetRole(string role)
+        internal void SetRole(string role)
         {
             role = role.ToUpper();
 
@@ -67,6 +67,33 @@ namespace RJLou.Classes
                     Role = Classes.Role.ADMIN;
                     break;
             }
+        }
+
+        public static Role GetRole(string role)
+        {
+            role = role.ToUpper();
+            Role result;
+
+            switch (role)
+            {
+                case "ADMIN":
+                    result = Classes.Role.ADMIN;
+                    break;
+                case "CASE MANAGER":
+                    result = Classes.Role.CASE_MANAGER;
+                    break;
+                case "FACILITATOR":
+                    result = Classes.Role.FACILITATOR;
+                    break;
+                case "VOLUNTEER":
+                    result = Classes.Role.VOLUNTEER;
+                    break;
+                default:
+                    result = Classes.Role.ADMIN;
+                    break;
+            }
+
+            return result;
         }
 
         public static InternalUser Get(int personID)
@@ -113,7 +140,7 @@ namespace RJLou.Classes
 
                     result.GetPhoneNumbers();
                     result.GetAddresses();
-                    result.GetRole(read["Title"].ToString());
+                    result.SetRole(read["Title"].ToString());
 
                     return result;
                 }
@@ -168,7 +195,7 @@ namespace RJLou.Classes
 
                     result.GetPhoneNumbers();
                     result.GetAddresses();
-                    result.GetRole(read["Title"].ToString());
+                    result.SetRole(read["Title"].ToString());
 
                     return result;
                 }
@@ -220,7 +247,7 @@ namespace RJLou.Classes
 
                     newUser.GetPhoneNumbers();
                     newUser.GetAddresses();
-                    newUser.GetRole(read["Title"].ToString());
+                    newUser.SetRole(read["Title"].ToString());
 
                     results.Add(newUser);
                 }
@@ -274,7 +301,7 @@ namespace RJLou.Classes
 
                     newUser.GetPhoneNumbers();
                     newUser.GetAddresses();
-                    newUser.GetRole(read["Title"].ToString());
+                    newUser.SetRole(read["Title"].ToString());
 
                     results.Add(newUser);
                 }
@@ -283,7 +310,7 @@ namespace RJLou.Classes
             return results;
         }
 
-        public static void Add(string fname, string lname, DateTime dob, string gender, string email,
+        public static int Add(string fname, string lname, DateTime dob, string gender, string email,
             string race, List<PhoneNumber> numbers, List<Address> addresses, Role role, string password)
         {
             int personID = Person.Add(fname, lname, dob, gender, email, race, numbers, addresses);
@@ -300,11 +327,13 @@ namespace RJLou.Classes
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("PersonID", personID);
-                cmd.Parameters.AddWithValue("Role", role);
+                cmd.Parameters.AddWithValue("Role", role.ToString());
                 cmd.Parameters.AddWithValue("Password", password);
 
-                personID = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.ExecuteNonQuery();
             }
+
+            return personID;
         }
 
         internal override void Delete()

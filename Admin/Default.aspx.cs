@@ -8,25 +8,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-/************** THINGS TO BE DONE ***********************
- * 
- * 1. Add Case
- * 2. Role Management
- * 3. Victim/Affiliate/Offender
- *      - Adding/Deleting refreshes the page weird
- * 4. Notes
- *      - Edit
- *      - New
- *      - Delete(?)
- * 5. Charges
- *      - View
- *      - Add
- *      - Delete
- * 6. Documents
- *      - All of it
- * 7. Responsive Design
- * 
- * *****************************************************/
 namespace RJLou
 {
     public partial class Default : System.Web.UI.Page
@@ -57,12 +38,36 @@ namespace RJLou
                     cases = Case.GetCases(true, thisUser.PersonID);
                     CasesRepeater.DataSource = cases;
                     CasesRepeater.DataBind();
+
+                    CaseSwitchTDAll.Attributes.Add("class", "active");
+                    CaseSwitchTDOpen.Attributes.Remove("class");
+                    CaseSwitchTDPending.Attributes.Remove("class");
+                    CaseSwitchTDClosed.Attributes.Remove("class");
                 }
                 else
                 {
                     cases = Case.GetCases(true);
                     CasesRepeater.DataSource = cases;
                     CasesRepeater.DataBind();
+
+                    CaseSwitchTDAll.Attributes.Add("class", "active");
+                    CaseSwitchTDOpen.Attributes.Remove("class");
+                    CaseSwitchTDPending.Attributes.Remove("class");
+                    CaseSwitchTDClosed.Attributes.Remove("class");
+                }
+
+                if (Request.QueryString["CaseID"] != null)
+                {
+                    int CaseID = Convert.ToInt32(Request.QueryString["CaseID"]);
+
+                    thisCase = Case.Get(CaseID);
+
+                    Session["CaseID"] = CaseID;
+
+                    BindData();
+                    LoadHeader();
+                    RightContainer.Attributes.CssStyle["display"] = "block";
+                    UnloadCaseButton.CssClass = "undo show";
                 }
             }
         }
@@ -381,6 +386,9 @@ namespace RJLou
             ModalAddresses.DataSource = thisVictim.Addresses;
             ModalAddresses.DataBind();
 
+            Session["ViewPersonID"] = PersonID;
+            Session["ViewPersonType"] = "victim";
+
             ViewPersonModalPanel.CssClass += " visible";
         }
 
@@ -447,6 +455,9 @@ namespace RJLou
             ModalAddresses.DataSource = thisOffender.Addresses;
             ModalAddresses.DataBind();
 
+            Session["ViewPersonID"] = PersonID;
+            Session["ViewPersonType"] = "offender";
+
             ViewPersonModalPanel.CssClass += " visible";
         }
 
@@ -491,6 +502,9 @@ namespace RJLou
             ModalPhoneNumbers.DataBind();
             ModalAddresses.DataSource = thisAffiliate.Addresses;
             ModalAddresses.DataBind();
+
+            Session["ViewPersonID"] = PersonID;
+            Session["ViewPersonType"] = "affiliate";
 
             ViewPersonModalPanel.CssClass += " visible";
         }
@@ -725,16 +739,74 @@ namespace RJLou
                         cases = Case.GetCases(true, thisUser.PersonID);
                         CasesRepeater.DataSource = cases;
                         CasesRepeater.DataBind();
+
+                        CaseSwitchTDAll.Attributes.Add("class", "active");
+                        CaseSwitchTDOpen.Attributes.Remove("class");
+                        CaseSwitchTDPending.Attributes.Remove("class");
+                        CaseSwitchTDClosed.Attributes.Remove("class");
                     }
                     else
                     {
                         cases = Case.GetCases(true);
                         CasesRepeater.DataSource = cases;
                         CasesRepeater.DataBind();
+
+                        CaseSwitchTDAll.Attributes.Add("class", "active");
+                        CaseSwitchTDOpen.Attributes.Remove("class");
+                        CaseSwitchTDPending.Attributes.Remove("class");
+                        CaseSwitchTDClosed.Attributes.Remove("class");
                     }
                     break;
                 case "open":
+                    thisUser = InternalUser.Get(PersonID);
+                    if (thisUser.Role == Role.CASE_MANAGER)
+                    {
+                        cases = Case.GetCases(true, thisUser.PersonID, commandArg);
+                        CasesRepeater.DataSource = cases;
+                        CasesRepeater.DataBind();
+
+                        CaseSwitchTDAll.Attributes.Remove("class");
+                        CaseSwitchTDOpen.Attributes.Add("class", "active");
+                        CaseSwitchTDPending.Attributes.Remove("class");
+                        CaseSwitchTDClosed.Attributes.Remove("class");
+                    }
+                    else
+                    {
+                        cases = Case.GetCases(true, commandArg);
+                        CasesRepeater.DataSource = cases;
+                        CasesRepeater.DataBind();
+
+                        CaseSwitchTDAll.Attributes.Remove("class");
+                        CaseSwitchTDOpen.Attributes.Add("class", "active");
+                        CaseSwitchTDPending.Attributes.Remove("class");
+                        CaseSwitchTDClosed.Attributes.Remove("class"); ;
+                    }
+                    break;
                 case "pending":
+                    thisUser = InternalUser.Get(PersonID);
+                    if (thisUser.Role == Role.CASE_MANAGER)
+                    {
+                        cases = Case.GetCases(true, thisUser.PersonID, commandArg);
+                        CasesRepeater.DataSource = cases;
+                        CasesRepeater.DataBind();
+
+                        CaseSwitchTDAll.Attributes.Remove("class");
+                        CaseSwitchTDOpen.Attributes.Remove("class");
+                        CaseSwitchTDPending.Attributes.Add("class", "active");
+                        CaseSwitchTDClosed.Attributes.Remove("class");
+                    }
+                    else
+                    {
+                        cases = Case.GetCases(true, commandArg);
+                        CasesRepeater.DataSource = cases;
+                        CasesRepeater.DataBind();
+
+                        CaseSwitchTDAll.Attributes.Remove("class");
+                        CaseSwitchTDOpen.Attributes.Remove("class");
+                        CaseSwitchTDPending.Attributes.Add("class", "active");
+                        CaseSwitchTDClosed.Attributes.Remove("class");
+                    }
+                    break;
                 case "closed":
                     thisUser = InternalUser.Get(PersonID);
                     if (thisUser.Role == Role.CASE_MANAGER)
@@ -742,12 +814,22 @@ namespace RJLou
                         cases = Case.GetCases(true, thisUser.PersonID, commandArg);
                         CasesRepeater.DataSource = cases;
                         CasesRepeater.DataBind();
+
+                        CaseSwitchTDAll.Attributes.Remove("class");
+                        CaseSwitchTDOpen.Attributes.Remove("class");
+                        CaseSwitchTDPending.Attributes.Remove("class");
+                        CaseSwitchTDClosed.Attributes.Add("class", "active");
                     }
                     else
                     {
                         cases = Case.GetCases(true, commandArg);
                         CasesRepeater.DataSource = cases;
                         CasesRepeater.DataBind();
+
+                        CaseSwitchTDAll.Attributes.Remove("class");
+                        CaseSwitchTDOpen.Attributes.Remove("class");
+                        CaseSwitchTDPending.Attributes.Remove("class");
+                        CaseSwitchTDClosed.Attributes.Add("class", "active");
                     }
                     break;
                 default:
@@ -757,12 +839,22 @@ namespace RJLou
                         cases = Case.GetCases(true, thisUser.PersonID);
                         CasesRepeater.DataSource = cases;
                         CasesRepeater.DataBind();
+
+                        CaseSwitchTDAll.Attributes.Add("class", "active");
+                        CaseSwitchTDOpen.Attributes.Remove("class");
+                        CaseSwitchTDPending.Attributes.Remove("class");
+                        CaseSwitchTDClosed.Attributes.Remove("class");
                     }
                     else
                     {
                         cases = Case.GetCases(true);
                         CasesRepeater.DataSource = cases;
                         CasesRepeater.DataBind();
+
+                        CaseSwitchTDAll.Attributes.Add("class", "active");
+                        CaseSwitchTDOpen.Attributes.Remove("class");
+                        CaseSwitchTDPending.Attributes.Remove("class");
+                        CaseSwitchTDClosed.Attributes.Remove("class");
                     }
                     break;
             }
@@ -794,6 +886,14 @@ namespace RJLou
         protected internal void ClosePerson(object sender, EventArgs e)
         {
             ViewPersonModalPanel.CssClass = "modal-background";
+        }
+
+        protected internal void ViewPerson(object sender, EventArgs e)
+        {
+            int viewPersonID = Convert.ToInt32(Session["ViewPersonID"]);
+            string viewPersonType = Session["ViewPersonType"].ToString();
+
+            Response.Redirect("Contacts.aspx?PersonID=" + viewPersonID + "&PersonType=" + viewPersonType);
         }
 
         protected internal void AddManager(object Sender, EventArgs e)

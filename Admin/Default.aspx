@@ -9,10 +9,10 @@
         </div>
         <table class="changes" cellspacing="0" border="0">
             <tr>
-                <td><asp:LinkButton runat="server" ID="CaseSwitchAll" OnClick="SwitchCaseList" Text="All" CommandArgument="all" /></td>
-                <td><asp:LinkButton runat="server" ID="CaseSwitchOpen" OnClick="SwitchCaseList" Text="Open" CommandArgument="open" /></td>
-                <td><asp:LinkButton runat="server" ID="CaseSwitchPending" OnClick="SwitchCaseList" Text="Pending Approval" CommandArgument="pending" /></td>
-                <td><asp:LinkButton runat="server" ID="CaseSwitchClosed" OnClick="SwitchCaseList" Text="Closed" CommandArgument="closed" /></td>
+                <td id="CaseSwitchTDAll" runat="server"><asp:LinkButton runat="server" ID="CaseSwitchAll" OnClick="SwitchCaseList" Text="All" CommandArgument="all" /></td>
+                <td id="CaseSwitchTDOpen" runat="server"><asp:LinkButton runat="server" ID="CaseSwitchOpen" OnClick="SwitchCaseList" Text="Open" CommandArgument="open" /></td>
+                <td id="CaseSwitchTDPending" runat="server"><asp:LinkButton runat="server" ID="CaseSwitchPending" OnClick="SwitchCaseList" Text="Pending Approval" CommandArgument="pending" /></td>
+                <td id="CaseSwitchTDClosed" runat="server"><asp:LinkButton runat="server" ID="CaseSwitchClosed" OnClick="SwitchCaseList" Text="Closed" CommandArgument="closed" /></td>
             </tr>
         </table>
         <asp:Repeater runat="server" ID="CasesRepeater" OnItemDataBound="CasesRepeater_Databind">
@@ -368,7 +368,7 @@
                     </td>
                 </tr>
             </table>
-            <a class="button" href="#">Edit Person</a>
+            <asp:LinkButton ID="ViewPersonModal" runat="server" OnClick="ViewPerson" Text="Edit Person" CssClass="button" />
             <asp:LinkButton ID="ClosePersonModal" runat="server" OnClick="ClosePerson" Text="Cancel" CssClass="button" />
         </div>
     </asp:Panel>
