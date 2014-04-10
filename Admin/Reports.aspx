@@ -11,11 +11,17 @@
         <asp:LinkButton runat="server" ID="Report5" OnClick="ReportClick" Text="Case By Age" CommandArgument="5"></asp:LinkButton>
 
         <asp:Panel ID="DynamicQueryPanel" runat="server">
+            <asp:Label ID="invisibleSelectQuery" runat="server" Text="" Visible="false" />
+            <asp:Label ID="invisibleFromQuery" runat="server" Text="" Visible ="false" />
+            <asp:Label ID="invisibleGroupByQuery" runat="server" Text="" Visible="false" />
+
+
+
         <asp:Panel ID="listPanel1" runat="server">
-            <asp:Label ID="List1Label" runat="server" Text="This report is about:" cssClass="float-left"/>
+            <asp:Label ID="List1Label" runat="server" Text="This report is about:"/>
             <asp:RadioButtonList ID="ReportTypeList" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ReportPrep">
-            <asp:ListItem Text ="Cases" Value="Cases"></asp:ListItem>
-                <asp:ListItem Text="People" Value="People"></asp:ListItem>
+            <asp:ListItem Text ="People" Value="Cases"></asp:ListItem>
+                <asp:ListItem Text="Cases" Value="People"></asp:ListItem>
                             </asp:RadioButtonList>
             </asp:Panel>
 
@@ -55,9 +61,9 @@
                 <table border="0">
                     <thead>
                         <tr>
-                            <th><asp:Label ID="Header1" runat="server" Text="Column1" /></th>
-                            <th><asp:Label ID="Header2" runat="server" Text="Colunn2" /></th>
-                            <th><asp:Label ID="Header3" runat="server" Text="Column3" /></th>
+                            <th><asp:Label ID="Header1" runat="server" Text="" /></th>
+                            <th><asp:Label ID="Header2" runat="server" Text="" /></th>
+                            <th><asp:Label ID="Header3" runat="server" Text="" /></th>
                         </tr>
                     </thead>
                 <tbody>
@@ -75,7 +81,7 @@
             </FooterTemplate>
         </asp:Repeater>
 
-        <asp:SqlDataSource ID="StatusSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:RJLouEntities %>" SelectCommand="SELECT Status AS [Column1], Case_ID AS [Column2], Status AS [Column3] FROM [RJL_Case] ORDER BY [Column1] desc">
+        <asp:SqlDataSource ID="StatusSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:RJLouEntities %>" SelectCommand="SELECT Status AS [Column1], Case_ID AS [Column2], '' AS [Column3] FROM [RJL_Case] ORDER BY [Column1] desc">
         </asp:SqlDataSource>
 
                 <asp:SqlDataSource ID="OffenseSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:RJLouEntities %>" SelectCommand="SELECT [Description] AS [Column1], RJL_Case.Status AS [Column3], RJL_Case.Case_ID AS [Column2] FROM RJL_Case JOIN CASE_CHARGE ON RJL_Case.Case_ID = CASE_CHARGE.Case_ID JOIN CHARGE ON CHARGE.Charge_ID = CASE_CHARGE.Charge_ID ORDER BY RJL_Case.Status desc, Description">
@@ -87,7 +93,7 @@
                 <asp:SqlDataSource ID="GenderSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:RJLouEntities %>" SelectCommand="SELECT Gender AS [Column1], C.Status AS [Column3], C.Case_ID AS [Column2] FROM RJL_Case C JOIN CASE_FILE CF ON CF.Case_ID = C.Case_ID JOIN PERSON P ON P.Person_ID = CF.Person_ID JOIN OFFENDER O ON O.Person_ID = P.Person_ID ORDER BY C.Status desc, Gender">
         </asp:SqlDataSource>
 
-                <asp:SqlDataSource ID="AgeSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:RJLouEntities %>" SelectCommand="SELECT Date_Of_Birth AS [Column1], C.Status AS [Column3], C.Case_ID AS [Column2] FROM RJL_Case C JOIN CASE_FILE CF ON CF.Case_ID = C.Case_ID JOIN PERSON P ON P.Person_ID = CF.Person_ID JOIN OFFENDER O ON O.Person_ID = P.Person_ID ORDER BY C.Status desc, Date_Of_Birth DESC">
+                <asp:SqlDataSource ID="AgeSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:RJLouEntities %>" SelectCommand="SELECT FLOOR(DATEDIFF(MM,P.Date_Of_Birth,GETDATE())/12) AS [Column1], C.Status AS [Column3], C.Case_ID AS [Column2] FROM RJL_Case C JOIN CASE_FILE CF ON CF.Case_ID = C.Case_ID JOIN PERSON P ON P.Person_ID = CF.Person_ID JOIN OFFENDER O ON O.Person_ID = P.Person_ID ORDER BY C.Status desc, Date_Of_Birth DESC">
         </asp:SqlDataSource>
 
                         <asp:SqlDataSource ID="DynamicSqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:RJLouEntities %>" SelectCommand="">

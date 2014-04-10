@@ -76,6 +76,33 @@ namespace RJLou {
         protected global::System.Web.UI.WebControls.Panel DynamicQueryPanel;
         
         /// <summary>
+        /// invisibleSelectQuery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label invisibleSelectQuery;
+        
+        /// <summary>
+        /// invisibleFromQuery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label invisibleFromQuery;
+        
+        /// <summary>
+        /// invisibleGroupByQuery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label invisibleGroupByQuery;
+        
+        /// <summary>
         /// listPanel1 control.
         /// </summary>
         /// <remarks>
