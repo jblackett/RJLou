@@ -1,2 +1,85 @@
-﻿body {
+﻿/*@media only screen and (min-width: 1501px) {
+    #normal-menu {
+        display: block;
+    }
+
+    #mobile-menu {
+        display: none;
+    }
 }
+
+@media only screen and (max-width: 1500px) {
+    #normal-menu {
+        display: block;
+    }
+
+    #mobile-menu {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    #normal-menu {
+        display: none;
+    }
+
+    #mobile-menu {
+        display: block;
+    }
+
+    .nav {
+        float: none;
+        margin: 0 auto;
+        position: relative;
+        width: 75%;
+        padding: 0.25rem 2rem;
+        text-align: left;
+        background-color: #2c2626;
+        background-image: url('/images/sandwich-bar.png');
+        background-size: 1.5rem;
+        background-position: 95% center;
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }
+
+    .nav.hidden {
+        background-image: none;
+        text-align: center;
+        display: none;
+        cursor: initial;
+    }
+
+    a.nav_link {
+        display: block;
+        padding: 1rem 0;
+        color: white;
+	    text-decoration: none;
+        font-size: 1.25rem;
+    }
+
+    #main-logo > img {
+        display: block;
+        margin: 1rem auto;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    .header > h1 {
+        font-size: 3.5rem;
+    }
+
+    .header > h2 {
+        font-size: 2.5rem;
+    }
+
+    .container.header {
+        padding: 1rem 0;
+    }
+
+    .container.header.no {
+        background: none;
+        background-color: white;
+    }
+}*/

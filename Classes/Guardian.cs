@@ -203,14 +203,14 @@ namespace RJLou.Classes
             return results;
         }
 
-        public static void Add(string fname, string lname, DateTime dob, string gender, string email,
+        public static int Add(string fname, string lname, DateTime dob, string gender, string email,
             string race, List<PhoneNumber> numbers, List<Address> addresses, string relationship)
         {
             int personID = Person.Add(fname, lname, dob, gender, email, race, numbers, addresses);
 
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = @"
-                INSERT INTO Guardian (Person_ID)
+                INSERT INTO Guardian (Person_ID, Relationship)
                 VALUES      (@PersonID, @Relationship)";
 
             using (SqlConnection conn = new SqlConnection(dsn))
@@ -222,8 +222,10 @@ namespace RJLou.Classes
                 cmd.Parameters.AddWithValue("PersonID", personID);
                 cmd.Parameters.AddWithValue("Relationship", relationship);
 
-                personID = Convert.ToInt32(cmd.ExecuteScalar());
+                cmd.ExecuteNonQuery();
             }
+
+            return personID;
         }
 
         internal override void Delete()

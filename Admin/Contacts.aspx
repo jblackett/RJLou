@@ -9,17 +9,17 @@
         </div>
         <table class="changes" cellspacing="0" border="0">
             <tr>
-                <td colspan="2">
+                <td id="PersonSwitchTDEmployees" runat="server" colspan="2">
                     <asp:LinkButton runat="server" ID="PersonSwitchEmployees" OnClick="SwitchPersonList" Text="Employees" width=100% CommandArgument="employees" />
                 </td>
             </tr>
             <tr>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchOffenders" OnClick="SwitchPersonList" Text="Offenders" width=100% CommandArgument="offenders" /></td>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchVictims" OnClick="SwitchPersonList" Text="Victims" width=100% CommandArgument="victims" /></td>
+                <td id="PersonSwitchTDOffenders" runat="server"><asp:LinkButton runat="server" ID="PersonSwitchOffenders" OnClick="SwitchPersonList" Text="Offenders" width=100% CommandArgument="offenders" /></td>
+                <td id="PersonSwitchTDVictims" runat="server"><asp:LinkButton runat="server" ID="PersonSwitchVictims" OnClick="SwitchPersonList" Text="Victims" width=100% CommandArgument="victims" /></td>
             </tr>
             <tr>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchAffiliates" OnClick="SwitchPersonList" Text="Affiliates" width=100% CommandArgument="affiliates" /></td>
-                <td><asp:LinkButton runat="server" ID="PersonSwitchGuardians" OnClick="SwitchPersonList" Text="Guardians" width=100% CommandArgument="guardians" /></td>
+                <td id="PersonSwitchTDAffiliates" runat="server"><asp:LinkButton runat="server" ID="PersonSwitchAffiliates" OnClick="SwitchPersonList" Text="Affiliates" width=100% CommandArgument="affiliates" /></td>
+                <td id="PersonSwitchTDGuardians" runat="server"><asp:LinkButton runat="server" ID="PersonSwitchGuardians" OnClick="SwitchPersonList" Text="Guardians" width=100% CommandArgument="guardians" /></td>
             </tr>
         </table>
         <asp:Repeater runat="server" ID="PersonsRepeater" OnItemDataBound="PersonsRepeater_ItemDataBound">
@@ -47,88 +47,156 @@
             </FooterTemplate>
         </asp:Repeater>
     </div>
-    <div class="container right">
-        <asp:UpdatePanel ID="MainContainer" runat="server" Visible="false">
-            <ContentTemplate>
-                <div class="scroll-stick">
-                    <a class="smaller" href="#info">Person Info</a>
-                    <a class="smaller" href="#phonenums">Phone Numbers</a>
-                    <a class="smaller" href="#addresses">Addresses</a>
-                    <a class="smaller" href="#guardians">Guardians</a>
-                    <a class="smaller" href="#cases">Cases</a>
-                </div>
-                <div style="clear: both;"></div>
-                <asp:Panel ID="PersonUpdatedPanel" runat="server" CssClass="updatepanel">
-                    <p>
-                        This person was successfully saved!
-                    </p>
-                    <span class="x alert">X</span>
-                </asp:Panel>
-                <h1 id="contact">Contact</h1>
-                <asp:Label ID="PersonID" runat="server" Visible="false" />
-                <table class="nothing">
-                    <tr>
-                        <td>First Name:</td>
-                        <td><asp:TextBox ID="FirstName" runat="server" /></td>
-                    </tr>
-                    <tr>
-                        <td>Last Name:</td>
-                        <td><asp:TextBox ID="LastName" runat="server" /></td>
-                    </tr>
-                    <tr>
-                        <td>Date of Birth:</td>
-                        <td><asp:TextBox ID="DateOfBirth" runat="server" /></td>
-                    </tr>
-                    <tr>
-                        <td>Gender:</td>
-                        <td><asp:TextBox ID="Gender" runat="server" /></td>
-                    </tr>
-                    <tr>
-                        <td>Email:</td>
-                        <td><asp:TextBox ID="Email" runat="server" /></td>
-                    </tr>
-                    <tr>
-                        <td>Race:</td>
-                        <td><asp:TextBox ID="Race" runat="server" /></td>
-                    </tr>
-                    <tr id="HeaderRelationship" runat="server">
-                        <td>Relationship:</td>
-                        <td><asp:TextBox ID="Relationship" runat="server" /></td>
-                    </tr>
-                    <tr id="HeaderPassword" runat="server">
-                        <td>New Password:</td>
-                        <td><asp:TextBox ID="NewPassword" runat="server" /></td>
-                    </tr>
-                    <%--<tr id="HeaderUserType" runat="server">
-                        <td>Employee Type</td>
-                        <td>
-                            <asp:DropDownList ID="UserType" runat="server">
-                                <asp:ListItem Text="Admin" Value="admin" />
-                                <asp:ListItem Text="Case Manager" Value="case manager" />
-                                <asp:ListItem Text="Facilitator" Value="facilitator" />
-                                <asp:ListItem Text="Volunteer" Value="volunteer" />
-                            </asp:DropDownList>
-                        </td>
-                    </tr>--%>
-                    <tr id="HeaderUserType" runat="server">
-                        <td>Employee Type:</td>
-                        <td><asp:TextBox ID="UserType" runat="server" /></td>
-                    </tr>
-                    <tr id="HeaderOffenderNumber" runat="server">
-                        <td>Offender Number:</td>
-                        <td><asp:TextBox ID="OffenderNumber" runat="server" /></td>
-                    </tr>
-                </table>
-                <asp:LinkButton runat="server" CssClass="button" Text="Save Person" OnClick="SavePerson" />
-                <h1 id="phonenums">Phone Numbers</h1>
+    <div class="container right" id="RightContainer" runat="server">
+        <asp:Panel ID="MainContainer" runat="server" Visible="false">
+            <div class="scroll-stick">
+                <a class="smaller" href="#info">Person Info</a>
+                <a class="smaller" href="#phonenums">Phone Numbers</a>
+                <a class="smaller" href="#addresses">Addresses</a>
+                <a class="smaller" href="#guardians">Guardians</a>
+                <a class="smaller" href="#cases">Cases</a>
+            </div>
+            <div style="clear: both;"></div>
+            <asp:Panel ID="PersonUpdatedPanel" runat="server" CssClass="updatepanel">
+                <p>
+                    This person was successfully saved!
+                </p>
+                <span class="x alert">X</span>
+            </asp:Panel>
+            <h1 id="info" class="statusheader" runat="server"></h1>
+            <asp:LinkButton ID="AddNewPerson" CssClass="button add" runat="server" Text="+" OnClick="AddPerson" />
+            <asp:Label ID="PersonID" runat="server" Visible="false" />
+            <table class="nothing">
+                <tr>
+                    <td>First Name:</td>
+                    <td><asp:TextBox ID="FirstName" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td><asp:TextBox ID="LastName" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Date of Birth:</td>
+                    <td><asp:TextBox ID="DateOfBirth" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td><asp:TextBox ID="Gender" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><asp:TextBox ID="Email" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Race:</td>
+                    <td><asp:TextBox ID="Race" runat="server" /></td>
+                </tr>
+                <tr id="HeaderRelationship" runat="server">
+                    <td>Relationship:</td>
+                    <td><asp:TextBox ID="Relationship" runat="server" /></td>
+                </tr>
+                <tr id="HeaderPassword" runat="server">
+                    <td>New Password:</td>
+                    <td><asp:TextBox ID="NewPassword" runat="server" /></td>
+                </tr>
+                <%--<tr id="HeaderUserType" runat="server">
+                    <td>Employee Type</td>
+                    <td>
+                        <asp:DropDownList ID="UserType" runat="server">
+                            <asp:ListItem Text="Admin" Value="admin" />
+                            <asp:ListItem Text="Case Manager" Value="case manager" />
+                            <asp:ListItem Text="Facilitator" Value="facilitator" />
+                            <asp:ListItem Text="Volunteer" Value="volunteer" />
+                        </asp:DropDownList>
+                    </td>
+                </tr>--%>
+                <tr id="HeaderUserType" runat="server">
+                    <td>Employee Type:</td>
+                    <td><asp:TextBox ID="UserType" runat="server" /></td>
+                </tr>
+                <tr id="HeaderOffenderNumber" runat="server">
+                    <td>Offender Number:</td>
+                    <td><asp:TextBox ID="OffenderNumber" runat="server" /></td>
+                </tr>
+            </table>
+            <asp:LinkButton runat="server" CssClass="button" Text="Save Person" OnClick="SavePerson" />
+            <h1 id="phonenums">Phone Numbers</h1>
+            <div class="inner">
+                <asp:Repeater ID="PhoneNumbersRepeater" runat="server" OnItemDataBound="PhoneNumbersRepeater_ItemDataBound">
+                    <HeaderTemplate>
+                        <table cellspacing="0" border="0">
+                            <thead>
+                                <tr>
+                                    <th>Phone Number</th>
+                                    <th>Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <tr>
+                            <td><%#DataBinder.Eval(Container.DataItem, "Number")%></td>
+                            <td><%#DataBinder.Eval(Container.DataItem, "PType")%></td>
+                            <td>
+                                <asp:LinkButton runat="server" ID="PhoneDeleteButton" OnClick="DeletePhone" Text="Delete" CommandArgument='<%# Eval("PhoneID") %>' />
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                            </tbody>
+                        </table>
+                        <asp:LinkButton runat="server" ID="PhoneAddButton" OnClick="AddPhone" CssClass="button float-right" Text="Add Phone Number" />
+                    </FooterTemplate>
+                </asp:Repeater>
+            </div>
+            <h1 id="addresses">Addresses</h1>
+            <div class="inner">
+                <asp:Repeater ID="AddressesRepeater" runat="server" OnItemDataBound="AddressesRepeater_ItemDataBound">
+                    <HeaderTemplate>
+                        <table cellspacing="0" border="0">
+                            <thead>
+                                <tr>
+                                    <th>Street Address</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Zip</th>
+                                    <th>Type</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <tr>
+                            <td><%#DataBinder.Eval(Container.DataItem, "streetAddress")%></td>
+                            <td><%#DataBinder.Eval(Container.DataItem, "city")%></td>
+                            <td><%#DataBinder.Eval(Container.DataItem, "state")%></td>
+                            <td><%#DataBinder.Eval(Container.DataItem, "zip")%></td>
+                            <td><%#DataBinder.Eval(Container.DataItem, "type")%></td>
+                            <td>
+                                <asp:LinkButton runat="server" ID="AddressDeleteButton" OnClick="DeleteAddress" Text="Delete" CommandArgument='<%# Eval("AddressID") %>' />
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                            </tbody>
+                        </table>
+                        <asp:LinkButton runat="server" ID="AddressAddButton" OnClick="AddAddress" CssClass="button float-right" Text="Add Address" />
+                    </FooterTemplate>
+                </asp:Repeater>
+            </div>
+            <asp:Panel ID="GuardiansPanel" runat="server">
+                <h1 id="guardians">Guardians</h1>
                 <div class="inner">
-                    <asp:Repeater ID="PhoneNumbersRepeater" runat="server" OnItemDataBound="PhoneNumbersRepeater_ItemDataBound">
+                    <asp:Repeater ID="GuardiansRepeater" runat="server" OnItemDataBound="GuardiansRepeater_ItemDataBound">
                         <HeaderTemplate>
                             <table cellspacing="0" border="0">
                                 <thead>
                                     <tr>
-                                        <th>Phone Number</th>
-                                        <th>Type</th>
+                                        <th>Name</th>
+                                        <th>Gender</th>
+                                        <th>Relationship</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -136,32 +204,32 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr>
-                                <td><%#DataBinder.Eval(Container.DataItem, "Number")%></td>
-                                <td><%#DataBinder.Eval(Container.DataItem, "PType")%></td>
+                                <td><asp:Label ID="GuardianName" runat="server" /></td>
+                                <td><%#DataBinder.Eval(Container.DataItem, "Gender")%></td>
+                                <td><%#DataBinder.Eval(Container.DataItem, "Relationship")%></td>
                                 <td>
-                                    <asp:LinkButton runat="server" ID="PhoneDeleteButton" OnClick="DeletePhone" Text="Delete" CommandArgument='<%# Eval("PhoneID") %>' />
+                                    <asp:LinkButton runat="server" ID="GuardianDeleteButton" OnClick="DeleteGuardian" Text="Delete" CommandArgument='<%# Eval("GuardianID") %>' /> &nbsp;
+                                    <asp:LinkButton runat="server" ID="GuardianViewButton" OnClick="ViewGuardian" Text="View" CommandArgument='<%# Eval("PersonID") %>' />
                                 </td>
                             </tr>
                         </ItemTemplate>
                         <FooterTemplate>
                                 </tbody>
                             </table>
-                            <asp:LinkButton runat="server" ID="PhoneAddButton" OnClick="AddPhone" CssClass="button float-right" Text="Add Phone Number" />
+                            <asp:LinkButton runat="server" ID="GuardianAddButton" OnClick="AddGuardian" CssClass="button float-right" Text="Add Guardian" />
                         </FooterTemplate>
                     </asp:Repeater>
                 </div>
-                <h1 id="addresses">Addresses</h1>
-                <div class="inner">
-                    <asp:Repeater ID="AddressesRepeater" runat="server" OnItemDataBound="AddressesRepeater_ItemDataBound">
-                        <HeaderTemplate>
+            </asp:Panel>
+            <h1 id="cases">Cases</h1>
+            <div class="inner">
+                <asp:Repeater ID="CasesRepeater" runat="server" OnItemDataBound="CasesRepeater_ItemDataBound">
+                    <HeaderTemplate>
                             <table cellspacing="0" border="0">
                                 <thead>
                                     <tr>
-                                        <th>Street Address</th>
-                                        <th>City</th>
-                                        <th>State</th>
-                                        <th>Zip</th>
-                                        <th>Type</th>
+                                        <th>Court ID</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -169,91 +237,25 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <tr>
-                                <td><%#DataBinder.Eval(Container.DataItem, "streetAddress")%></td>
-                                <td><%#DataBinder.Eval(Container.DataItem, "city")%></td>
-                                <td><%#DataBinder.Eval(Container.DataItem, "state")%></td>
-                                <td><%#DataBinder.Eval(Container.DataItem, "zip")%></td>
-                                <td><%#DataBinder.Eval(Container.DataItem, "type")%></td>
+                                <td><%#DataBinder.Eval(Container.DataItem, "CourtID")%></td>
+                                <td><%#DataBinder.Eval(Container.DataItem, "Status")%></td>
                                 <td>
-                                    <asp:LinkButton runat="server" ID="AddressDeleteButton" OnClick="DeleteAddress" Text="Delete" CommandArgument='<%# Eval("AddressID") %>' />
+                                    <asp:LinkButton runat="server" ID="CaseViewButton" OnClick="ViewCase" Text="View" CommandArgument='<%# Eval("CaseID") %>' />
                                 </td>
                             </tr>
                         </ItemTemplate>
                         <FooterTemplate>
                                 </tbody>
                             </table>
-                            <asp:LinkButton runat="server" ID="AddressAddButton" OnClick="AddAddress" CssClass="button float-right" Text="Add Address" />
                         </FooterTemplate>
-                    </asp:Repeater>
-                </div>
-                <asp:Panel ID="GuardiansPanel" runat="server">
-                    <h1 id="guardians">Guardians</h1>
-                    <div class="inner">
-                        <asp:Repeater ID="GuardiansRepeater" runat="server" OnItemDataBound="GuardiansRepeater_ItemDataBound">
-                            <HeaderTemplate>
-                                <table cellspacing="0" border="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Gender</th>
-                                            <th>Relationship</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <tr>
-                                    <td><asp:Label ID="GuardianName" runat="server" /></td>
-                                    <td><%#DataBinder.Eval(Container.DataItem, "Gender")%></td>
-                                    <td><%#DataBinder.Eval(Container.DataItem, "Relationship")%></td>
-                                    <td>
-                                        <asp:LinkButton runat="server" ID="GuardianDeleteButton" OnClick="DeleteGuardian" Text="Delete" CommandArgument='<%# Eval("GuardianID") %>' /> &nbsp;
-                                        <asp:LinkButton runat="server" ID="GuardianViewButton" OnClick="ViewGuardian" Text="View" CommandArgument='<%# Eval("PersonID") %>' />
-                                    </td>
-                                </tr>
-                            </ItemTemplate>
-                            <FooterTemplate>
-                                    </tbody>
-                                </table>
-                                <asp:LinkButton runat="server" ID="GuardianAddButton" OnClick="AddGuardian" CssClass="button float-right" Text="Add Guardian" />
-                            </FooterTemplate>
-                        </asp:Repeater>
-                    </div>
-                </asp:Panel>
-                <h1 id="cases">Cases</h1>
-                <div class="inner">
-                    <asp:Repeater ID="CasesRepeater" runat="server" OnItemDataBound="CasesRepeater_ItemDataBound">
-                        <HeaderTemplate>
-                                <table cellspacing="0" border="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Court ID</th>
-                                            <th>Status</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                            </HeaderTemplate>
-                            <ItemTemplate>
-                                <tr>
-                                    <td><%#DataBinder.Eval(Container.DataItem, "CourtID")%></td>
-                                    <td><%#DataBinder.Eval(Container.DataItem, "Status")%></td>
-                                    <td>
-                                        <asp:LinkButton runat="server" ID="CaseViewButton" OnClick="ViewCase" Text="View" CommandArgument='<%# Eval("CaseID") %>' />
-                                    </td>
-                                </tr>
-                            </ItemTemplate>
-                            <FooterTemplate>
-                                    </tbody>
-                                </table>
-                            </FooterTemplate>
-                    </asp:Repeater>
-                </div>
-            </ContentTemplate>
-        </asp:UpdatePanel>
+                </asp:Repeater>
+            </div>
+        </asp:Panel>
     </div>
     <div style="margin: 0; padding: 0; clear: both;"></div>
+    <asp:LinkButton ID="UnloadCaseButton" runat="server" CssClass="undo" OnClick="UnloadPerson">
+        <img src="/images/arrow-left.png" />
+    </asp:LinkButton>
     <asp:Panel ID="ViewPersonModalPanel" runat="server" CssClass="modal-background">
         <div class="modal">
             <h1 id="ModalName" runat="server"></h1>
@@ -331,6 +333,7 @@
                     <td><asp:TextBox ID="ModalDistrict" runat="server" ReadOnly="true" /></td>
                 </tr>
             </table>
+            <asp:LinkButton ID="ModalViewCase" runat="server" OnClick="ViewModal" CssClass="button" Text="Edit Case" />
             <asp:LinkButton ID="ModalCloseCase" runat="server" OnClick="CloseModal" CssClass="button" Text="Close" />
         </div>
     </asp:Panel>
@@ -386,6 +389,69 @@
             <br />
             <asp:LinkButton runat="server" ID="SubmitNewGuardian" OnClick="SaveGuardian" CssClass="button" Text="Submit" />
             <asp:LinkButton runat="server" ID="CancelNewGuardian" OnClick="CancelGuardian" CssClass="button" Text="Cancel" />
+        </div>
+    </asp:Panel>
+    <asp:Panel ID="NewCaseModalPanel" runat="server" CssClass="modal-background">
+        <div class="modal">
+            <h1>Add New Person</h1>
+            <asp:DropDownList ID="ModalPersonType" runat="server">
+                <asp:ListItem Text="- Please Select a Type -" Value="nothing" Selected="True" />
+                <asp:ListItem Text="Employee" Value="employee" />
+                <asp:ListItem Text="Offender" Value="offender" />
+                <asp:ListItem Text="Victim" Value="victim" />
+                <asp:ListItem Text="Affiliate" Value="affiliate" />
+                <asp:ListItem Text="Guardian" Value="guardian" />
+            </asp:DropDownList>
+            <asp:LinkButton ID="ModalSelectType" runat="server" OnClick="ModalPersonType_Click" Text="Open Type" CssClass="button" />
+            <br />
+            <table id="NewCaseModalTable" runat="server" visible="false" class="nothing">
+                <tr>
+                    <td>First Name:</td>
+                    <td><asp:TextBox ID="ModalFirstName" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Last Name:</td>
+                    <td><asp:TextBox ID="ModalLastName" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Date of Birth:</td>
+                    <td><asp:TextBox ID="ModalCreateDateOfBirth" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Gender:</td>
+                    <td><asp:TextBox ID="ModalCreateGender" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><asp:TextBox ID="ModalEmail" runat="server" /></td>
+                </tr>
+                <tr>
+                    <td>Race:</td>
+                    <td><asp:TextBox ID="ModalCreateRace" runat="server" /></td>
+                </tr>
+                <tr id="ModalRelationshipRow" runat="server">
+                    <td>Relationship:</td>
+                    <td><asp:TextBox ID="ModalRelationship" runat="server" /></td>
+                </tr>
+                <tr id="ModalPasswordRow" runat="server">
+                    <td>Password:</td>
+                    <td><asp:TextBox ID="ModalPassword" runat="server" /></td>
+                </tr>
+                <tr id="ModalRoleRow" runat="server">
+                    <td>Role:</td>
+                    <td><asp:TextBox ID="ModalRole" runat="server" /></td>
+                </tr>
+                <tr id="ModalOffenderNumberRow" runat="server">
+                    <td>Offender Number:</td>
+                    <td><asp:TextBox ID="ModalOffenderNumber" runat="server" /></td>
+                </tr>
+                <tr id="ModalCourtIDRow" runat="server">
+                    <td>Court ID:</td>
+                    <td><asp:TextBox ID="ModalCourtID" runat="server" /></td>
+                </tr>
+            </table>
+            <asp:LinkButton ID="CreatePerson" runat="server" OnClick="CreateNewPerson" Text="Save" CssClass="button" />
+            <asp:LinkButton ID="CancelPerson" runat="server" OnClick="CancelNewPerson" Text="Cancel" CssClass="button" />
         </div>
     </asp:Panel>
 
