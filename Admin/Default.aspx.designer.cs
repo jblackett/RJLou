@@ -22,15 +22,6 @@ namespace RJLou {
         protected global::System.Web.UI.ScriptManager workingMan;
         
         /// <summary>
-        /// CaseSwitchTDAll control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell CaseSwitchTDAll;
-        
-        /// <summary>
         /// CaseSwitchAll control.
         /// </summary>
         /// <remarks>
@@ -38,15 +29,6 @@ namespace RJLou {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton CaseSwitchAll;
-        
-        /// <summary>
-        /// CaseSwitchTDOpen control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell CaseSwitchTDOpen;
         
         /// <summary>
         /// CaseSwitchOpen control.
@@ -58,15 +40,6 @@ namespace RJLou {
         protected global::System.Web.UI.WebControls.LinkButton CaseSwitchOpen;
         
         /// <summary>
-        /// CaseSwitchTDPending control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell CaseSwitchTDPending;
-        
-        /// <summary>
         /// CaseSwitchPending control.
         /// </summary>
         /// <remarks>
@@ -74,15 +47,6 @@ namespace RJLou {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton CaseSwitchPending;
-        
-        /// <summary>
-        /// CaseSwitchTDClosed control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell CaseSwitchTDClosed;
         
         /// <summary>
         /// CaseSwitchClosed control.
@@ -398,15 +362,6 @@ namespace RJLou {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater ModalAddresses;
-        
-        /// <summary>
-        /// ViewPersonModal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ViewPersonModal;
         
         /// <summary>
         /// ClosePersonModal control.

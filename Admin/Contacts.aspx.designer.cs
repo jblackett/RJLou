@@ -22,15 +22,6 @@ namespace RJLou.Admin {
         protected global::System.Web.UI.ScriptManager workingMan;
         
         /// <summary>
-        /// PersonSwitchTDEmployees control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell PersonSwitchTDEmployees;
-        
-        /// <summary>
         /// PersonSwitchEmployees control.
         /// </summary>
         /// <remarks>
@@ -38,15 +29,6 @@ namespace RJLou.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton PersonSwitchEmployees;
-        
-        /// <summary>
-        /// PersonSwitchTDOffenders control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell PersonSwitchTDOffenders;
         
         /// <summary>
         /// PersonSwitchOffenders control.
@@ -58,15 +40,6 @@ namespace RJLou.Admin {
         protected global::System.Web.UI.WebControls.LinkButton PersonSwitchOffenders;
         
         /// <summary>
-        /// PersonSwitchTDVictims control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell PersonSwitchTDVictims;
-        
-        /// <summary>
         /// PersonSwitchVictims control.
         /// </summary>
         /// <remarks>
@@ -76,15 +49,6 @@ namespace RJLou.Admin {
         protected global::System.Web.UI.WebControls.LinkButton PersonSwitchVictims;
         
         /// <summary>
-        /// PersonSwitchTDAffiliates control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell PersonSwitchTDAffiliates;
-        
-        /// <summary>
         /// PersonSwitchAffiliates control.
         /// </summary>
         /// <remarks>
@@ -92,15 +56,6 @@ namespace RJLou.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton PersonSwitchAffiliates;
-        
-        /// <summary>
-        /// PersonSwitchTDGuardians control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell PersonSwitchTDGuardians;
         
         /// <summary>
         /// PersonSwitchGuardians control.
@@ -121,22 +76,13 @@ namespace RJLou.Admin {
         protected global::System.Web.UI.WebControls.Repeater PersonsRepeater;
         
         /// <summary>
-        /// RightContainer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl RightContainer;
-        
-        /// <summary>
         /// MainContainer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel MainContainer;
+        protected global::System.Web.UI.UpdatePanel MainContainer;
         
         /// <summary>
         /// PersonUpdatedPanel control.
@@ -146,24 +92,6 @@ namespace RJLou.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel PersonUpdatedPanel;
-        
-        /// <summary>
-        /// info control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl info;
-        
-        /// <summary>
-        /// AddNewPerson control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton AddNewPerson;
         
         /// <summary>
         /// PersonID control.
@@ -346,15 +274,6 @@ namespace RJLou.Admin {
         protected global::System.Web.UI.WebControls.Repeater CasesRepeater;
         
         /// <summary>
-        /// UnloadCaseButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton UnloadCaseButton;
-        
-        /// <summary>
         /// ViewPersonModalPanel control.
         /// </summary>
         /// <remarks>
@@ -517,15 +436,6 @@ namespace RJLou.Admin {
         protected global::System.Web.UI.WebControls.TextBox ModalDistrict;
         
         /// <summary>
-        /// ModalViewCase control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ModalViewCase;
-        
-        /// <summary>
         /// ModalCloseCase control.
         /// </summary>
         /// <remarks>
@@ -668,203 +578,5 @@ namespace RJLou.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton CancelNewGuardian;
-        
-        /// <summary>
-        /// NewCaseModalPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel NewCaseModalPanel;
-        
-        /// <summary>
-        /// ModalPersonType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ModalPersonType;
-        
-        /// <summary>
-        /// ModalSelectType control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ModalSelectType;
-        
-        /// <summary>
-        /// NewCaseModalTable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTable NewCaseModalTable;
-        
-        /// <summary>
-        /// ModalFirstName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalFirstName;
-        
-        /// <summary>
-        /// ModalLastName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalLastName;
-        
-        /// <summary>
-        /// ModalCreateDateOfBirth control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalCreateDateOfBirth;
-        
-        /// <summary>
-        /// ModalCreateGender control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalCreateGender;
-        
-        /// <summary>
-        /// ModalEmail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalEmail;
-        
-        /// <summary>
-        /// ModalCreateRace control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalCreateRace;
-        
-        /// <summary>
-        /// ModalRelationshipRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow ModalRelationshipRow;
-        
-        /// <summary>
-        /// ModalRelationship control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalRelationship;
-        
-        /// <summary>
-        /// ModalPasswordRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow ModalPasswordRow;
-        
-        /// <summary>
-        /// ModalPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalPassword;
-        
-        /// <summary>
-        /// ModalRoleRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow ModalRoleRow;
-        
-        /// <summary>
-        /// ModalRole control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalRole;
-        
-        /// <summary>
-        /// ModalOffenderNumberRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow ModalOffenderNumberRow;
-        
-        /// <summary>
-        /// ModalOffenderNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalOffenderNumber;
-        
-        /// <summary>
-        /// ModalCourtIDRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow ModalCourtIDRow;
-        
-        /// <summary>
-        /// ModalCourtID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ModalCourtID;
-        
-        /// <summary>
-        /// CreatePerson control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton CreatePerson;
-        
-        /// <summary>
-        /// CancelPerson control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton CancelPerson;
     }
 }

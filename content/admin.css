@@ -377,10 +377,6 @@ table.changes {
     background-color: white;
 }
 
-table.changes td.active {
-    background-color: #00C453;
-}
-
 table.nothing {
     margin: 0;
 }

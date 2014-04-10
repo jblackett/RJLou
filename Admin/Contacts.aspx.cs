@@ -15,61 +15,11 @@ namespace RJLou.Admin
         List<InternalUser> employees;
         List<Guardian> guardians;
         List<Affiliate> affiliates;
-        int LoggedInID = -1;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            try { LoggedInID = Convert.ToInt32(Session["PersonID"]); }
-            catch { }
-
-            if (LoggedInID <= 0)
-            {
-                Response.Redirect("Login.aspx");
-            }
-
             if (!IsPostBack)
-            {
                 SwitchPersonList();
-
-                if (Request.QueryString["PersonID"] != null)
-                {
-                    int thisPersonID = Convert.ToInt32(Request.QueryString["PersonID"]);
-
-                    if (Request.QueryString["PersonType"] != null)
-                    {
-                        switch (Request.QueryString["PersonType"])
-                        {
-                            case "employee":
-                                InternalUser thisEmployee = InternalUser.Get(thisPersonID);
-                                LoadHeader(thisEmployee);
-                                BindData(thisEmployee);
-                                break;
-                            case "victim":
-                                Victim thisVictim = Victim.Get(thisPersonID);
-                                BindData(thisVictim);
-                                LoadHeader(thisVictim);
-                                break;
-                            case "offender":
-                                Offender thisOffender = Offender.Get(thisPersonID);
-                                BindData(thisOffender);
-                                LoadHeader(thisOffender);
-                                break;
-                            case "guardian":
-                                Guardian thisGuardian = Guardian.Get(thisPersonID);
-                                BindData(thisGuardian);
-                                LoadHeader(thisGuardian);
-                                break;
-                            case "affiliate":
-                                Affiliate thisAffiliate = Affiliate.Get(thisPersonID);
-                                BindData(thisAffiliate);
-                                LoadHeader(thisAffiliate);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                }
-            }
         }
 
         protected internal void SwitchPersonList(object sender, EventArgs e)
@@ -88,72 +38,36 @@ namespace RJLou.Admin
                     Session["PersonType"] = "victim";
                     PersonsRepeater.DataSource = victims;
                     PersonsRepeater.DataBind();
-
-                    PersonSwitchTDEmployees.Attributes.Remove("class");
-                    PersonSwitchTDOffenders.Attributes.Remove("class");
-                    PersonSwitchTDVictims.Attributes.Add("class", "active");
-                    PersonSwitchTDAffiliates.Attributes.Remove("class");
-                    PersonSwitchTDGuardians.Attributes.Remove("class");
                     break;
                 case "offenders":
                     offenders = Offender.GetOffenders();
                     Session["PersonType"] = "offender";
                     PersonsRepeater.DataSource = offenders;
                     PersonsRepeater.DataBind();
-
-                    PersonSwitchTDEmployees.Attributes.Remove("class");
-                    PersonSwitchTDOffenders.Attributes.Add("class", "active");
-                    PersonSwitchTDVictims.Attributes.Remove("class");
-                    PersonSwitchTDAffiliates.Attributes.Remove("class");
-                    PersonSwitchTDGuardians.Attributes.Remove("class");
                     break;
                 case "guardians":
                     guardians = Guardian.GetGuardians();
                     Session["PersonType"] = "guardian";
                     PersonsRepeater.DataSource = guardians;
                     PersonsRepeater.DataBind();
-
-                    PersonSwitchTDEmployees.Attributes.Remove("class");
-                    PersonSwitchTDOffenders.Attributes.Remove("class");
-                    PersonSwitchTDVictims.Attributes.Remove("class");
-                    PersonSwitchTDAffiliates.Attributes.Remove("class");
-                    PersonSwitchTDGuardians.Attributes.Add("class", "active");
                     break;
                 case "employees":
                     employees = InternalUser.GetInternalUsers();
                     Session["PersonType"] = "employee";
                     PersonsRepeater.DataSource = employees;
                     PersonsRepeater.DataBind();
-
-                    PersonSwitchTDEmployees.Attributes.Add("class", "active");
-                    PersonSwitchTDOffenders.Attributes.Remove("class");
-                    PersonSwitchTDVictims.Attributes.Remove("class");
-                    PersonSwitchTDAffiliates.Attributes.Remove("class");
-                    PersonSwitchTDGuardians.Attributes.Remove("class");
                     break;
                 case "affiliates":
                     affiliates = Affiliate.GetAffiliates();
                     Session["PersonType"] = "affiliate";
                     PersonsRepeater.DataSource = affiliates;
                     PersonsRepeater.DataBind();
-
-                    PersonSwitchTDEmployees.Attributes.Remove("class");
-                    PersonSwitchTDOffenders.Attributes.Remove("class");
-                    PersonSwitchTDVictims.Attributes.Remove("class");
-                    PersonSwitchTDAffiliates.Attributes.Add("class", "active");
-                    PersonSwitchTDGuardians.Attributes.Remove("class");
                     break;
                 default:
                     employees = InternalUser.GetInternalUsers();
                     Session["PersonType"] = "employee";
                     PersonsRepeater.DataSource = employees;
                     PersonsRepeater.DataBind();
-
-                    PersonSwitchTDEmployees.Attributes.Add("class", "active");
-                    PersonSwitchTDOffenders.Attributes.Remove("class");
-                    PersonSwitchTDVictims.Attributes.Remove("class");
-                    PersonSwitchTDAffiliates.Attributes.Remove("class");
-                    PersonSwitchTDGuardians.Attributes.Remove("class");
                     break;
             }
         }
@@ -172,16 +86,14 @@ namespace RJLou.Admin
 
         protected internal void LoadHeader(InternalUser thisPerson)
         {
-            info.InnerText = thisPerson.FirstName + " " + thisPerson.LastName;
-
             HeaderRelationship.Visible = false;
             HeaderPassword.Visible = true;
             HeaderUserType.Visible = true;
             HeaderOffenderNumber.Visible = false;
 
             PersonID.Text = thisPerson.PersonID.ToString();
-            FirstName.Text = thisPerson.FirstName;
-            LastName.Text = thisPerson.LastName;
+            FirstName.Text = thisPerson.FirstName.ToString();
+            LastName.Text = thisPerson.LastName.ToString();
             DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
             Gender.Text = thisPerson.Gender.ToString();
             Email.Text = thisPerson.Email.ToString();
@@ -218,8 +130,6 @@ namespace RJLou.Admin
 
         protected internal void LoadHeader(Victim thisPerson)
         {
-            info.InnerText = thisPerson.FirstName + " " + thisPerson.LastName;
-
             HeaderRelationship.Visible = false;
             HeaderPassword.Visible = false;
             HeaderUserType.Visible = false;
@@ -227,8 +137,6 @@ namespace RJLou.Admin
 
 
             PersonID.Text = thisPerson.PersonID.ToString();
-            FirstName.Text = thisPerson.FirstName;
-            LastName.Text = thisPerson.LastName;
             FirstName.Text = thisPerson.FirstName.ToString();
             LastName.Text = thisPerson.LastName.ToString();
             DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
@@ -257,16 +165,12 @@ namespace RJLou.Admin
 
         protected internal void LoadHeader(Offender thisPerson)
         {
-            info.InnerText = thisPerson.FirstName + " " + thisPerson.LastName;
-
             HeaderRelationship.Visible = false;
             HeaderPassword.Visible = false;
             HeaderUserType.Visible = false;
             HeaderOffenderNumber.Visible = true;
 
             PersonID.Text = thisPerson.PersonID.ToString();
-            FirstName.Text = thisPerson.FirstName;
-            LastName.Text = thisPerson.LastName;
             FirstName.Text = thisPerson.FirstName.ToString();
             LastName.Text = thisPerson.LastName.ToString();
             DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
@@ -293,16 +197,12 @@ namespace RJLou.Admin
 
         protected internal void LoadHeader(Guardian thisPerson)
         {
-            info.InnerText = thisPerson.FirstName + " " + thisPerson.LastName;
-
             HeaderRelationship.Visible = true;
             HeaderPassword.Visible = false;
             HeaderUserType.Visible = false;
             HeaderOffenderNumber.Visible = false;
 
             PersonID.Text = thisPerson.PersonID.ToString();
-            FirstName.Text = thisPerson.FirstName;
-            LastName.Text = thisPerson.LastName;
             FirstName.Text = thisPerson.FirstName.ToString();
             LastName.Text = thisPerson.LastName.ToString();
             DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
@@ -329,16 +229,12 @@ namespace RJLou.Admin
 
         protected internal void LoadHeader(Affiliate thisPerson)
         {
-            info.InnerText = thisPerson.FirstName + " " + thisPerson.LastName;
-
             HeaderRelationship.Visible = false;
             HeaderPassword.Visible = false;
             HeaderUserType.Visible = false;
             HeaderOffenderNumber.Visible = false;
 
             PersonID.Text = thisPerson.PersonID.ToString();
-            FirstName.Text = thisPerson.FirstName;
-            LastName.Text = thisPerson.LastName;
             FirstName.Text = thisPerson.FirstName.ToString();
             LastName.Text = thisPerson.LastName.ToString();
             DateOfBirth.Text = (thisPerson.DateOfBirth == default(DateTime) ? "" : thisPerson.DateOfBirth.ToString("MM/dd/yyyy"));
@@ -391,236 +287,6 @@ namespace RJLou.Admin
                     BindData(thisDefaultUser);
                     break;
             }
-
-            RightContainer.Attributes.CssStyle["display"] = "block";
-            UnloadCaseButton.CssClass = "undo show";
-        }
-
-        protected internal void UnloadPerson(object sender, EventArgs e)
-        {
-            RightContainer.Attributes.CssStyle["display"] = "none";
-            UnloadCaseButton.CssClass = "undo";
-        }
-
-        protected internal void AddPerson(object sender, EventArgs e)
-        {
-            NewCaseModalPanel.CssClass += " visible";
-        }
-
-        protected void ModalPersonType_Click(object sender, EventArgs e)
-        {
-            string personType = ModalPersonType.SelectedValue.ToString();
-            if (personType.Equals("nothing"))
-                return;
-
-            Session["ModalPersonType"] = personType;
-
-            switch (personType)
-            {
-                case "employee":
-                    ModalRelationshipRow.Visible = false;
-                    ModalPasswordRow.Visible = true;
-                    ModalRoleRow.Visible = true;
-                    ModalOffenderNumberRow.Visible = false;
-                    ModalCourtIDRow.Visible = false;
-
-                    NewCaseModalTable.Visible = true;
-                    break;
-                case "offender":
-                    ModalRelationshipRow.Visible = false;
-                    ModalPasswordRow.Visible = false;
-                    ModalRoleRow.Visible = false;
-                    ModalOffenderNumberRow.Visible = true;
-                    ModalCourtIDRow.Visible = true;
-
-                    NewCaseModalTable.Visible = true;
-                    break;
-                case "victim":
-                    ModalRelationshipRow.Visible = false;
-                    ModalPasswordRow.Visible = false;
-                    ModalRoleRow.Visible = false;
-                    ModalOffenderNumberRow.Visible = false;
-                    ModalCourtIDRow.Visible = false;
-
-                    NewCaseModalTable.Visible = true;
-                    break;
-                case "affiliate":
-                    ModalRelationshipRow.Visible = false;
-                    ModalPasswordRow.Visible = false;
-                    ModalRoleRow.Visible = false;
-                    ModalOffenderNumberRow.Visible = false;
-                    ModalCourtIDRow.Visible = false;
-
-                    NewCaseModalTable.Visible = true;
-                    break;
-                case "guardian":
-                    ModalRelationshipRow.Visible = true;
-                    ModalPasswordRow.Visible = false;
-                    ModalRoleRow.Visible = false;
-                    ModalOffenderNumberRow.Visible = false;
-                    ModalCourtIDRow.Visible = false;
-
-                    NewCaseModalTable.Visible = true;
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        protected internal void CreateNewPerson(object sender, EventArgs e)
-        {
-            string personType = Session["ModalPersonType"].ToString();
-
-            if (ModalFirstName.Text.Length == 0)
-                return;
-            if (ModalLastName.Text.Length == 0)
-                return;
-            if (ModalCreateDateOfBirth.Text.Length == 0)
-                return;
-            if (ModalCreateGender.Text.Length == 0)
-                return;
-            if (ModalCreateRace.Text.Length == 0)
-                return;
-
-            switch (personType)
-            {
-                case "employee":
-                    if (ModalPassword.Text.Length == 0)
-                        break;
-                    if (ModalRole.Text.Length == 0)
-                        break;
-                    if (ModalEmail.Text.Length == 0)
-                        break;
-
-                    Session["ModalPersonID"] = InternalUser.Add(
-                        ModalFirstName.Text,
-                        ModalLastName.Text,
-                        Convert.ToDateTime(ModalCreateDateOfBirth.Text),
-                        ModalCreateGender.Text,
-                        ModalEmail.Text,
-                        ModalCreateRace.Text,
-                        new List<PhoneNumber>(),
-                        new List<Address>(),
-                        InternalUser.GetRole(ModalRole.Text),
-                        ModalPassword.Text);
-                    break;
-                case "offender":
-                    if (ModalOffenderNumber.Text.Length == 0)
-                        break;
-
-                    Session["ModalPersonID"] = Offender.Add(
-                        ModalFirstName.Text,
-                        ModalLastName.Text,
-                        Convert.ToDateTime(ModalCreateDateOfBirth.Text),
-                        ModalCreateGender.Text,
-                        ModalEmail.Text,
-                        ModalCreateRace.Text,
-                        new List<PhoneNumber>(),
-                        new List<Address>(),
-                        Convert.ToInt32(ModalCourtID.Text));
-                    break;
-                case "victim":
-                    Session["ModalPersonID"] = Victim.Add(
-                        ModalFirstName.Text,
-                        ModalLastName.Text,
-                        Convert.ToDateTime(ModalCreateDateOfBirth.Text),
-                        ModalCreateGender.Text,
-                        ModalEmail.Text,
-                        ModalCreateRace.Text,
-                        new List<PhoneNumber>(),
-                        new List<Address>(),
-                        new List<Guardian>());
-                    break;
-                case "affiliate":
-                    Session["ModalPersonID"] = Affiliate.Add(
-                        ModalFirstName.Text,
-                        ModalLastName.Text,
-                        Convert.ToDateTime(ModalCreateDateOfBirth.Text),
-                        ModalCreateGender.Text,
-                        ModalEmail.Text,
-                        ModalCreateRace.Text,
-                        new List<PhoneNumber>(),
-                        new List<Address>());
-                    break;
-                case "guardian":
-                    if (ModalRelationship.Text.Length == 0)
-                        break;
-
-                    Session["ModalPersonID"] = Guardian.Add(
-                        ModalFirstName.Text,
-                        ModalLastName.Text,
-                        Convert.ToDateTime(ModalCreateDateOfBirth.Text),
-                        ModalCreateGender.Text,
-                        ModalEmail.Text,
-                        ModalCreateRace.Text,
-                        new List<PhoneNumber>(),
-                        new List<Address>(),
-                        ModalRelationship.Text);
-                    break;
-                default:
-                    break;
-            }
-
-            CloseNewPersonModal();
-        }
-
-        protected internal void CancelNewPerson(object sender, EventArgs e)
-        {
-            CloseNewPersonModal(true);
-        }
-
-        private void CloseNewPersonModal(bool isCanceled = false)
-        {
-            if (!isCanceled)
-            {
-                ModalFirstName.Text = "";
-                ModalLastName.Text = "";
-                ModalCreateDateOfBirth.Text = "";
-                ModalCreateGender.Text = "";
-                ModalEmail.Text = "";
-                ModalCreateRace.Text = "";
-                ModalRelationship.Text = "";
-                ModalRole.Text = "";
-                ModalPassword.Text = "";
-                ModalOffenderNumber.Text = "";
-                ModalCourtID.Text = "";
-
-                int newPersonID = Convert.ToInt32(Session["ModalPersonID"]);
-
-                switch (Session["ModalPersonType"].ToString())
-                {
-                    case "employee":
-                        LoadHeader(InternalUser.Get(newPersonID));
-                        BindData(InternalUser.Get(newPersonID));
-                        SwitchPersonList("employees");
-                        break;
-                    case "offender":
-                        LoadHeader(Offender.Get(newPersonID));
-                        BindData(Offender.Get(newPersonID));
-                        SwitchPersonList("offenders");
-                        break;
-                    case "victim":
-                        LoadHeader(Victim.Get(newPersonID));
-                        BindData(Victim.Get(newPersonID));
-                        SwitchPersonList("victims");
-                        break;
-                    case "affiliate":
-                        LoadHeader(Affiliate.Get(newPersonID));
-                        BindData(Affiliate.Get(newPersonID));
-                        SwitchPersonList("affiliates");
-                        break;
-                    case "guardian":
-                        LoadHeader(Guardian.Get(newPersonID));
-                        BindData(Guardian.Get(newPersonID));
-                        SwitchPersonList("guardians");
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            NewCaseModalPanel.CssClass = "modal-background";
-            Session["ModalPersonType"] = null;
         }
 
         protected void PersonsRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -704,7 +370,7 @@ namespace RJLou.Admin
                     if (!string.IsNullOrEmpty(NewPassword.Text))
                         thisEmployee.Password = NewPassword.Text;
                     if (!UserType.Text.Equals(thisEmployee.Role.ToString()))
-                        thisEmployee.SetRole(UserType.Text);
+                        thisEmployee.GetRole(UserType.Text);
 
                     thisEmployee.Update();
                     break;
@@ -868,7 +534,7 @@ namespace RJLou.Admin
             if (string.IsNullOrEmpty(NewNumber.Text))
                 return;
 
-            string newNumber = NewNumber.Text;
+            int newNumber = Convert.ToInt32(NewNumber.Text);
             string newPhoneType = NewType.Text;
             int personID = Convert.ToInt32(PersonID.Text);
 
@@ -1152,8 +818,6 @@ namespace RJLou.Admin
             ModalStatus.Text = thisCase.Status;
             ModalDistrict.Text = thisCase.District.ToString();
 
-            Session["ViewCaseID"] = CaseID;
-
             ViewCaseModalPanel.CssClass += " visible";
         }
 
@@ -1183,13 +847,6 @@ namespace RJLou.Admin
         {
             ViewPersonModalPanel.CssClass = "modal-background";
             ViewCaseModalPanel.CssClass = "modal-background";
-        }
-
-        protected internal void ViewModal(object sender, EventArgs e)
-        {
-            int viewCaseID = Convert.ToInt32(Session["ViewCaseID"]);
-
-            Response.Redirect("Default.aspx?CaseID=" + viewCaseID);
         }
     }
 }

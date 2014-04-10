@@ -118,7 +118,7 @@ namespace RJLou.Classes
             return results;
         }
 
-        public static int Add(string fname, string lname, DateTime dob, string gender, string email,
+        public static void Add(string fname, string lname, DateTime dob, string gender, string email,
             string race, List<PhoneNumber> numbers, List<Address> addresses)
         {
             int personID = Person.Add(fname, lname, dob, gender, email, race, numbers, addresses);
@@ -136,10 +136,8 @@ namespace RJLou.Classes
                 cmd.CommandType = CommandType.Text;
                 cmd.Parameters.AddWithValue("PersonID", personID);
 
-                cmd.ExecuteNonQuery();
+                personID = Convert.ToInt32(cmd.ExecuteScalar());
             }
-
-            return personID;
         }
 
         internal override void Delete()

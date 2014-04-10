@@ -183,7 +183,7 @@ namespace RJLou.Classes
             return results;
         }
 
-        public static void Add(string phoneNumber, int personID, string type = null)
+        public static void Add(int phoneNumber, int personID, string type = null)
         {
             string dsn = ConfigurationManager.ConnectionStrings["RJLouEntities"].ToString();
             string sql = "INSERT INTO Phone_List (Phone_Number, Person_ID, Phone_Type) VALUES (@PhoneNumber, @PersonID, @Type)";
